@@ -163,6 +163,47 @@ public class Employee implements Serializable {
         this.securityAnswer = securityAnswer;
     }
 
+    public Employee(String id, String name, Date birthDate, String gender, String marriedStatus, String address, String email, String phone, Date onboardDate, String password, String securityQestion, String securityAnswer, Short isdeleted, Religion religion, District birthPlace, Village village, District hiringLocation) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.marriedStatus = marriedStatus;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.onboardDate = onboardDate;
+        this.password = password;
+        this.securityQestion = securityQestion;
+        this.securityAnswer = securityAnswer;
+        this.isdeleted = isdeleted;
+        this.religion = religion;
+        this.birthPlace = birthPlace;
+        this.village = village;
+        this.hiringLocation = hiringLocation;
+    }
+
+    public Employee(String id, String name, Date birthDate, String gender, String marriedStatus, String address, String email, String phone, Date onboardDate, String password, String securityQestion, String securityAnswer, byte[] photo, Short isdeleted, Religion religion, District birthPlace, Village village, District hiringLocation) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.marriedStatus = marriedStatus;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.onboardDate = onboardDate;
+        this.password = password;
+        this.securityQestion = securityQestion;
+        this.securityAnswer = securityAnswer;
+        this.photo = photo;
+        this.isdeleted = isdeleted;
+        this.religion = religion;
+        this.birthPlace = birthPlace;
+        this.village = village;
+        this.hiringLocation = hiringLocation;
+    }
+
     public String getId() {
         return id;
     }

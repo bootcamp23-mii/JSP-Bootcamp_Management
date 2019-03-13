@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e")
     , @NamedQuery(name = "Evaluation.findById", query = "SELECT e FROM Evaluation e WHERE e.id = :id")
     , @NamedQuery(name = "Evaluation.findByIsDaily", query = "SELECT e FROM Evaluation e WHERE e.isDaily = :isDaily")
-    , @NamedQuery(name = "Evaluation.findByEVALUATIONDate", query = "SELECT e FROM Evaluation e WHERE e.eVALUATIONDate = :eVALUATIONDate")
+    , @NamedQuery(name = "Evaluation.findByEvaluationdate", query = "SELECT e FROM Evaluation e WHERE e.evaluationdate = :evaluationdate")
     , @NamedQuery(name = "Evaluation.findByNote", query = "SELECT e FROM Evaluation e WHERE e.note = :note")
     , @NamedQuery(name = "Evaluation.findByIsdeleted", query = "SELECT e FROM Evaluation e WHERE e.isdeleted = :isdeleted")})
 public class Evaluation implements Serializable {
@@ -48,9 +48,9 @@ public class Evaluation implements Serializable {
     @Column(name = "isDaily")
     private Short isDaily;
     @Basic(optional = false)
-    @Column(name = "EVALUATIONDate")
+    @Column(name = "evaluationdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date eVALUATIONDate;
+    private Date evaluationdate;
     @Column(name = "note")
     private String note;
     @Column(name = "isdeleted")
@@ -74,9 +74,20 @@ public class Evaluation implements Serializable {
         this.id = id;
     }
 
-    public Evaluation(String id, Date eVALUATIONDate) {
+    public Evaluation(String id, Date evaluationdate) {
         this.id = id;
-        this.eVALUATIONDate = eVALUATIONDate;
+        this.evaluationdate = evaluationdate;
+    }
+
+    public Evaluation(String id, Short isDaily, Date evaluationdate, String note, Short isdeleted, Lesson lesson, Topic topic, Employee participant) {
+        this.id = id;
+        this.isDaily = isDaily;
+        this.evaluationdate = evaluationdate;
+        this.note = note;
+        this.isdeleted = isdeleted;
+        this.lesson = lesson;
+        this.topic = topic;
+        this.participant = participant;
     }
 
     public String getId() {
@@ -95,12 +106,12 @@ public class Evaluation implements Serializable {
         this.isDaily = isDaily;
     }
 
-    public Date getEVALUATIONDate() {
-        return eVALUATIONDate;
+    public Date getEvaluationdate() {
+        return evaluationdate;
     }
 
-    public void setEVALUATIONDate(Date eVALUATIONDate) {
-        this.eVALUATIONDate = eVALUATIONDate;
+    public void setEvaluationdate(Date evaluationdate) {
+        this.evaluationdate = evaluationdate;
     }
 
     public String getNote() {

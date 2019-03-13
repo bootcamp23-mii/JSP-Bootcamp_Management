@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "EmployeeCertification.findAll", query = "SELECT e FROM EmployeeCertification e")
     , @NamedQuery(name = "EmployeeCertification.findById", query = "SELECT e FROM EmployeeCertification e WHERE e.id = :id")
-    , @NamedQuery(name = "EmployeeCertification.findByCERTIFICATEDate", query = "SELECT e FROM EmployeeCertification e WHERE e.cERTIFICATEDate = :cERTIFICATEDate")
-    , @NamedQuery(name = "EmployeeCertification.findByCERTIFICATENumber", query = "SELECT e FROM EmployeeCertification e WHERE e.cERTIFICATENumber = :cERTIFICATENumber")
+    , @NamedQuery(name = "EmployeeCertification.findByCertificatedate", query = "SELECT e FROM EmployeeCertification e WHERE e.certificatedate = :certificatedate")
+    , @NamedQuery(name = "EmployeeCertification.findByCertificatenumber", query = "SELECT e FROM EmployeeCertification e WHERE e.certificatenumber = :certificatenumber")
     , @NamedQuery(name = "EmployeeCertification.findByIsdeleted", query = "SELECT e FROM EmployeeCertification e WHERE e.isdeleted = :isdeleted")})
 public class EmployeeCertification implements Serializable {
 
@@ -41,11 +41,11 @@ public class EmployeeCertification implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private String id;
-    @Column(name = "CERTIFICATEDate")
+    @Column(name = "certificatedate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date cERTIFICATEDate;
-    @Column(name = "CERTIFICATENumber")
-    private String cERTIFICATENumber;
+    private Date certificatedate;
+    @Column(name = "certificatenumber")
+    private String certificatenumber;
     @Column(name = "isdeleted")
     private Short isdeleted;
     @JoinColumn(name = "CERTIFICATE", referencedColumnName = "id")
@@ -62,6 +62,15 @@ public class EmployeeCertification implements Serializable {
         this.id = id;
     }
 
+    public EmployeeCertification(String id, Date certificatedate, String certificatenumber, Short isdeleted, Certificate certificate, Employee employee) {
+        this.id = id;
+        this.certificatedate = certificatedate;
+        this.certificatenumber = certificatenumber;
+        this.isdeleted = isdeleted;
+        this.certificate = certificate;
+        this.employee = employee;
+    }
+
     public String getId() {
         return id;
     }
@@ -70,20 +79,20 @@ public class EmployeeCertification implements Serializable {
         this.id = id;
     }
 
-    public Date getCERTIFICATEDate() {
-        return cERTIFICATEDate;
+    public Date getCertificatedate() {
+        return certificatedate;
     }
 
-    public void setCERTIFICATEDate(Date cERTIFICATEDate) {
-        this.cERTIFICATEDate = cERTIFICATEDate;
+    public void setCertificatedate(Date certificatedate) {
+        this.certificatedate = certificatedate;
     }
 
-    public String getCERTIFICATENumber() {
-        return cERTIFICATENumber;
+    public String getCertificatenumber() {
+        return certificatenumber;
     }
 
-    public void setCERTIFICATENumber(String cERTIFICATENumber) {
-        this.cERTIFICATENumber = cERTIFICATENumber;
+    public void setCertificatenumber(String certificatenumber) {
+        this.certificatenumber = certificatenumber;
     }
 
     public Short getIsdeleted() {

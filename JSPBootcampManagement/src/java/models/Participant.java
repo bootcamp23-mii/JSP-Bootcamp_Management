@@ -56,6 +56,14 @@ public class Participant implements Serializable {
         this.id = id;
     }
 
+    public Participant(String id, String grade, Short isdeleted, BatchClass batchclass, Employee employee) {
+        this.id = id;
+        this.grade = grade;
+        this.isdeleted = isdeleted;
+        this.batchclass = batchclass;
+        this.employee = employee;
+    }
+
     public String getId() {
         return id;
     }

@@ -63,6 +63,15 @@ public class EmployeeRole implements Serializable {
         this.id = id;
     }
 
+    public EmployeeRole(String id, Date startDate, Date endDate, Short isdeleted, Role role, Employee employee) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isdeleted = isdeleted;
+        this.role = role;
+        this.employee = employee;
+    }
+
     public String getId() {
         return id;
     }

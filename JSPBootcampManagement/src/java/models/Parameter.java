@@ -46,6 +46,12 @@ public class Parameter implements Serializable {
         this.id = id;
     }
 
+    public Parameter(String id, String value, String note) {
+        this.id = id;
+        this.value = value;
+        this.note = note;
+    }
+
     public String getId() {
         return id;
     }
