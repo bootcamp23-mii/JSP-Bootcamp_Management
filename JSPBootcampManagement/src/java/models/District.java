@@ -42,7 +42,7 @@ public class District implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @JoinColumn(name = "PROVINCE", referencedColumnName = "id")
+    @JoinColumn(name = "province", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Province province;
     @OneToMany(mappedBy = "district", fetch = FetchType.LAZY)

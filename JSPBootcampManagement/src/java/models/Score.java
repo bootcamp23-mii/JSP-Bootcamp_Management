@@ -39,13 +39,13 @@ public class Score implements Serializable {
     private String id;
     @Basic(optional = false)
     @Column(name = "rating")
-    private String rating;
+    private double rating;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "ASPECT", referencedColumnName = "id")
+    @JoinColumn(name = "aspect", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Aspect aspect;
-    @JoinColumn(name = "EVALUATION", referencedColumnName = "id")
+    @JoinColumn(name = "evaluation", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Evaluation evaluation;
 
@@ -56,12 +56,12 @@ public class Score implements Serializable {
         this.id = id;
     }
 
-    public Score(String id, String rating) {
+    public Score(String id, double rating) {
         this.id = id;
         this.rating = rating;
     }
 
-    public Score(String id, String rating, Short isdeleted, Aspect aspect, Evaluation evaluation) {
+    public Score(String id, double rating, Short isdeleted, Aspect aspect, Evaluation evaluation) {
         this.id = id;
         this.rating = rating;
         this.isdeleted = isdeleted;
@@ -77,11 +77,11 @@ public class Score implements Serializable {
         this.id = id;
     }
 
-    public String getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

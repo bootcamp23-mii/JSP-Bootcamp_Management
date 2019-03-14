@@ -53,7 +53,7 @@ public class EmployeeAccess implements Serializable {
     @JoinColumn(name = "accessCard", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private AccessCard accessCard;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

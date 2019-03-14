@@ -59,10 +59,10 @@ public class Placement implements Serializable {
     private Date finishDate;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "COMPANY", referencedColumnName = "id")
+    @JoinColumn(name = "company", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

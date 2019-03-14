@@ -44,7 +44,7 @@ public class Lesson implements Serializable {
     private String name;
     @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
     private List<Evaluation> evaluationList;
-    @JoinColumn(name = "CLASSES", referencedColumnName = "id")
+    @JoinColumn(name = "classes", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Classes classes;
 

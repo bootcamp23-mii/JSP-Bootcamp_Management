@@ -49,10 +49,10 @@ public class EmployeeRole implements Serializable {
     private Date endDate;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "ROLE", referencedColumnName = "id")
+    @JoinColumn(name = "role", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Role role;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

@@ -42,9 +42,9 @@ public class Participant implements Serializable {
     private String grade;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "BATCHCLASS", referencedColumnName = "id")
+    @JoinColumn(name = "batchClass", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private BatchClass batchclass;
+    private BatchClass batchClass;
     @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;
@@ -56,11 +56,11 @@ public class Participant implements Serializable {
         this.id = id;
     }
 
-    public Participant(String id, String grade, Short isdeleted, BatchClass batchclass, Employee employee) {
+    public Participant(String id, String grade, Short isdeleted, BatchClass batchClass, Employee employee) {
         this.id = id;
         this.grade = grade;
         this.isdeleted = isdeleted;
-        this.batchclass = batchclass;
+        this.batchClass = batchClass;
         this.employee = employee;
     }
 
@@ -88,12 +88,12 @@ public class Participant implements Serializable {
         this.isdeleted = isdeleted;
     }
 
-    public BatchClass getBatchclass() {
-        return batchclass;
+    public BatchClass getBatchClass() {
+        return batchClass;
     }
 
-    public void setBatchclass(BatchClass batchclass) {
-        this.batchclass = batchclass;
+    public void setBatchClass(BatchClass batchClass) {
+        this.batchClass = batchClass;
     }
 
     public Employee getEmployee() {

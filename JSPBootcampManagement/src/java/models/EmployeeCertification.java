@@ -48,10 +48,10 @@ public class EmployeeCertification implements Serializable {
     private String certificatenumber;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "CERTIFICATE", referencedColumnName = "id")
+    @JoinColumn(name = "certificate", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Certificate certificate;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

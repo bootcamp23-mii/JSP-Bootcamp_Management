@@ -128,13 +128,13 @@ public class Employee implements Serializable {
     private List<EducationHistory> educationHistoryList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private Participant participant;
-    @JoinColumn(name = "RELIGION", referencedColumnName = "id")
+    @JoinColumn(name = "religion", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Religion religion;
     @JoinColumn(name = "birthPlace", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private District birthPlace;
-    @JoinColumn(name = "VILLAGE", referencedColumnName = "id")
+    @JoinColumn(name = "village", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Village village;
     @JoinColumn(name = "hiringLocation", referencedColumnName = "id")

@@ -42,7 +42,7 @@ public class Village implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @JoinColumn(name = "SUBDISTRICT", referencedColumnName = "id")
+    @JoinColumn(name = "subdistrict", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Subdistrict subdistrict;
     @OneToMany(mappedBy = "village", fetch = FetchType.LAZY)

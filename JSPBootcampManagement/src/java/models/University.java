@@ -47,7 +47,7 @@ public class University implements Serializable {
     private String address;
     @OneToMany(mappedBy = "university", fetch = FetchType.LAZY)
     private List<Education> educationList;
-    @JoinColumn(name = "VILLAGE", referencedColumnName = "id")
+    @JoinColumn(name = "village", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Village village;
 

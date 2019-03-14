@@ -50,10 +50,10 @@ public class EmployeeLocker implements Serializable {
     private Date returnDate;
     @Column(name = "notes")
     private String notes;
-    @JoinColumn(name = "LOCKER", referencedColumnName = "id")
+    @JoinColumn(name = "locker", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Locker locker;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

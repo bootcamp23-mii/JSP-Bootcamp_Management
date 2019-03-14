@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author FES
  */
 @Entity
-@Table(name = "tb_t_batch_class")
+@Table(name = "tb_m_batch_class")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BatchClass.findAll", query = "SELECT b FROM BatchClass b")
@@ -41,13 +41,13 @@ public class BatchClass implements Serializable {
     private String id;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "BATCH", referencedColumnName = "id")
+    @JoinColumn(name = "batch", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Batch batch;
-    @JoinColumn(name = "ROOM", referencedColumnName = "id")
+    @JoinColumn(name = "room", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
-    @JoinColumn(name = "CLASSES", referencedColumnName = "id")
+    @JoinColumn(name = "classes", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Classes classes;
     @JoinColumn(name = "trainer", referencedColumnName = "id")

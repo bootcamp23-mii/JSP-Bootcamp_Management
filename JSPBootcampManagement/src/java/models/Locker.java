@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Locker.findAll", query = "SELECT l FROM Locker l")
     , @NamedQuery(name = "Locker.findById", query = "SELECT l FROM Locker l WHERE l.id = :id")
-    , @NamedQuery(name = "Locker.findByTBMLOCKERNumber", query = "SELECT l FROM Locker l WHERE l.tBMLOCKERNumber = :tBMLOCKERNumber")})
+    , @NamedQuery(name = "Locker.findByLockerNumber", query = "SELECT l FROM Locker l WHERE l.lockerNumber = :lockerNumber")})
 public class Locker implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,8 +39,8 @@ public class Locker implements Serializable {
     @Column(name = "id")
     private String id;
     @Basic(optional = false)
-    @Column(name = "TB_M_LOCKERNumber")
-    private BigInteger tBMLOCKERNumber;
+    @Column(name = "lockerNumber")
+    private BigInteger lockerNumber;
     @OneToMany(mappedBy = "locker", fetch = FetchType.LAZY)
     private List<EmployeeLocker> employeeLockerList;
 
@@ -51,9 +51,9 @@ public class Locker implements Serializable {
         this.id = id;
     }
 
-    public Locker(String id, BigInteger tBMLOCKERNumber) {
+    public Locker(String id, BigInteger lockerNumber) {
         this.id = id;
-        this.tBMLOCKERNumber = tBMLOCKERNumber;
+        this.lockerNumber = lockerNumber;
     }
 
     public String getId() {
@@ -64,12 +64,12 @@ public class Locker implements Serializable {
         this.id = id;
     }
 
-    public BigInteger getTBMLOCKERNumber() {
-        return tBMLOCKERNumber;
+    public BigInteger getLockerNumber() {
+        return lockerNumber;
     }
 
-    public void setTBMLOCKERNumber(BigInteger tBMLOCKERNumber) {
-        this.tBMLOCKERNumber = tBMLOCKERNumber;
+    public void setLockerNumber(BigInteger lockerNumber) {
+        this.lockerNumber = lockerNumber;
     }
 
     @XmlTransient

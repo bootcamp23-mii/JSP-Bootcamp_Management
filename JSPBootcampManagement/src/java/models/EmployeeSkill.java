@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "EmployeeSkill.findAll", query = "SELECT e FROM EmployeeSkill e")
     , @NamedQuery(name = "EmployeeSkill.findById", query = "SELECT e FROM EmployeeSkill e WHERE e.id = :id")
+    , @NamedQuery(name = "EmployeeSkill.findByScore", query = "SELECT e FROM EmployeeSkill e WHERE e.score = :score")
     , @NamedQuery(name = "EmployeeSkill.findByIsdeleted", query = "SELECT e FROM EmployeeSkill e WHERE e.isdeleted = :isdeleted")})
 public class EmployeeSkill implements Serializable {
 
@@ -36,12 +37,14 @@ public class EmployeeSkill implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private String id;
+    @Column(name = "score")
+    private double score;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "SKILL", referencedColumnName = "id")
+    @JoinColumn(name = "skill", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Skill skill;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
@@ -52,8 +55,9 @@ public class EmployeeSkill implements Serializable {
         this.id = id;
     }
 
-    public EmployeeSkill(String id, Short isdeleted, Skill skill, Employee employee) {
+    public EmployeeSkill(String id, double score, Short isdeleted, Skill skill, Employee employee) {
         this.id = id;
+        this.score = score;
         this.isdeleted = isdeleted;
         this.skill = skill;
         this.employee = employee;
@@ -65,6 +69,14 @@ public class EmployeeSkill implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(Short score) {
+        this.score = score;
     }
 
     public Short getIsdeleted() {

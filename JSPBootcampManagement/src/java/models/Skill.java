@@ -44,7 +44,7 @@ public class Skill implements Serializable {
     private String name;
     @OneToMany(mappedBy = "skill", fetch = FetchType.LAZY)
     private List<EmployeeSkill> employeeSkillList;
-    @JoinColumn(name = "CATEGORY", referencedColumnName = "id")
+    @JoinColumn(name = "category", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 

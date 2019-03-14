@@ -66,6 +66,7 @@ public class EmployeeController implements EmployeeControllerInterface{
     @Override
     public String delete(String id, String name, String birthdate, String gender, String marriedstatus, String address, String email, String phone, String onboarddate, String password, String securityqestion, String securityanswer, String hiringlocation, String birthplace, String religion, String village) {
         try {
+            
             if(dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedstatus, address, email, phone, dateFormat.parse(onboarddate), password, securityqestion, securityanswer, new Short("0"), new District(hiringlocation), new District(birthplace), new Religion(religion), new Village(village)), true)){
                 return "Delete Data Success";
             }
@@ -81,19 +82,19 @@ public class EmployeeController implements EmployeeControllerInterface{
         List<Employee> dataList = searchWD("");
         for (Employee employee : dataList) {
             if(employee.getName().equals(name)
-            &&dateFormat.format(employee.getBirthdate()).equals(birthdate)
+            &&dateFormat.format(employee.getBirthDate()).equals(birthdate)
             &&employee.getGender().equals(gender)
-            &&employee.getMarriedstatus().equals(marriedstatus)
+            &&employee.getMarriedStatus().equals(marriedstatus)
             &&employee.getAddress().equals(address)
             &&employee.getEmail().equals(email)
             &&employee.getPhone().equals(phone)
-            &&dateFormat.format(employee.getOnboarddate()).equals(onboarddate)
+            &&dateFormat.format(employee.getOnboardDate()).equals(onboarddate)
             &&employee.getPassword().equals(password)
             &&employee.getAddress().equals(address)
-            &&employee.getSecurityqestion().equals(securityqestion)
-            &&employee.getSecurityanswer().equals(securityanswer)
-            &&employee.getHiringlocation().getId().equals(hiringlocation)
-            &&employee.getBirthplace().getId().equals(birthplace)
+            &&employee.getSecurityQestion().equals(securityqestion)
+            &&employee.getSecurityAnswer().equals(securityanswer)
+            &&employee.getHiringLocation().getId().equals(hiringlocation)
+            &&employee.getBirthPlace().getId().equals(birthplace)
             &&employee.getReligion().getId().equals(religion)
             &&employee.getVillage().getId().equals(village)
             )tempID=employee.getId();

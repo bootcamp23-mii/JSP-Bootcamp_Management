@@ -28,6 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "EmployeeLanguage.findAll", query = "SELECT e FROM EmployeeLanguage e")
     , @NamedQuery(name = "EmployeeLanguage.findById", query = "SELECT e FROM EmployeeLanguage e WHERE e.id = :id")
+    , @NamedQuery(name = "EmployeeLanguage.findByScore", query = "SELECT e FROM EmployeeLanguage e WHERE e.score = :score")
+    , @NamedQuery(name = "EmployeeLanguage.findByIsActive", query = "SELECT e FROM EmployeeLanguage e WHERE e.isActive = :isActive")
     , @NamedQuery(name = "EmployeeLanguage.findByIsdeleted", query = "SELECT e FROM EmployeeLanguage e WHERE e.isdeleted = :isdeleted")})
 public class EmployeeLanguage implements Serializable {
 
@@ -36,12 +38,16 @@ public class EmployeeLanguage implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private String id;
+    @Column(name = "score")
+    private double score;
+    @Column(name = "isActive")
+    private Short isActive;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "LANGUAGE", referencedColumnName = "id")
+    @JoinColumn(name = "language", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Language language;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
@@ -52,8 +58,10 @@ public class EmployeeLanguage implements Serializable {
         this.id = id;
     }
 
-    public EmployeeLanguage(String id, Short isdeleted, Language language, Employee employee) {
+    public EmployeeLanguage(String id, double score, Short isActive, Short isdeleted, Language language, Employee employee) {
         this.id = id;
+        this.score = score;
+        this.isActive = isActive;
         this.isdeleted = isdeleted;
         this.language = language;
         this.employee = employee;
@@ -65,6 +73,22 @@ public class EmployeeLanguage implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public Short getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Short isActive) {
+        this.isActive = isActive;
     }
 
     public Short getIsdeleted() {

@@ -42,10 +42,10 @@ public class EducationHistory implements Serializable {
     private String gpa;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "EDUCATION", referencedColumnName = "id")
+    @JoinColumn(name = "education", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Education education;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

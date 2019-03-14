@@ -50,7 +50,7 @@ public class IdCard implements Serializable {
     private Date returnDate;
     @Column(name = "note")
     private String note;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

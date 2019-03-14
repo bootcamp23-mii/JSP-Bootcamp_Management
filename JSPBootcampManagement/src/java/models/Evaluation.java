@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e")
     , @NamedQuery(name = "Evaluation.findById", query = "SELECT e FROM Evaluation e WHERE e.id = :id")
     , @NamedQuery(name = "Evaluation.findByIsDaily", query = "SELECT e FROM Evaluation e WHERE e.isDaily = :isDaily")
-    , @NamedQuery(name = "Evaluation.findByEvaluationdate", query = "SELECT e FROM Evaluation e WHERE e.evaluationdate = :evaluationdate")
+    , @NamedQuery(name = "Evaluation.findByEvaluationDate", query = "SELECT e FROM Evaluation e WHERE e.evaluationDate = :evaluationDate")
     , @NamedQuery(name = "Evaluation.findByNote", query = "SELECT e FROM Evaluation e WHERE e.note = :note")
     , @NamedQuery(name = "Evaluation.findByIsdeleted", query = "SELECT e FROM Evaluation e WHERE e.isdeleted = :isdeleted")})
 public class Evaluation implements Serializable {
@@ -48,22 +48,22 @@ public class Evaluation implements Serializable {
     @Column(name = "isDaily")
     private Short isDaily;
     @Basic(optional = false)
-    @Column(name = "evaluationdate")
+    @Column(name = "evaluationDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date evaluationdate;
+    private Date evaluationDate;
     @Column(name = "note")
     private String note;
     @Column(name = "isdeleted")
     private Short isdeleted;
     @OneToMany(mappedBy = "evaluation", fetch = FetchType.LAZY)
     private List<Score> scoreList;
-    @JoinColumn(name = "LESSON", referencedColumnName = "id")
+    @JoinColumn(name = "lesson", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Lesson lesson;
-    @JoinColumn(name = "TOPIC", referencedColumnName = "id")
+    @JoinColumn(name = "topic", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Topic topic;
-    @JoinColumn(name = "PARTICIPANT", referencedColumnName = "id")
+    @JoinColumn(name = "participant", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee participant;
 
@@ -74,15 +74,15 @@ public class Evaluation implements Serializable {
         this.id = id;
     }
 
-    public Evaluation(String id, Date evaluationdate) {
+    public Evaluation(String id, Date evaluationDate) {
         this.id = id;
-        this.evaluationdate = evaluationdate;
+        this.evaluationDate = evaluationDate;
     }
 
-    public Evaluation(String id, Short isDaily, Date evaluationdate, String note, Short isdeleted, Lesson lesson, Topic topic, Employee participant) {
+    public Evaluation(String id, Short isDaily, Date evaluationDate, String note, Short isdeleted, Lesson lesson, Topic topic, Employee participant) {
         this.id = id;
         this.isDaily = isDaily;
-        this.evaluationdate = evaluationdate;
+        this.evaluationDate = evaluationDate;
         this.note = note;
         this.isdeleted = isdeleted;
         this.lesson = lesson;
@@ -107,11 +107,11 @@ public class Evaluation implements Serializable {
     }
 
     public Date getEvaluationdate() {
-        return evaluationdate;
+        return evaluationDate;
     }
 
-    public void setEvaluationdate(Date evaluationdate) {
-        this.evaluationdate = evaluationdate;
+    public void setEvaluationdate(Date evaluationDate) {
+        this.evaluationDate = evaluationDate;
     }
 
     public String getNote() {

@@ -44,7 +44,7 @@ public class Subdistrict implements Serializable {
     private String name;
     @OneToMany(mappedBy = "subdistrict", fetch = FetchType.LAZY)
     private List<Village> villageList;
-    @JoinColumn(name = "DISTRICT", referencedColumnName = "id")
+    @JoinColumn(name = "district", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private District district;
 

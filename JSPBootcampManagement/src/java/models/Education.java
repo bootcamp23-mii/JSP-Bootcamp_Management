@@ -41,13 +41,13 @@ public class Education implements Serializable {
     private String id;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "DEGREE", referencedColumnName = "id")
+    @JoinColumn(name = "degree", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Degree degree;
-    @JoinColumn(name = "MAJOR", referencedColumnName = "id")
+    @JoinColumn(name = "major", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Major major;
-    @JoinColumn(name = "UNIVERSITY", referencedColumnName = "id")
+    @JoinColumn(name = "university", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private University university;
     @OneToMany(mappedBy = "education", fetch = FetchType.LAZY)

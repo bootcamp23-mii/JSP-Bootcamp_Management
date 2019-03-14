@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author FES
  */
 @Entity
-@Table(name = "tb_m_error_bank")
+@Table(name = "tb_t_error_bank")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ErrorBank.findAll", query = "SELECT e FROM ErrorBank e")
@@ -49,10 +49,10 @@ public class ErrorBank implements Serializable {
     private String description;
     @Column(name = "solution")
     private String solution;
-    @JoinColumn(name = "CLASSES", referencedColumnName = "id")
+    @JoinColumn(name = "classes", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Classes classes;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

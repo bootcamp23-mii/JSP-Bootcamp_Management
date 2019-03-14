@@ -42,7 +42,7 @@ public class Achievement implements Serializable {
     private String name;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "EMPLOYEE", referencedColumnName = "id")
+    @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
