@@ -5,13 +5,21 @@
  */
 package servlets.cv;
 
+import controllers.EmployeeRoleController;
+import controllers.EmployeeRoleControllerInterface;
+import controllers.RoleController;
+import controllers.RoleControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.EmployeeRole;
+import models.Role;
+import tools.HibernateUtil;
 
 /**
  *
@@ -19,6 +27,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EmployeeRoleServlet", urlPatterns = {"/EmployeeRoleServlet"})
 public class EmployeeRoleServlet extends HttpServlet {
+    
+    private EmployeeRoleControllerInterface er = new EmployeeRoleController(HibernateUtil.getSessionFactory());
+    private RoleControllerInterface r = new RoleController(HibernateUtil.getSessionFactory());
+    private List<EmployeeRole> data = null;
+    private List<Role> roledata = null;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
