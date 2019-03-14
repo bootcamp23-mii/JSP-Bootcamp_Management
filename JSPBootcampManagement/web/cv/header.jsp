@@ -23,7 +23,7 @@
             });
         </script>
 
-        <title>Tampil data Region</title>
+        <title>Education List</title>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">

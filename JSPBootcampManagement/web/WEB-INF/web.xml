@@ -4,9 +4,17 @@
         <servlet-name>IdCardServlet</servlet-name>
         <servlet-class>servlets.pl.IdCardServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EducationHistoryServlet</servlet-name>
+        <servlet-class>servlets.cv.EducationHistoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IdCardServlet</servlet-name>
         <url-pattern>/IdCardServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EducationHistoryServlet</servlet-name>
+        <url-pattern>/EducationHistoryServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
