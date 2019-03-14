@@ -53,7 +53,7 @@ public class BatchClass implements Serializable {
     @JoinColumn(name = "trainer", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee trainer;
-    @OneToMany(mappedBy = "batchclass", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "batchClass", fetch = FetchType.LAZY)
     private List<Participant> participantList;
 
     public BatchClass() {
