@@ -52,9 +52,9 @@ public class EmployeeController implements EmployeeControllerInterface{
     }
     
     @Override
-    public String save(String id, String name, String birthdate, String gender, String marriedstatus, String address, String email, String phone, String onboarddate, String password, String securityqestion, String securityanswer, String hiringlocation, String birthplace, String religion, String village) {
+    public String save(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
         try {
-            if(dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedstatus, address, email, phone, dateFormat.parse(onboarddate), password, securityqestion, securityanswer, new Short("0"), new District(hiringlocation), new District(birthplace), new Religion(religion), new Village(village)), true)){
+            if(dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation)), true)){
                 return "Save Data Success";
             }
         } catch (ParseException ex) {
@@ -64,10 +64,10 @@ public class EmployeeController implements EmployeeControllerInterface{
     }
 
     @Override
-    public String delete(String id, String name, String birthdate, String gender, String marriedstatus, String address, String email, String phone, String onboarddate, String password, String securityqestion, String securityanswer, String hiringlocation, String birthplace, String religion, String village) {
+    public String delete(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
         try {
             
-            if(dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedstatus, address, email, phone, dateFormat.parse(onboarddate), password, securityqestion, securityanswer, new Short("0"), new District(hiringlocation), new District(birthplace), new Religion(religion), new Village(village)), true)){
+            if(dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation)), true)){
                 return "Delete Data Success";
             }
         } catch (ParseException ex) {
@@ -77,30 +77,30 @@ public class EmployeeController implements EmployeeControllerInterface{
     }
 
     @Override
-    public String deleteSoft(String id, String name, String birthdate, String gender, String marriedstatus, String address, String email, String phone, String onboarddate, String password, String securityqestion, String securityanswer, String hiringlocation, String birthplace, String religion, String village) {
+    public String deleteSoft(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
     String tempID="";
         List<Employee> dataList = searchWD("");
         for (Employee employee : dataList) {
             if(employee.getName().equals(name)
             &&dateFormat.format(employee.getBirthDate()).equals(birthdate)
             &&employee.getGender().equals(gender)
-            &&employee.getMarriedStatus().equals(marriedstatus)
+            &&employee.getMarriedStatus().equals(marriedStatus)
             &&employee.getAddress().equals(address)
             &&employee.getEmail().equals(email)
             &&employee.getPhone().equals(phone)
-            &&dateFormat.format(employee.getOnboardDate()).equals(onboarddate)
+            &&dateFormat.format(employee.getOnboardDate()).equals(onboardDate)
             &&employee.getPassword().equals(password)
             &&employee.getAddress().equals(address)
-            &&employee.getSecurityQestion().equals(securityqestion)
-            &&employee.getSecurityAnswer().equals(securityanswer)
-            &&employee.getHiringLocation().getId().equals(hiringlocation)
-            &&employee.getBirthPlace().getId().equals(birthplace)
+            &&employee.getSecurityQestion().equals(securityQestion)
+            &&employee.getSecurityAnswer().equals(securityAnswer)
+            &&employee.getHiringLocation().getId().equals(hiringLocation)
+            &&employee.getBirthPlace().getId().equals(birthPlace)
             &&employee.getReligion().getId().equals(religion)
             &&employee.getVillage().getId().equals(village)
             )tempID=employee.getId();
         }
         try {
-            if (dao.saveOrDelete(new Employee(tempID, name, dateFormat.parse(birthdate), gender, marriedstatus, address, email, phone, dateFormat.parse(onboarddate), password, securityqestion, securityanswer, new Short("0"), new District(hiringlocation), new District(birthplace), new Religion(religion), new Village(village)), true)){
+            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation)), true)){
                 return "Delete Data Success!";
             }
             } catch (ParseException ex) {

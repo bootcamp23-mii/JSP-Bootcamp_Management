@@ -79,7 +79,7 @@ public class Evaluation implements Serializable {
         this.evaluationDate = evaluationDate;
     }
 
-    public Evaluation(String id, Short isDaily, Date evaluationDate, String note, Short isdeleted, Lesson lesson, Topic topic, Employee participant) {
+    public Evaluation(String id, Short isDaily, Date evaluationDate, String note, Short isdeleted, Employee participant, Lesson lesson, Topic topic) {
         this.id = id;
         this.isDaily = isDaily;
         this.evaluationDate = evaluationDate;

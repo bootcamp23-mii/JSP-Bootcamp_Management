@@ -60,6 +60,12 @@ public class Lesson implements Serializable {
         this.name = name;
     }
 
+    public Lesson(String id, String name, Classes classes) {
+        this.id = id;
+        this.name = name;
+        this.classes = classes;
+    }
+
     public String getId() {
         return id;
     }
