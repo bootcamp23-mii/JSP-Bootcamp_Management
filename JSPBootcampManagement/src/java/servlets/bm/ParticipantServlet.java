@@ -8,12 +8,15 @@ package servlets.bm;
 import controllers.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.BatchClass;
+import models.Employee;
 import models.Participant;
 import tools.HibernateUtil;
 
@@ -25,6 +28,8 @@ import tools.HibernateUtil;
 public class ParticipantServlet extends HttpServlet {
 
     private ParticipantControllerInterface c = new ParticipantController(HibernateUtil.getSessionFactory());
+    private BatchClassControllerInterface cb = new BatchClassController(HibernateUtil.getSessionFactory());
+    private EmployeeControllerInterface ce = new EmployeeController(HibernateUtil.getSessionFactory());
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,7 +44,18 @@ public class ParticipantServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getSession().setAttribute("data", c.getAll());
+            List<BatchClass> batchclassList = cb.getAll();
+            List<Employee> employeeList = new ArrayList<>();
+            for (Employee dataE : ce.getAll()) {
+                for (BatchClass dataB : batchclassList) {
+                    if (dataE.getId()!=dataB.getTrainer().getId()) {
+                        employeeList.add(dataE);
+                    }
+                }
+            }
+            request.getSession().setAttribute("dataEmployee", employeeList);
+            request.getSession().setAttribute("dataBatchClass", batchclassList);
+            request.getSession().setAttribute("dataParticipant", c.getAll());
             response.sendRedirect("bm/participant.jsp");
         }
     }
@@ -62,6 +78,9 @@ public class ParticipantServlet extends HttpServlet {
                 Participant data=c.getByid(request.getParameter("id"));
                 c.deleteSoft(data.getId(), data.getGrade(), data.getBatchClass().getId(), data.getEmployee().getId());
             }
+            else if (action.equalsIgnoreCase("edit")){
+                
+            }
         }
         processRequest(request, response);
     }
@@ -77,7 +96,7 @@ public class ParticipantServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         if (c.save(request.getParameter("bmPId"), request.getParameter("bmPGrade"), request.getParameter("bmPBatchClass"),request.getParameter("bmPEmp"))) {
+         if (c.save(request.getParameter("bmPId"), "", request.getParameter("bmPBatchClass"),request.getParameter("bmPEmp"))) {
             processRequest(request, response);
         }
     }
