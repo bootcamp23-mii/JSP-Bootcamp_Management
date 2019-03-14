@@ -5,13 +5,17 @@
  */
 package servlets.bm;
 
+import controllers.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Participant;
+import tools.HibernateUtil;
 
 /**
  *
@@ -20,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ParticipantServlet", urlPatterns = {"/ParticipantServlet"})
 public class ParticipantServlet extends HttpServlet {
 
+    private ParticipantControllerInterface c = new ParticipantController(HibernateUtil.getSessionFactory());
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,6 +39,7 @@ public class ParticipantServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            request.getSession().setAttribute("data", c.getAll());
             response.sendRedirect("bm/participant.jsp");
         }
     }
@@ -49,6 +56,13 @@ public class ParticipantServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action!=null) {
+            if (action.equalsIgnoreCase("delete")) {
+                Participant data=c.getByid(request.getParameter("id"));
+                c.deleteSoft(data.getId(), data.getGrade(), data.getBatchClass().getId(), data.getEmployee().getId());
+            }
+        }
         processRequest(request, response);
     }
 
@@ -63,7 +77,9 @@ public class ParticipantServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         if (c.save(request.getParameter("bmPId"), request.getParameter("bmPGrade"), request.getParameter("bmPBatchClass"),request.getParameter("bmPEmp"))) {
+            processRequest(request, response);
+        }
     }
 
     /**

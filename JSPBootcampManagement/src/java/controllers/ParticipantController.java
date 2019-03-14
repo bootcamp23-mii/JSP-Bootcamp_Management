@@ -38,20 +38,34 @@ public class ParticipantController implements ParticipantControllerInterface {
     }
 
     @Override
-    public String save(String id, String grade, String isdeleted, String batchclass, String employee) {
-        if (dao.saveOrDelete(new Participant(id, grade, new Short(isdeleted), new BatchClass(batchclass), new Employee(employee)), true)) {
-            return "Save Data Success!";
+    public List<Participant> searchWD(Object keyword) {
+        return dao.getDataWD(keyword,0);
+    }
+
+    @Override
+    public boolean save(String id, String grade, String batchclass, String employee) {
+        if (dao.saveOrDelete(new Participant(id, grade, new Short("0"), new BatchClass(batchclass), new Employee(employee)), true)) {
+            return true;
         } else {
-            return "Save Failed!";
+            return false;
         }
     }
 
     @Override
-    public String delete(String id, String grade, String isdeleted, String batchclass, String employee) {
-        if (dao.saveOrDelete(new Participant(id, grade, new Short(isdeleted), new BatchClass(batchclass), new Employee(employee)), false)) {
+    public String delete(String id, String grade, String batchclass, String employee) {
+        if (dao.saveOrDelete(new Participant(id, grade, new Short("0"), new BatchClass(batchclass), new Employee(employee)), false)) {
             return "Delete Data Success!";
         } else {
             return "Delete Failed!";
+        }
+    }
+
+    @Override
+    public boolean deleteSoft(String id, String grade, String batchclass, String employee) {
+        if (dao.saveOrDelete(new Participant(id, grade, new Short("1"), new BatchClass(batchclass), new Employee(employee)), true)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
