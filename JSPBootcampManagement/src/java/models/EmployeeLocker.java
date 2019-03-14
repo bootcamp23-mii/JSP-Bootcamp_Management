@@ -69,7 +69,7 @@ public class EmployeeLocker implements Serializable {
         this.receiveDate = receiveDate;
     }
 
-    public EmployeeLocker(String id, Date receiveDate, Date returnDate, String notes, Locker locker, Employee employee) {
+    public EmployeeLocker(String id, Date receiveDate, Date returnDate, String notes, Employee employee ,Locker locker) {
         this.id = id;
         this.receiveDate = receiveDate;
         this.returnDate = returnDate;

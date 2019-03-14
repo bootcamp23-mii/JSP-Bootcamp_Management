@@ -82,8 +82,8 @@ public class PlacementController implements PlacementControllerInterface{
            if (placement.getDescription().equals(description)
                     &&placement.getAddress().equals(address)
                     &&placement.getDepartment().equals(department)
-                    &&dateFormat.format(placement.getStartdate()).equals(startdate)
-                    &&dateFormat.format(placement.getFinishdate()).equals(finishdate)
+                    &&dateFormat.format(placement.getStartDate()).equals(startdate)
+                    &&dateFormat.format(placement.getFinishDate()).equals(finishdate)
                     &&placement.getCompany().getId().equals(company)
                     &&placement.getEmployee().getId().equals(employee)
                     )tempID=placement.getId();
