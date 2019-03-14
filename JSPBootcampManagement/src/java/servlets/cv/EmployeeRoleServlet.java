@@ -5,6 +5,8 @@
  */
 package servlets.cv;
 
+import controllers.EmployeeController;
+import controllers.EmployeeControllerInterface;
 import controllers.EmployeeRoleController;
 import controllers.EmployeeRoleControllerInterface;
 import controllers.RoleController;
@@ -17,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Employee;
 import models.EmployeeRole;
 import models.Role;
 import tools.HibernateUtil;
@@ -28,10 +31,12 @@ import tools.HibernateUtil;
 @WebServlet(name = "EmployeeRoleServlet", urlPatterns = {"/EmployeeRoleServlet"})
 public class EmployeeRoleServlet extends HttpServlet {
     
-    private EmployeeRoleControllerInterface er = new EmployeeRoleController(HibernateUtil.getSessionFactory());
-    private RoleControllerInterface r = new RoleController(HibernateUtil.getSessionFactory());
-    private List<EmployeeRole> data = null;
-    private List<Role> roledata = null;
+    EmployeeRoleControllerInterface erc = new EmployeeRoleController(HibernateUtil.getSessionFactory());
+    EmployeeControllerInterface ec = new EmployeeController(HibernateUtil.getSessionFactory());
+    RoleControllerInterface rc = new RoleController(HibernateUtil.getSessionFactory());
+    List<EmployeeRole> data = null;
+    List<Employee> employeedata = null;
+    List<Role> roledata = null;
     
 
     /**
@@ -47,7 +52,12 @@ public class EmployeeRoleServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            data = erc.getAll();
+            employeedata = ec.getAll();
+            roledata = rc.getAll();
+            request.getSession().setAttribute("data", data);
+            request.getSession().setAttribute("employeedata", employeedata);
+            request.getSession().setAttribute("roledata", roledata);
             response.sendRedirect("cv/EmployeeRoleView.jsp");
         }
     }
