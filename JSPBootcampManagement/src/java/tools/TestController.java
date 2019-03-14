@@ -5,6 +5,7 @@
  */
 package tools;
 
+import controllers.EducationController;
 import controllers.EducationHistoryController;
 import controllers.EducationHistoryControllerInterface;
 import controllers.EmployeeController;
@@ -30,6 +31,10 @@ public class TestController {
 //        List<Employee> empList = emp.searchWD("14201");
         List<Participant> pList = new ParticipantController(factory).getAll();
         System.out.println(factory);
+        
+        EducationHistoryControllerInterface ehc = new EducationHistoryController(factory);
+        System.out.println(ehc.save("", "3,9", "CVE11", "14201"));
+        
 
 //        for (Participant data : pList) {
 //            System.out.println(data.getEmployee().getName());

@@ -25,8 +25,7 @@
                 <div class="col-md-5">
                     <form action="../EducationHistoryServlet" method="POST">
                         <div class="form-group">
-                            <label>Id</label>
-                            <input type="text" class="form-control" name="eduId" value="<%= (session.getAttribute("eduId") != null) ? session.getAttribute("eduId") : ""%>"/>
+                            <input type="hidden" class="form-control" name="eduId" value="<%= (session.getAttribute("eduId") != null) ? session.getAttribute("eduId") : ""%>"/>
                         </div>
                         <div class="form-group">
                             <label>GPA</label>
@@ -46,7 +45,7 @@
 
                             </select>
                         </div>
-                        <input type="hidden" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
+                        <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
                         
                         <button type="submit" value="Save" name="save" class="btn btn-info">Save</button>
                     </form>

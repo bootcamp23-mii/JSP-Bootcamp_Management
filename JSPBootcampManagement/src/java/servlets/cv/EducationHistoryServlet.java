@@ -53,6 +53,7 @@ public class EducationHistoryServlet extends HttpServlet {
             data = ec.getByid("14201").getEducationHistoryList();
             dataedu = edc.getAll();
             request.getSession().setAttribute("data", data);
+            request.getSession().setAttribute("emp", "14201");
             request.getSession().setAttribute("dataedu", dataedu);
             response.sendRedirect("cv/EducationHistoryView.jsp");
         }
@@ -78,8 +79,8 @@ public class EducationHistoryServlet extends HttpServlet {
                 EducationHistory educationHistory = ehc.getByid(request.getParameter("id"));
                 request.getSession().setAttribute("eduId", educationHistory.getId());
                 request.getSession().setAttribute("eduGpa", educationHistory.getGpa());
-                request.getSession().setAttribute("edu", educationHistory.getEducation());
-                request.getSession().setAttribute("emp", educationHistory.getEmployee());
+                request.getSession().setAttribute("edu", educationHistory.getEducation().getId());
+                request.getSession().setAttribute("emp", educationHistory.getEmployee().getId());
             }
         }
         processRequest(request, response);
@@ -96,7 +97,7 @@ public class EducationHistoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (ehc.save(request.getParameter("id"), request.getParameter("gpa"), request.getParameter("edu"), request.getParameter("emp")) != null) {
+        if (ehc.save(request.getParameter("eduId"), request.getParameter("eduGpa"), request.getParameter("edu"), request.getParameter("emp")) != null) {
             processRequest(request, response);
         }
     }
