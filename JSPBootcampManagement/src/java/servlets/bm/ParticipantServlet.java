@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 import models.BatchClass;
 import models.Employee;
 import models.Participant;
@@ -30,7 +31,7 @@ public class ParticipantServlet extends HttpServlet {
     private ParticipantControllerInterface c = new ParticipantController(HibernateUtil.getSessionFactory());
     private BatchClassControllerInterface cb = new BatchClassController(HibernateUtil.getSessionFactory());
     private EmployeeControllerInterface ce = new EmployeeController(HibernateUtil.getSessionFactory());
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,17 +46,17 @@ public class ParticipantServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             List<BatchClass> batchclassList = cb.getAll();
-            List<Employee> employeeList = new ArrayList<>();
-            for (Employee dataE : ce.getAll()) {
-                for (BatchClass dataB : batchclassList) {
-                    if (dataE.getId()!=dataB.getTrainer().getId()) {
-                        employeeList.add(dataE);
+            List<Employee> employeeList = ce.getAll();
+            for (int i = 0; i < employeeList.size(); i++) {
+                for (BatchClass data : batchclassList) {
+                    if (employeeList.get(i).getId().equals(data.getTrainer().getId())) {
+                        employeeList.remove(i);
                     }
                 }
             }
             request.getSession().setAttribute("dataEmployee", employeeList);
             request.getSession().setAttribute("dataBatchClass", batchclassList);
-            request.getSession().setAttribute("dataParticipant", c.getAll());
+            request.getSession().setAttribute("dataParticipant", c.searchWD(""));
             response.sendRedirect("bm/participant.jsp");
         }
     }
@@ -73,13 +74,10 @@ public class ParticipantServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action!=null) {
+        if (action != null) {
             if (action.equalsIgnoreCase("delete")) {
-                Participant data=c.getByid(request.getParameter("id"));
-                c.deleteSoft(data.getId(), data.getGrade(), data.getBatchClass().getId(), data.getEmployee().getId());
-            }
-            else if (action.equalsIgnoreCase("edit")){
-                
+                Participant data = c.getByid(request.getParameter("id"));
+                c.delete(data.getId(), data.getGrade(), data.getBatchClass().getId(), data.getEmployee().getId());
             }
         }
         processRequest(request, response);
@@ -96,7 +94,7 @@ public class ParticipantServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         if (c.save(request.getParameter("bmPId"), "", request.getParameter("bmPBatchClass"),request.getParameter("bmPEmp"))) {
+        if (c.save(request.getParameter("cbId"), "", request.getParameter("cbBatchClass"), request.getParameter("cbId"))) {
             processRequest(request, response);
         }
     }

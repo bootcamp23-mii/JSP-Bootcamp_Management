@@ -4,6 +4,8 @@
     Author     : FES
 --%>
 
+<%@page import="models.BatchClass"%>
+<%@page import="models.Employee"%>
 <%@page import="models.Participant"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,17 +15,17 @@
         <%@include file="../header.jsp" %>
         <script>
             $(document).ready(function () {
-                $('#participantTable').DataTable();
+            $('#participantTable').DataTable();
             });
         </script>
         <%
             boolean isEmployeeListEmpty = session.getAttribute("dataEmployee") == null;
             boolean isBatchClassListEmpty = session.getAttribute("dataBatchClass") == null;
             boolean isParticipantListEmpty = session.getAttribute("dataParticipant") == null;
-            if (isParticipantListEmpty) {
+            if (isParticipantListEmpty || isBatchClassListEmpty || isEmployeeListEmpty) {
                 response.sendRedirect("../ParticipantServlet");
             }
-            
+
         %>
         <title>Participant</title>
     </head>
@@ -48,22 +50,42 @@
                 </tr>
             </thead>
             <tbody>
-                <%
+                <%                    
                     int i = 1;
+                    String tempID = "";
+                    String tempBatchClass = "";
                     if (!isParticipantListEmpty) {
-                        for (Participant data : (List<Participant>) session.getAttribute("dataParticipant")) {
+                        for (Participant dataP : (List<Participant>) session.getAttribute("dataParticipant")) {
                 %>
                 <tr>
                     <td><%=i++%></td>
-                    <td><%=data.getEmployee().getName()%></td>
-                    <td><%=data.getBatchClass().getTrainer().getName()%></td>
-                    <td><%=data.getBatchClass().getBatch().getName()%></td>
-                    <td><%=data.getBatchClass().getClasses().getName()%></td>
-                    <td><%=data.getBatchClass().getRoom().getName()%></td>
+                    <td><%=dataP.getEmployee().getName()%></td>
+                    <td><%=dataP.getBatchClass().getTrainer().getName()%></td>
+                    <td><%=dataP.getBatchClass().getBatch().getName()%></td>
+                    <td><%=dataP.getBatchClass().getClasses().getName()%></td>
+                    <td><%=dataP.getBatchClass().getRoom().getName()%></td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRegion" 
-                                data-getid="<%= data.getId()%>" data-getname="<%= data.getBatchClass()%>">Edit</button>
-                        <a class="btn btn-danger" href="ParticipantServlet?action=delete&<%= data.getId()%>">Hapus</a>
+                        <%
+                            if (!isEmployeeListEmpty) {
+                                for (Employee dataE : (List<Employee>) session.getAttribute("dataEmployee")) {
+                                    if (dataE.getId().equalsIgnoreCase(dataP.getId())) {
+                                        tempID = dataP.getId();
+                                    }
+                                }
+                            }
+                            if (!isBatchClassListEmpty) {
+                                for (BatchClass dataB : (List<BatchClass>) session.getAttribute("dataBatchClass")) {
+                                    if (dataB.getId().equalsIgnoreCase(dataP.getBatchClass().getId())) {
+                                        tempBatchClass = dataP.getBatchClass().getId();
+                                    }
+                                }
+                            }
+                        %>
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
+                                onclick="selectDropDown('<%=tempID%>','<%=tempBatchClass%>')"
+                                >Edit</button>
+                        <a class="btn btn-danger" href="../ParticipantServlet?action=delete&id=<%= dataP.getId()%>">Hapus</a>
                     </td>
                 </tr>
                 <%
@@ -74,7 +96,7 @@
         </table>
         <!--end of show table-->
         <!--show save form modal-->
-        <form action="ParticipantServlet" method="POST">
+        <form action="../ParticipantServlet" method="POST">
             <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -86,11 +108,37 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <label data-error="wrong" data-success="true">ID</label>
-                            <input type="text" name="regionId" class="form-control" value="<%if (session.getAttribute("regionId") != null) {
-                                    out.print(session.getAttribute("participantName"));
-                                }%>">
-                            
+                            <label data-error="wrong" data-success="true">Employee</label>
+                            <select class="form-control" id="cbId" name="cbId">
+                                <%
+                                    if (!isEmployeeListEmpty) {
+                                        for (Employee dataE2 : (List<Employee>) session.getAttribute("dataEmployee")) {
+                                %>
+                                <option value="<%=dataE2.getId()%>"><%out.print(dataE2.getId() + " - " + dataE2.getName());%></option>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </select>
+                            <label data-error="wrong" data-success="true">Batch Class</label>
+                            <select class="form-control" id="cbBatchClass" name="cbBatchClass">
+                                <%
+                                    if (!isEmployeeListEmpty) {
+                                        for (BatchClass dataB2 : (List<BatchClass>) session.getAttribute("dataBatchClass")) {
+                                %>
+                                <option value="<%=dataB2.getId()%>">
+                                    <%out.print(dataB2.getBatch().getName() + " ("+dataB2.getClasses().getName() + ") "
+                                            +dataB2.getTrainer().getName()
+                                            + " - " + dataB2.getRoom().getName()
+                                    );%></option>
+                                <%
+                                        }
+                                    }
+                                %>
+
+                            </select>
+                                
+
                         </div>
                         <div class="modal-footer">
                             <input type="submit" class="btn btn-success" value="Save" name="save"/>
@@ -100,19 +148,15 @@
             </div>
         </form>
         <!--end of show save form modal-->
-<%String aaaa="";%>
+        <script>
+            $('#modalForm').on('show.bs.modal', function (event) {}
+        </script>
+        <script  type="text/javascript">
+            function selectDropDown(id,batchClass){
+            document.getElementById('cbId').value = id
+            document.getElementById('cbBatchClass').value = batchClass
+            }
+        </script>
     </body>
-     <script>
-        $('#modalRegion').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            var id = button.data('getid')
-            var name = button.data('getname')
-            var modal = $(this.)
-            modal.find('#id-r').(id)
-            modal.find('#name-r').val(name)
-        }
-                
-            )
-    </script>
     <%@include file="../footer.jsp" %>
 </html>

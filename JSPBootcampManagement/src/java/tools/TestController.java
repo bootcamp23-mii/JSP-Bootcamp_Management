@@ -24,6 +24,7 @@ import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
  * @author FES
  */
 public class TestController {
+
     public static void main(String[] args) throws FileNotFoundException, IOException {
         SessionFactory factory = HibernateUtil.getSessionFactory();
 //        EducationHistoryControllerInterface eh = new EducationHistoryController(factory);
@@ -36,6 +37,8 @@ public class TestController {
         System.out.println(ehc.save("", "3,9", "CVE11", "14201"));
         
 
+//        List<Participant> pList = new ParticipantController(factory).searchWD("");
+        System.out.println(new ParticipantController(factory).save("14307", "", "BBC2","14307"));
 //        for (Participant data : pList) {
 //            System.out.println(data.getEmployee().getName());
 //            System.out.println(data.getBatchClass().getTrainer().getName());

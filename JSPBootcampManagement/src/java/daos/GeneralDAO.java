@@ -129,7 +129,7 @@ public class GeneralDAO<T> implements DAOInterface<T>{
 
     private String getQueryWD(String keyword, String isDeleted) {
         String query = "From " + t.getClass().getSimpleName();
-        if (!keyword.equals("")) {
+//        if (!keyword.equals("")) {
             query += " where (";
             for (Field field : t.getClass().getDeclaredFields()) {
                 if (!field.getName().contains("UID") && !field.getName().contains("List")&& !field.getName().contains("isdeleted")) {
@@ -137,8 +137,9 @@ public class GeneralDAO<T> implements DAOInterface<T>{
                 }
             }
             query = query.substring(0, query.lastIndexOf(" OR "));
-        }
-        return query + ") AND isdeleted = 0 order by 1";
+//        }
+//        System.out.println(query);
+        return query + ") AND isdeleted = 0";
     }
     
     @Override
