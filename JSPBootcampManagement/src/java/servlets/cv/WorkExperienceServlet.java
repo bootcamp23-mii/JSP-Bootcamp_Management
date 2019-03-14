@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author gerydanu
  */
-@WebServlet(name = "EmployeeRoleServlet", urlPatterns = {"/EmployeeRoleServlet"})
-public class EmployeeRoleServlet extends HttpServlet {
+@WebServlet(name = "WorkExperienceServlet", urlPatterns = {"/WorkExperienceServlet"})
+public class WorkExperienceServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,7 +34,7 @@ public class EmployeeRoleServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            response.sendRedirect("cv/EmployeeRoleView.jsp");
+            response.sendRedirect("cv/WorkExperienceView.jsp");
         }
     }
 
