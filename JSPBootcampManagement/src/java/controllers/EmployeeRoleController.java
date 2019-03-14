@@ -45,14 +45,9 @@ public class EmployeeRoleController implements EmployeeRoleControllerInterface {
     }
 
     @Override
-    public List<EmployeeRole> searchWD(Object keyword) {
-        return dao.getDataWD(keyword,0);
-    }
-
-    @Override
-    public String save(String id, String startDate, String endDate, String employee, String role) {
+    public String save(String id, String startDate, String endDate, String isdeleted, String role, String employee) {
         try {
-            if (dao.saveOrDelete(new EmployeeRole(id, dateFormat.parse(startDate), dateFormat.parse(endDate), new Short("0"), new Employee(employee), new Role(role)), true)) 
+            if (dao.saveOrDelete(new EmployeeRole(id, dateFormat.parse(startDate), dateFormat.parse(endDate), new Short("0"), new Role(role), new Employee(employee)), true)) 
                 return "Save Data Success!";
         } catch (ParseException ex) {
             Logger.getLogger(EmployeeRoleController.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,29 +56,9 @@ public class EmployeeRoleController implements EmployeeRoleControllerInterface {
     }
 
     @Override
-    public String delete(String id, String startDate, String endDate, String employee, String role) {
+    public String delete(String id, String startDate, String endDate, String isdeleted, String role, String employee) {
         try {
-            if (dao.saveOrDelete(new EmployeeRole(id, dateFormat.parse(startDate), dateFormat.parse(endDate), new Short("1"), new Employee(employee), new Role(role)), true)) 
-                return "Delete Data Success!";
-        } catch (ParseException ex) {
-            Logger.getLogger(EmployeeRoleController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "Delete Failed!";
-    }
-    
-    @Override
-    public String deleteSoft(String id, String startDate, String endDate, String employee, String role) {
-        String tempID="";
-        List<EmployeeRole> dataList = searchWD("");
-        for (EmployeeRole data : dataList) {
-            if (dateFormat.format(data.getStartdate()).equals(startDate)
-                    &&dateFormat.format(data.getEnddate()).equals(endDate)
-                    &&data.getRole().getId().equals(role)
-                    &&data.getEmployee().getId().equals(employee)
-                    )tempID=data.getId();
-        }
-        try {
-            if (dao.saveOrDelete(new EmployeeRole(tempID, dateFormat.parse(startDate), dateFormat.parse(endDate), new Short("1"), new Employee(employee), new Role(role)), true)) 
+            if (dao.saveOrDelete(new EmployeeRole(id, dateFormat.parse(startDate), dateFormat.parse(endDate), new Short("1"), new Role(role), new Employee(employee)), false)) 
                 return "Delete Data Success!";
         } catch (ParseException ex) {
             Logger.getLogger(EmployeeRoleController.class.getName()).log(Level.SEVERE, null, ex);

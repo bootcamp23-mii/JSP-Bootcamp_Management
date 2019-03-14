@@ -16,8 +16,6 @@ public interface EmployeeLanguageControllerInterface {
     public EmployeeLanguage getByid(String id);
     public List<EmployeeLanguage> getAll();
     public List<EmployeeLanguage> search(Object keyword);
-    public List<EmployeeLanguage> searchWD(Object keyword);
-    public String save(String id, String employee, String language);
-    public String delete(String id, String employee, String language);
-    public String deleteSoft(String id, String employee, String language);
+    public String save(String id, String score, String isActive, String isdeleted, String language, String employee);
+    public String delete(String id, String score, String isActive, String isdeleted, String language, String employee);
 }

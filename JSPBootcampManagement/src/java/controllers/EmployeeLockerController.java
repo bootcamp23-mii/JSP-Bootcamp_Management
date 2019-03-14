@@ -46,9 +46,9 @@ public class EmployeeLockerController implements EmployeeLockerControllerInterfa
     }
 
     @Override
-    public String save(String id, String receivedate, String returndate, String notes, String employee, String locker) {
+    public String save(String id, String receiveDate, String returnDate, String notes, String locker, String employee) {
         try {
-            if(dao.saveOrDelete(new EmployeeLocker(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Employee(employee), new Locker(locker)), true)){
+            if(dao.saveOrDelete(new EmployeeLocker(id, dateFormat.parse(receiveDate), dateFormat.parse(returnDate), notes, new Locker(locker), new Employee(employee)), true)){
                 return "Save Data Success";
             }
         } catch (ParseException ex) {
@@ -58,9 +58,9 @@ public class EmployeeLockerController implements EmployeeLockerControllerInterfa
     }
     
     @Override
-    public String delete(String id, String receivedate, String returndate, String notes, String employee, String locker) {
+    public String delete(String id, String receiveDate, String returnDate, String notes, String locker, String employee) {
         try {
-            if(dao.saveOrDelete(new EmployeeLocker(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Employee(employee), new Locker(locker)), false)){
+            if(dao.saveOrDelete(new EmployeeLocker(id, dateFormat.parse(receiveDate), dateFormat.parse(returnDate), notes, new Locker(locker), new Employee(employee)), false)){
                 return "Delete Data Success";
             }
         } catch (ParseException ex) {

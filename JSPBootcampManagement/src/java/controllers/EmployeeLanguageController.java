@@ -40,13 +40,8 @@ public class EmployeeLanguageController implements EmployeeLanguageControllerInt
     }
 
     @Override
-    public List<EmployeeLanguage> searchWD(Object keyword) {
-        return dao.getDataWD(keyword,0);
-    }
-
-    @Override
-    public String save(String id, String employee, String language) {
-        if (dao.saveOrDelete(new EmployeeLanguage(id, new Short("0"), new Employee(employee), new Language(language)), true)) {
+    public String save(String id, String score, String isActive, String isdeleted, String language, String employee) {
+        if (dao.saveOrDelete(new EmployeeLanguage(id, new Double(null), new Short("0"), new Short("0"), new Language(language), new Employee(employee)), true)) {
             return "Save Data Success!";
         } else {
             return "Save Failed!";
@@ -54,24 +49,8 @@ public class EmployeeLanguageController implements EmployeeLanguageControllerInt
     }
 
     @Override
-    public String delete(String id, String employee, String language) {
-        if (dao.saveOrDelete(new EmployeeLanguage(id, new Short("0"), new Employee(employee), new Language(language)), false)) {
-            return "Delete Data Success!";
-        } else {
-            return "Delete Failed!";
-        }
-    }
-
-    @Override
-    public String deleteSoft(String id, String employee, String language) {
-        String tempID="";
-        List<EmployeeLanguage> dataList = searchWD("");
-        for (EmployeeLanguage data : dataList) {
-            if (data.getEmployee().getId().equals(employee)
-                    &&data.getLanguage().getId().equals(language)
-                    )tempID=data.getId();
-        }
-        if (dao.saveOrDelete(new EmployeeLanguage(tempID, new Short("1"), new Employee(employee), new Language(language)), true)) {
+    public String delete(String id, String score, String isActive, String isdeleted, String language, String employee) {
+        if (dao.saveOrDelete(new EmployeeLanguage(id, new Double(null), new Short("0"), new Short("0"), new Language(language), new Employee(employee)), false)) {
             return "Delete Data Success!";
         } else {
             return "Delete Failed!";

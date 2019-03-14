@@ -40,13 +40,8 @@ public class EmployeeSkillController implements EmployeeSkillControllerInterface
     }
 
     @Override
-    public List<EmployeeSkill> searchWD(Object keyword) {
-        return dao.getDataWD(keyword,0);
-    }
-
-    @Override
-    public String save(String id, String employee, String skill) {
-        if (dao.saveOrDelete(new EmployeeSkill(id, new Short("0"), new Employee(employee), new Skill(skill)), true)) {
+    public String save(String id, String score, String isdeleted, String skill, String employee) {
+        if (dao.saveOrDelete(new EmployeeSkill(id, new Double(score), new Short("0"), new Skill(skill), new Employee(employee)), true)) {
             return "Save Data Success!";
         } else {
             return "Save Failed!";
@@ -54,24 +49,8 @@ public class EmployeeSkillController implements EmployeeSkillControllerInterface
     }
 
     @Override
-    public String delete(String id, String employee, String skill) {
-        if (dao.saveOrDelete(new EmployeeSkill(id, new Short("0"), new Employee(employee), new Skill(skill)), false)) {
-            return "Delete Data Success!";
-        } else {
-            return "Delete Failed!";
-        }
-    }
-
-    @Override
-    public String deleteSoft(String id, String employee, String skill) {
-        String tempID="";
-        List<EmployeeSkill> dataList = searchWD("");
-        for (EmployeeSkill data : dataList) {
-            if (data.getEmployee().getId().equals(employee)
-                    &&data.getSkill().getId().equals(skill)
-                    )tempID=data.getId();
-        }
-        if (dao.saveOrDelete(new EmployeeSkill(tempID, new Short("1"), new Employee(employee), new Skill(skill)), true)) {
+    public String delete(String id, String score, String isdeleted, String skill, String employee) {
+        if (dao.saveOrDelete(new EmployeeSkill(id, new Double(score), new Short("1"), new Skill(skill), new Employee(employee)), false)) {
             return "Delete Data Success!";
         } else {
             return "Delete Failed!";
