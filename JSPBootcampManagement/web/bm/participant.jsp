@@ -15,7 +15,7 @@
         <%@include file="../header.jsp" %>
         <script>
             $(document).ready(function () {
-            $('#participantTable').DataTable();
+                $('#participantTable').DataTable();
             });
         </script>
         <%
@@ -50,8 +50,7 @@
                 </tr>
             </thead>
             <tbody>
-                <%                    
-                    int i = 1;
+                <%                    int i = 1;
                     String tempID = "";
                     String tempBatchClass = "";
                     if (!isParticipantListEmpty) {
@@ -83,7 +82,7 @@
                         %>
 
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
-                                onclick="selectDropDown('<%=tempID%>','<%=tempBatchClass%>')"
+                                onclick="selectDropDown('<%=tempID%>', '<%=tempBatchClass%>')"
                                 >Edit</button>
                         <a class="btn btn-danger" href="../ParticipantServlet?action=delete&id=<%= dataP.getId()%>">Hapus</a>
                     </td>
@@ -127,17 +126,17 @@
                                         for (BatchClass dataB2 : (List<BatchClass>) session.getAttribute("dataBatchClass")) {
                                 %>
                                 <option value="<%=dataB2.getId()%>">
-                                    <%out.print(dataB2.getBatch().getName() + " ("+dataB2.getClasses().getName() + ") "
-                                            +dataB2.getTrainer().getName()
-                                            + " - " + dataB2.getRoom().getName()
-                                    );%></option>
-                                <%
+                                    <%out.print(dataB2.getBatch().getName() + " (" + dataB2.getClasses().getName() + ") "
+                                                + dataB2.getTrainer().getName()
+                                                + " - " + dataB2.getRoom().getName()
+                                        );%></option>
+                                    <%
+                                            }
                                         }
-                                    }
-                                %>
+                                    %>
 
                             </select>
-                                
+
 
                         </div>
                         <div class="modal-footer">
@@ -152,9 +151,10 @@
             $('#modalForm').on('show.bs.modal', function (event) {}
         </script>
         <script  type="text/javascript">
-            function selectDropDown(id,batchClass){
-            document.getElementById('cbId').value = id
-            document.getElementById('cbBatchClass').value = batchClass
+            function selectDropDown(id, batchClass)
+            {
+                document.getElementById('cbId').value = id
+                document.getElementById('cbBatchClass').value = batchClass
             }
         </script>
     </body>
