@@ -16,6 +16,8 @@ import models.*;
     public EmployeeRole getByid(String id);
     public List<EmployeeRole> getAll();
     public List<EmployeeRole> search(Object keyword);
+    public List<EmployeeRole> searchWD(Object keyword);
     public String save(String id, String startDate, String endDate, String isdeleted, String role, String employee);
     public String delete(String id, String startDate, String endDate, String isdeleted, String role, String employee);
+    public String deleteSoft(String id, String startDate, String endDate, String isdeleted, String role, String employee);
 }

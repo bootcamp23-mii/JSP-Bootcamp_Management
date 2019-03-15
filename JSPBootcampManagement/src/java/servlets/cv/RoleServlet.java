@@ -5,10 +5,8 @@
  */
 package servlets.cv;
 
-import controllers.EmployeeController;
-import controllers.EmployeeControllerInterface;
-import controllers.WorkExperienceController;
-import controllers.WorkExperienceControllerInterface;
+import controllers.RoleController;
+import controllers.RoleControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -17,21 +15,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Employee;
-import models.WorkExperience;
+import models.Role;
 import tools.HibernateUtil;
 
 /**
  *
  * @author gerydanu
  */
-@WebServlet(name = "WorkExperienceServlet", urlPatterns = {"/WorkExperienceServlet"})
-public class WorkExperienceServlet extends HttpServlet {
-    
-    WorkExperienceControllerInterface wc = new WorkExperienceController(HibernateUtil.getSessionFactory());
-    EmployeeControllerInterface ec = new EmployeeController(HibernateUtil.getSessionFactory());
-    List<WorkExperience> workexpdata = null;
-    List<Employee> employeedata = null;
+@WebServlet(name = "RoleServlet", urlPatterns = {"/RoleServlet"})
+public class RoleServlet extends HttpServlet {
+
+    RoleControllerInterface rc = new RoleController(HibernateUtil.getSessionFactory());
+    List<Role> data = null;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,11 +41,9 @@ public class WorkExperienceServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            workexpdata = wc.getAll();
-            employeedata = ec.getAll();
-            request.getSession().setAttribute("workExpData", workexpdata);
-            request.getSession().setAttribute("employeeData", employeedata);
-            response.sendRedirect("cv/WorkExperienceView.jsp");
+            data = rc.getAll();
+            request.getSession().setAttribute("data", data);
+            response.sendRedirect("cv/RoleView.jsp");
         }
     }
 

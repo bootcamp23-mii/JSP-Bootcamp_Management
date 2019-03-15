@@ -43,6 +43,11 @@ public class EmployeeRoleController implements EmployeeRoleControllerInterface {
     public List<EmployeeRole> search(Object keyword) {
         return dao.getData(keyword);
     }
+    
+    @Override
+    public List<EmployeeRole> searchWD(Object keyword) {
+        return dao.getDataWD(keyword,0);
+    }
 
     @Override
     public String save(String id, String startDate, String endDate, String isdeleted, String role, String employee) {
@@ -60,6 +65,27 @@ public class EmployeeRoleController implements EmployeeRoleControllerInterface {
         try {
             if (dao.saveOrDelete(new EmployeeRole(id, dateFormat.parse(startDate), dateFormat.parse(endDate), new Short("1"), new Role(role), new Employee(employee)), false)) 
                 return "Delete Data Success!";
+        } catch (ParseException ex) {
+            Logger.getLogger(EmployeeRoleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Delete Failed!";
+    }
+    
+    @Override
+    public String deleteSoft(String id, String startDate, String endDate, String isdeleted, String role, String employee) {
+        String tempID="";
+        List<EmployeeRole> dataList = searchWD("");
+        for (EmployeeRole data : dataList) {
+            if (dateFormat.format(data.getStartDate()).equals(startDate)
+                    &&dateFormat.format(data.getEndDate()).equals(endDate)
+                    &&data.getRole().getId().equals(role)
+                    &&data.getEmployee().getId().equals(employee)
+                    )tempID=data.getId();
+        }
+        try {
+            if (dao.saveOrDelete(new EmployeeRole(tempID, dateFormat.parse(startDate), dateFormat.parse(endDate), new Short("1"), new Role(role), new Employee(employee)), true)) {
+                return "Delete Data Success!";
+            }
         } catch (ParseException ex) {
             Logger.getLogger(EmployeeRoleController.class.getName()).log(Level.SEVERE, null, ex);
         }

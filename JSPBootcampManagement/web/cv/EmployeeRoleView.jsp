@@ -24,35 +24,53 @@
 </head>
 <body>
     <h1>Employee Role</h1>
-    <!--show table-->
-    <form action="EmployeeRoleServlet" method="POST">
-        <div class="form-group">
-            <input type="hidden" class="form-control" name="empRoleId" value="<%= (session.getAttribute("empRoleId") != null) ? session.getAttribute("empRoleId") : ""%>"/>
-        </div>
-        <div class="form-group">
-            <label>Role</label>
-            <select class="form-control" name="roleData" >
-                <% for (Role elem : (List<Role>) session.getAttribute("roleData")) {
-                        out.print("<option "
-                                + "value=\"" + elem.getId() + "\" "
-                                + (elem.getId().equals(session.getAttribute("role")) ? "selected" : "") + ">"
-                                + elem.getName() + "</option>");
-                    }%>
 
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Start date</label>
-            <input type="text" class="form-control" name="empRoleStartDate" value="<%= (session.getAttribute("empRoleStartDate") != null) ? session.getAttribute("empRoleStartDate") : ""%>"/>
-        </div>
-        <div class="form-group">
-            <label>End date</label>
-            <input type="text" class="form-control" name="empRoleEndDate" value="<%= (session.getAttribute("empRoleEndDate") != null) ? session.getAttribute("empRoleEndDate") : ""%>"/>
-        </div>
-        <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
+        <a class="btn btn-success" data-target="#modalForm" data-toggle="modal">New data</a>
+        <form action="../EmployeeRoleServlet" method="POST">
+            <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                <span aria-hidden="true">
+                                    &times;
+                                </span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <label data-error="wrong" data-success="true">Employee</label>
+                            <select class="form-control" id="cbId" name="cbId">
+                                <%
+                                    if (!isEmployeeListEmpty) {
+                                        for (Employee dataEmployee2 : (List<Employee>) session.getAttribute("employeeData")) {
+                                %>
+                                <option value="<%=dataEmployee2.getId()%>"><%out.print(dataEmployee2.getId() + " - " + dataEmployee2.getName());%></option>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </select>
+                            <label data-error="wrong" data-success="true">Role</label>
+                            <select class="form-control" id="cbBatchClass" name="cbBatchClass">
+                                <%
+                                    if (!isEmployeeListEmpty) {
+                                        for (Role dataRole : (List<Role>) session.getAttribute("roleData")) {
+                                %>
+                                <option value="<%=dataRole.getId()%>"><%out.print(dataRole.getName());%></option>
+                                <%
+                                        }
+                                    }
+                                %>
 
-        <button type="submit" value="Save" name="save" class="btn btn-info">Save</button>
-    </form>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-success" value="Save" name="save"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     <table id="tableEmpRole" class="table table-striped" cellspacing='30' align ='center' border="1">
         <thead class="active">
             <tr>
@@ -110,7 +128,7 @@
             %>
         </tbody>
     </table>
-
+        
     <script>
         $(document).ready(function () {
             $('#tableEmpRole').DataTable();

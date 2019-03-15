@@ -16,6 +16,7 @@ import org.hibernate.SessionFactory;
  * @author FES
  */
 public class RoleController implements RoleControllerInterface{
+    
     private DAOInterface<Role> dao;
     
     public RoleController(SessionFactory factory){
@@ -55,5 +56,4 @@ public class RoleController implements RoleControllerInterface{
             return "Delete Failed";
         }
     }
-    
 }
