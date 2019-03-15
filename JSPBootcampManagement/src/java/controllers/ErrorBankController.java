@@ -7,8 +7,12 @@ package controllers;
 
 import daos.DAOInterface;
 import daos.GeneralDAO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.*;
 import org.hibernate.SessionFactory;
 
@@ -18,6 +22,7 @@ import org.hibernate.SessionFactory;
  */
 public class ErrorBankController implements ErrorBankControllerInterface {
     private DAOInterface<ErrorBank> dao;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public ErrorBankController(SessionFactory factory) {
         dao = new GeneralDAO<>(factory, ErrorBank.class);
@@ -39,17 +44,16 @@ public class ErrorBankController implements ErrorBankControllerInterface {
     }
 
     @Override
-    public String save(String id, String submitdate, String description, String solution, String classes, String employee) {
-        if (dao.saveOrDelete(new ErrorBank(id, new Date(submitdate), description, solution, new Classes(classes), new Employee(employee)), true)) {
-            return "Save Data Success!";
-        } else {
-            return "Save Failed!";
-        }
+    public boolean save(String id, Date submitdate, String description, String solution, String classes, String employee) {
+            if (dao.saveOrDelete(new ErrorBank(id,submitdate, description, solution, new Classes(classes), new Employee(employee)), true)) {
+                return true;
+            }
+        return false;
     }
 
     @Override
-    public String delete(String id, String submitdate, String description, String solution, String classes, String employee) {
-        if (dao.saveOrDelete(new ErrorBank(id, new Date(submitdate), description, solution, new Classes(classes), new Employee(employee)), false)) {
+    public String delete(String id, Date submitdate, String description, String solution, Classes classes, Employee employee) {
+        if (dao.saveOrDelete(new ErrorBank(id, submitdate, description, solution, classes, employee), false)) {
             return "Delete Data Success!";
         } else {
             return "Delete Failed!";

@@ -5,32 +5,37 @@
  */
 package servlets.bm;
 
-import controllers.*;
+import controllers.ClassesController;
+import controllers.ClassesControllerInterface;
+import controllers.EmployeeController;
+import controllers.EmployeeControllerInterface;
+import controllers.ErrorBankController;
+import controllers.ErrorBankControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
-import models.BatchClass;
-import models.Employee;
-import models.Participant;
+import models.ErrorBank;
 import tools.HibernateUtil;
 
 /**
  *
  * @author FES
  */
-@WebServlet(name = "ParticipantServlet", urlPatterns = {"/ParticipantServlet"})
-public class ParticipantServlet extends HttpServlet {
+@WebServlet(name = "ErrorBankServlet", urlPatterns = {"/ErrorBankServlet"})
+public class ErrorBankServlet extends HttpServlet {
 
-    private ParticipantControllerInterface c = new ParticipantController(HibernateUtil.getSessionFactory());
-    private BatchClassControllerInterface cb = new BatchClassController(HibernateUtil.getSessionFactory());
+    private ErrorBankControllerInterface c = new ErrorBankController(HibernateUtil.getSessionFactory());
     private EmployeeControllerInterface ce = new EmployeeController(HibernateUtil.getSessionFactory());
+    private ClassesControllerInterface cc = new ClassesController(HibernateUtil.getSessionFactory());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,19 +50,10 @@ public class ParticipantServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            List<BatchClass> batchclassList = cb.getAll();
-            List<Employee> employeeList = ce.getAll();
-            for (int i = 0; i < employeeList.size(); i++) {
-                for (BatchClass data : batchclassList) {
-                    if (employeeList.get(i).getId().equals(data.getTrainer().getId())) {
-                        employeeList.remove(i);
-                    }
-                }
-            }
-            request.getSession().setAttribute("dataEmployee", employeeList);
-            request.getSession().setAttribute("dataBatchClass", batchclassList);
-            request.getSession().setAttribute("dataParticipant", c.searchWD(""));
-            response.sendRedirect("bm/participant.jsp");
+            request.getSession().setAttribute("dataErrorBank", c.getAll());
+            request.getSession().setAttribute("dataEmployee", ce.searchWD(""));
+            request.getSession().setAttribute("dataClass", cc.getAll());
+            response.sendRedirect("bm/errorbank.jsp");
         }
     }
 
@@ -76,8 +72,8 @@ public class ParticipantServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action != null) {
             if (action.equalsIgnoreCase("delete")) {
-                Participant data = c.getByid(request.getParameter("id"));
-                c.deleteSoft(data.getId(), data.getGrade(), data.getBatchClass().getId(), data.getEmployee().getId());
+                ErrorBank data = c.getByid(request.getParameter("id"));
+                c.delete(data.getId(), data.getSubmitDate(), data.getDescription(), data.getSolution(), data.getClasses(), data.getEmployee());
             }
         }
         processRequest(request, response);
@@ -94,8 +90,18 @@ public class ParticipantServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (c.save(request.getParameter("cbId"), "", request.getParameter("cbBatchClass"), request.getParameter("cbId"))) {
-            processRequest(request, response);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+
+            String tempID = "";
+            if (request.getParameter("hdId")!=null)tempID=request.getParameter("hdId");
+            if (c.save(tempID, dateFormat.parse(request.getParameter("inSubmitDate")), request.getParameter("inDescription"), 
+                    request.getParameter("inSolution"), request.getParameter("cbClass"), request.getParameter("cbId"))) {
+                processRequest(request, response);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(ErrorBankServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

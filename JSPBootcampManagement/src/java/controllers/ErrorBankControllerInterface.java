@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 import models.*;
 
@@ -16,6 +17,6 @@ public interface ErrorBankControllerInterface {
     public ErrorBank getByid(String id);
     public List<ErrorBank> getAll();
     public List<ErrorBank> search(Object keyword);
-    public String save(String id, String submitdate, String description, String solution, String classes, String employee);
-    public String delete(String id, String submitdate, String description, String solution, String classes, String employee);
+    public boolean save(String id, Date submitdate, String description, String solution, String classes, String employee);
+    public String delete(String id, Date submitdate, String description, String solution, Classes classes, Employee employee);
 }
