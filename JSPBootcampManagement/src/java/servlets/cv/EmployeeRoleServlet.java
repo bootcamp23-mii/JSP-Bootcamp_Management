@@ -34,7 +34,7 @@ public class EmployeeRoleServlet extends HttpServlet {
     EmployeeRoleControllerInterface erc = new EmployeeRoleController(HibernateUtil.getSessionFactory());
     EmployeeControllerInterface ec = new EmployeeController(HibernateUtil.getSessionFactory());
     RoleControllerInterface rc = new RoleController(HibernateUtil.getSessionFactory());
-    List<EmployeeRole> data = null;
+    List<EmployeeRole> emproledata = null;
     List<Employee> employeedata = null;
     List<Role> roledata = null;
     
@@ -52,12 +52,12 @@ public class EmployeeRoleServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            data = erc.getAll();
+            emproledata = erc.getAll();
             employeedata = ec.getAll();
             roledata = rc.getAll();
-            request.getSession().setAttribute("data", data);
-            request.getSession().setAttribute("employeedata", employeedata);
-            request.getSession().setAttribute("roledata", roledata);
+            request.getSession().setAttribute("empRoleData", emproledata);
+            request.getSession().setAttribute("employeeData", employeedata);
+            request.getSession().setAttribute("roleData", roledata);
             response.sendRedirect("cv/EmployeeRoleView.jsp");
         }
     }

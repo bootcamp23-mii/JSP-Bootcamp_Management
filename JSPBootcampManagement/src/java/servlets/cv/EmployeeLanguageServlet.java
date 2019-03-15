@@ -5,13 +5,24 @@
  */
 package servlets.cv;
 
+import controllers.EmployeeController;
+import controllers.EmployeeControllerInterface;
+import controllers.EmployeeLanguageController;
+import controllers.EmployeeLanguageControllerInterface;
+import controllers.LanguageController;
+import controllers.LanguageControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Employee;
+import models.EmployeeLanguage;
+import models.Language;
+import tools.HibernateUtil;
 
 /**
  *
@@ -19,6 +30,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EmployeeLanguageServlet", urlPatterns = {"/EmployeeLanguageServlet"})
 public class EmployeeLanguageServlet extends HttpServlet {
+    
+    EmployeeLanguageControllerInterface elc = new EmployeeLanguageController(HibernateUtil.getSessionFactory());
+    EmployeeControllerInterface ec = new EmployeeController(HibernateUtil.getSessionFactory());
+    LanguageControllerInterface lc = new LanguageController(HibernateUtil.getSessionFactory());
+    List<EmployeeLanguage> emplangdata = null;
+    List<Employee> employeedata = null;
+    List<Language> languagedata = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,6 +51,12 @@ public class EmployeeLanguageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            emplangdata = elc.getAll();
+            employeedata = ec.getAll();
+            languagedata = lc.getAll();
+            request.getSession().setAttribute("empLangData", emplangdata);
+            request.getSession().setAttribute("employeeData", employeedata);
+            request.getSession().setAttribute("languageData", languagedata);
             response.sendRedirect("cv/EmployeeLanguageView.jsp");
         }
     }

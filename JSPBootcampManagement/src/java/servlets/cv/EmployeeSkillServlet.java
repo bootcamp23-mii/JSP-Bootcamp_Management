@@ -5,13 +5,24 @@
  */
 package servlets.cv;
 
+import controllers.EmployeeController;
+import controllers.EmployeeControllerInterface;
+import controllers.EmployeeSkillController;
+import controllers.EmployeeSkillControllerInterface;
+import controllers.SkillController;
+import controllers.SkillControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Employee;
+import models.EmployeeSkill;
+import models.Skill;
+import tools.HibernateUtil;
 
 /**
  *
@@ -20,6 +31,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "EmployeeSkillServlet", urlPatterns = {"/EmployeeSkillServlet"})
 public class EmployeeSkillServlet extends HttpServlet {
 
+    EmployeeSkillControllerInterface esc = new EmployeeSkillController(HibernateUtil.getSessionFactory());
+    EmployeeControllerInterface ec = new EmployeeController(HibernateUtil.getSessionFactory());
+    SkillControllerInterface skc = new SkillController(HibernateUtil.getSessionFactory());
+    List<EmployeeSkill> empskilldata = null;
+    List<Employee> employeedata = null;
+    List<Skill> skilldata = null;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,7 +51,12 @@ public class EmployeeSkillServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            empskilldata = esc.getAll();
+            employeedata = ec.getAll();
+            skilldata = skc.getAll();
+            request.getSession().setAttribute("empSkillData", empskilldata);
+            request.getSession().setAttribute("employeeData", employeedata);
+            request.getSession().setAttribute("skillData", skilldata);
             response.sendRedirect("cv/EmployeeSkillView.jsp");
         }
     }
