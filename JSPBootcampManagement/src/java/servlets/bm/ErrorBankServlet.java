@@ -36,6 +36,7 @@ public class ErrorBankServlet extends HttpServlet {
     private ErrorBankControllerInterface c = new ErrorBankController(HibernateUtil.getSessionFactory());
     private EmployeeControllerInterface ce = new EmployeeController(HibernateUtil.getSessionFactory());
     private ClassesControllerInterface cc = new ClassesController(HibernateUtil.getSessionFactory());
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -90,7 +91,7 @@ public class ErrorBankServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
 
         try {
 

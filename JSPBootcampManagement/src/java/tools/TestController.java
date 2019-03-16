@@ -9,6 +9,7 @@ import controllers.EducationController;
 import controllers.EducationHistoryController;
 import controllers.EducationHistoryControllerInterface;
 import controllers.EmployeeController;
+import controllers.EvaluationController;
 import controllers.ParticipantController;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,22 +31,22 @@ public class TestController {
 //        EducationHistoryControllerInterface eh = new EducationHistoryController(factory);
 //        EmployeeController emp = new EmployeeController(factory);
 //        List<Employee> empList = emp.searchWD("14201");
-        List<Participant> pList = new ParticipantController(factory).getAll();
+        List<Participant> pList = new ParticipantController(factory).searchWD("");
         System.out.println(factory);
         
         EducationHistoryControllerInterface ehc = new EducationHistoryController(factory);
-        System.out.println(ehc.save("", "3,9", "CVE11", "14201"));
+//        System.out.println(ehc.save("", "3,9", "CVE11", "14201"));
         
 
 //        List<Participant> pList = new ParticipantController(factory).searchWD("");
-        System.out.println(new ParticipantController(factory).save("14307", "", "BBC2","14307"));
-//        for (Participant data : pList) {
-//            System.out.println(data.getEmployee().getName());
+//        System.out.println(new ParticipantController(factory).save("14307", "", "BBC2","14307"));
+        for (Participant data : pList) {
+            System.out.println(data.getEmployee().getName());
 //            System.out.println(data.getBatchClass().getTrainer().getName());
 //            System.out.println(data.getBatchClass().getBatch().getName());
 //            System.out.println(data.getBatchClass().getClasses().getName());
 //            System.out.println(data.getBatchClass().getRoom().getName());
-//            System.out.println("");
-//        }
+//            System.out.println(data.getParticipant().getParticipant().getBatchClass().getBatch().getName());
+        }
     }
 }

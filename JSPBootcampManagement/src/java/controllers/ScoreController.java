@@ -36,24 +36,35 @@ public class ScoreController implements ScoreControllerInterface {
     public List<Score> search(Object keyword) {
         return dao.getData(keyword);
     }
-
     @Override
-    public String save(String id, String rating, String isdeleted, String aspect, String evaluation) {
-        if (dao.saveOrDelete(new Score(id, new Double(rating), new Short(isdeleted), new Aspect(aspect), new Evaluation(evaluation)), true)) {
-            return "Save Data Success!";
-        } else {
-            return "Save Failed!";
-        }
+    public List<Score> searchWD(Object keyword) {
+        return dao.getDataWD(keyword,0);
     }
 
-    
+    @Override
+    public boolean save(String id, String rating, String aspect, String evaluation) {
+        if (dao.saveOrDelete(new Score(id, new Double(rating), new Short("0"), new Aspect(aspect), new Evaluation(evaluation)), true)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     @Override
-    public String delete(String id, String rating, String isdeleted, String aspect, String evaluation) {
-        if (dao.saveOrDelete(new Score(id, new Double(rating), new Short(isdeleted), new Aspect(aspect), new Evaluation(evaluation)), true)) {
+    public String delete(String id, String rating, String aspect, String evaluation) {
+        if (dao.saveOrDelete(new Score(id, new Double(rating), new Short("0"), new Aspect(aspect), new Evaluation(evaluation)), false)) {
             return "Delete Data Success!";
         } else {
             return "Delete Failed!";
+        }
+    }
+    
+    @Override
+    public boolean deleteSoft(String id, double rating, String aspect, String evaluation) {
+        if (dao.saveOrDelete(new Score(id, new Double(rating), new Short("1"), new Aspect(aspect), new Evaluation(evaluation)), true)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

@@ -22,7 +22,6 @@ import org.hibernate.SessionFactory;
  */
 public class ErrorBankController implements ErrorBankControllerInterface {
     private DAOInterface<ErrorBank> dao;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public ErrorBankController(SessionFactory factory) {
         dao = new GeneralDAO<>(factory, ErrorBank.class);
