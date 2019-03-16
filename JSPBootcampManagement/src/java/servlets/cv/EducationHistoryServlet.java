@@ -55,7 +55,7 @@ public class EducationHistoryServlet extends HttpServlet {
             request.getSession().setAttribute("data", data);
             request.getSession().setAttribute("emp", "14201");
             request.getSession().setAttribute("dataedu", dataedu);
-            response.sendRedirect("cv/desain.jsp");
+            response.sendRedirect("cv/EducationHistoryView.jsp");
         }
     }
 
