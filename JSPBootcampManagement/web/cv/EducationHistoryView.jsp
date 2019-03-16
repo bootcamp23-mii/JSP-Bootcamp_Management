@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label>GPA</label>
-                            <input type="text" class="form-control" name="eduGpa" value="<%= (session.getAttribute("eduGpa") != null) ? session.getAttribute("eduGpa") : ""%>"/>
+                            <input type="number" step="any" min="0" max="4" class="form-control" name="eduGpa" value="<%= (session.getAttribute("eduGpa") != null) ? session.getAttribute("eduGpa") : ""%>"/>
                         </div>
                         <div class="form-group">
                             <label>Education</label>
@@ -46,7 +46,7 @@
                             </select>
                         </div>
                         <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
-                        
+
                         <button type="submit" value="Save" name="save" class="btn btn-info">Save</button>
                     </form>
                 </div>
@@ -80,7 +80,7 @@
             </div>
         </div>
     </body>
-    <% session.removeAttribute(
+       <% session.removeAttribute(
                 "educationId"); %>
     <% session.removeAttribute(
                 "educationGpa");%>

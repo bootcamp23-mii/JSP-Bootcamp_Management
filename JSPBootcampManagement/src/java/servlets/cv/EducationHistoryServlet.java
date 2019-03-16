@@ -55,7 +55,7 @@ public class EducationHistoryServlet extends HttpServlet {
             request.getSession().setAttribute("data", data);
             request.getSession().setAttribute("emp", "14201");
             request.getSession().setAttribute("dataedu", dataedu);
-            response.sendRedirect("cv/EducationHistoryView.jsp");
+            response.sendRedirect("cv/desain.jsp");
         }
     }
 
@@ -74,7 +74,7 @@ public class EducationHistoryServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action != null) {
             if (action.equalsIgnoreCase("delete")) {
-                ehc.delete(request.getParameter("id"), "", "", "");
+                ehc.delete(request.getParameter("id"), "0000-00-00", "", "");
             } else if (action.equalsIgnoreCase("update")) {
                 EducationHistory educationHistory = ehc.getByid(request.getParameter("id"));
                 request.getSession().setAttribute("eduId", educationHistory.getId());

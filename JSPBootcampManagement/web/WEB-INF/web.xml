@@ -8,6 +8,18 @@
         <servlet-name>EducationHistoryServlet</servlet-name>
         <servlet-class>servlets.cv.EducationHistoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrganizationServlet</servlet-name>
+        <servlet-class>servlets.cv.OrganizationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AchievementServlet</servlet-name>
+        <servlet-class>servlets.cv.AchievementServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmployeeCertificationServlet</servlet-name>
+        <servlet-class>servlets.cv.EmployeeCertificationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IdCardServlet</servlet-name>
         <url-pattern>/IdCardServlet</url-pattern>
@@ -15,6 +27,18 @@
     <servlet-mapping>
         <servlet-name>EducationHistoryServlet</servlet-name>
         <url-pattern>/EducationHistoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrganizationServlet</servlet-name>
+        <url-pattern>/OrganizationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AchievementServlet</servlet-name>
+        <url-pattern>/AchievementServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeCertificationServlet</servlet-name>
+        <url-pattern>/EmployeeCertificationServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
