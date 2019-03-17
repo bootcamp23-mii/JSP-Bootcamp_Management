@@ -3,6 +3,8 @@
     Created on : Mar 14, 2019, 11:11:57 AM
     Author     : Lusiana
 --%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="models.Certificate"%>
 <%@page import="models.EmployeeCertification"%>
 <%@page import="models.EducationHistory"%>
@@ -20,11 +22,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Education History </title>
-        <script type="text/javascript">
-            $('.datepicker').datepicker({
-                format: 'yyyy-mm-dd'
-            });
-        </script>
+        <%
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat dateFormatChoose = new SimpleDateFormat("yyyy-MM-dd");
+        %>
     </head>
     <body>
         <div class="container">
@@ -36,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             <label>Certification Date</label>
-                            <input type="date" data-date-format="mm/dd/yyyy" class="form-control" name="certDate" value="<%= (session.getAttribute("certDate") != null) ? session.getAttribute("certDate") : ""%>"/>
+                            <input type="date" class="form-control" id="certDate" name="certDate" value="<%= (session.getAttribute("certDate") != null) ? dateFormatChoose.format(session.getAttribute("certDate")) : dateFormatChoose.format(new Date())%>">
                         </div>
                         <div class="form-group">
                             <label>Certification Number</label>
@@ -76,7 +77,7 @@
                         <tr>
                             <td><%= j++%></td>
                             <td><%= elem.getId()%></td>
-                            <td><%= elem.getCertificatedate()%></td>
+                            <td><%= dateFormat.format(elem.getCertificatedate())%></td>
                             <td><%= elem.getCertificatenumber()%></td>
                             <td><%= elem.getCertificate().getName()%></td>
                             <td>
@@ -90,12 +91,12 @@
             </div>
         </div>
     </body>
-     <% session.removeAttribute(
-                "certId"); %>
+    <% session.removeAttribute(
+                 "certId"); %>
     <% session.removeAttribute(
                 "certDate");%>
     <% session.removeAttribute(
                 "certNum");%>
     <% session.removeAttribute(
-                            "cert");%>
+                "cert");%>
 </html>

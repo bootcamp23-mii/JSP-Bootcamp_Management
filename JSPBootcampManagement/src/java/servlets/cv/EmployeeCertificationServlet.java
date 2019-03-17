@@ -13,7 +13,11 @@ import controllers.EmployeeController;
 import controllers.EmployeeControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +40,10 @@ public class EmployeeCertificationServlet extends HttpServlet {
     
     CertificateControllerInterface cc = new CertificateController(HibernateUtil.getSessionFactory());
     List<Certificate> datace = null;
+    
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    
+    
    
 
     /**
@@ -76,7 +84,7 @@ public class EmployeeCertificationServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action != null) {
             if (action.equalsIgnoreCase("delete")) {
-                ecc.delete(request.getParameter("id"), "", "", "", "");
+                ecc.delete(request.getParameter("id"), "0000-00-00", "", "", "");
             } else if (action.equalsIgnoreCase("update")) {
                 EmployeeCertification employeeCertification = ecc.getByid(request.getParameter("id"));
                 request.getSession().setAttribute("certId", employeeCertification.getId());
@@ -100,9 +108,11 @@ public class EmployeeCertificationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (ecc.save(request.getParameter("certId"), request.getParameter("certDate"), request.getParameter("certNum"), request.getParameter("cert"), request.getParameter("emp")) != null) {
-            processRequest(request, response);
-        }
+     
+            if (ecc.save(request.getParameter("certId"), request.getParameter("certDate"), request.getParameter("certNum"), request.getParameter("cert"), request.getParameter("emp")) != null) {
+                processRequest(request, response);
+            }
+        
     }
 
     /**

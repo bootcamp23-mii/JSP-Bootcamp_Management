@@ -23,7 +23,7 @@ import org.hibernate.SessionFactory;
 public class EmployeeCertificationController implements EmployeeCertificationControllerInterface {
 
     private DAOInterface<EmployeeCertification> dao;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public EmployeeCertificationController(SessionFactory factory) {
         dao = new GeneralDAO<>(factory, EmployeeCertification.class);

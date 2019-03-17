@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html>
 
-
+    <body>
     <!-- MAIN -->
     <div class="main">
         <!-- MAIN CONTENT -->
