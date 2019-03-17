@@ -20,6 +20,14 @@
         <servlet-name>EmployeeCertificationServlet</servlet-name>
         <servlet-class>servlets.cv.EmployeeCertificationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmployeeAccessServlet</servlet-name>
+        <servlet-class>servlets.pl.EmployeeAccessServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmployeeLockerServlet</servlet-name>
+        <servlet-class>servlets.pl.EmployeeLockerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IdCardServlet</servlet-name>
         <url-pattern>/IdCardServlet</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>EmployeeCertificationServlet</servlet-name>
         <url-pattern>/EmployeeCertificationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeAccessServlet</servlet-name>
+        <url-pattern>/EmployeeAccessServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeLockerServlet</servlet-name>
+        <url-pattern>/EmployeeLockerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
