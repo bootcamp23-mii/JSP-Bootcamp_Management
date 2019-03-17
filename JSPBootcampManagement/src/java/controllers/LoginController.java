@@ -19,7 +19,7 @@ import tools.BCrypt;
 public class LoginController {
     
     private DAOInterface<Employee> dao;
-
+    
     public LoginController(SessionFactory factory) {
         dao = new GeneralDAO<>(factory, Employee.class);
     }
