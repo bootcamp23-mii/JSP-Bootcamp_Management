@@ -36,7 +36,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-                            <a href="index.html"><img src="https://www.metrodata.co.id/web/images/business/2014-08-20-112626.png" alt="Bootcamp Management" class="img-responsive logo" width="30px" height="auto"></a>
+                            <a href="index.html"><img src="../assets/img/logos.png" alt="Bootcamp Management" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">

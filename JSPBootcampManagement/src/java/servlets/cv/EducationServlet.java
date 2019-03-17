@@ -5,8 +5,12 @@
  */
 package servlets.cv;
 
+import controllers.DistrictController;
+import controllers.DistrictControllerInterface;
 import controllers.EducationController;
 import controllers.EducationControllerInterface;
+import controllers.ProvinceController;
+import controllers.ProvinceControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -15,7 +19,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.District;
 import models.Education;
+import models.Province;
 import tools.HibernateUtil;
 
 /**
@@ -25,8 +31,11 @@ import tools.HibernateUtil;
 @WebServlet(name = "EducationServlets", urlPatterns = {"/EducationServlets"})
 public class EducationServlet extends HttpServlet {
     
-    EducationControllerInterface edc = new EducationController(HibernateUtil.getSessionFactory());
-    List<Education> data = null;
+   ProvinceControllerInterface pc = new ProvinceController(HibernateUtil.getSessionFactory());
+    List<Province> data = null;
+    
+    DistrictControllerInterface edc = new DistrictController(HibernateUtil.getSessionFactory());
+    List<District> datak = null;
     
 
     /**
@@ -43,7 +52,7 @@ public class EducationServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            data = edc.getAll();
+            data = pc.getAll();
             request.getSession().setAttribute("data", data);
             response.sendRedirect("cv/EducationView.jsp");
         }
@@ -61,6 +70,13 @@ public class EducationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action != null) {
+           
+                datak = pc.getById(request.getParameter("prov_id")).getDistrictList();
+                request.getSession().setAttribute("datak", datak);
+          
+        }
         processRequest(request, response);
     }
 

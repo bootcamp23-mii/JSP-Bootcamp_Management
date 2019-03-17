@@ -3,6 +3,8 @@
     Created on : Mar 14, 2019, 11:11:57 AM
     Author     : Lusiana
 --%>
+<%@page import="models.Province"%>
+<%@page import="models.District"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Education"%>
 <%@page import="java.util.List"%>
@@ -14,27 +16,44 @@
 <jsp:include page="header.jsp" />
 <!DOCTYPE html>
 <html>
-<body bgcolor='#F0FFFF'> 
-    
-    <div class="container">
-    <table class="table table-striped" cellspacing='30' align ='center'>
-        <tr class="active">
-            <th>No.</th>
-            <th>Degree</th>
-            <th>Major</th>
-            <th>University</th>
-        </tr>
-        <% int i = 1;
-            for (Education elem : (List<Education>) session.getAttribute("data")) {%>
-        <tr>
-            <td><%= i++%></td>
-            <td><%= elem.getDegree().getName()%></td>
-            <td><%= elem.getMajor().getName()%></td>
-            <td><%= elem.getUniversity().getName()%></td>
-        </tr>
-        <%}%>
-    </table>
-    </div>
-</body>
-<jsp:include page="footer.jsp" />
+    <script>
+        $(document).ready(function () {
+            $('#provinsi').change(function () {
+                var provinsi_id = $(this).val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '../EducationServlet',
+                    data: 'prov_id' = '+provinsi_id',
+                            success: function (response) {
+                                $('#kota').html(response);
+
+                            }
+                })
+            })
+        })
+    </script>
+
+
+    <body bgcolor='#F0FFFF'> 
+
+        <div class="container">
+
+            <div class="form-group">
+                <label>Education</label>
+                <select class="form-control" name="provinsi" id="provinsi">
+                    <% for (Province elem : (List<Province>) session.getAttribute("data")) {
+                            out.print("<option "
+                                    + "value=\"" + elem.getId() + "\" "
+                                    + ">"
+                                    + elem.getName() + "</option>");
+                        }%>
+
+                </select>
+
+            </div>
+            
+        </div>
+    </body>
+    <jsp:include page="footer.jsp" />
 </html>

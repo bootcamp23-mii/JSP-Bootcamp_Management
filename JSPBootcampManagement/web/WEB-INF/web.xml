@@ -28,6 +28,10 @@
         <servlet-name>EmployeeLockerServlet</servlet-name>
         <servlet-class>servlets.pl.EmployeeLockerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProvinsiServlet</servlet-name>
+        <servlet-class>servlets.cv.ProvinsiServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IdCardServlet</servlet-name>
         <url-pattern>/IdCardServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>EmployeeLockerServlet</servlet-name>
         <url-pattern>/EmployeeLockerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProvinsiServlet</servlet-name>
+        <url-pattern>/ProvinsiServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
