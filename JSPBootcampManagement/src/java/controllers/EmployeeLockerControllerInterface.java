@@ -19,6 +19,6 @@ import models.Locker;
     public EmployeeLocker getById (String id);
     public List<EmployeeLocker> getAll();
     public List<EmployeeLocker> search (Object keyword);
-    public String save(String id, String receiveDate, String returnDate, String notes, String employee ,String locker);
-    public String delete(String id, String receivedate, String returndate, String notes, String employee ,String locker);
+    public String save(String id, String receiveDate, String returnDate, String notes,String locker, String employee );
+    public String delete(String id, String receivedate, String returndate, String notes,String locker, String employee);
 }

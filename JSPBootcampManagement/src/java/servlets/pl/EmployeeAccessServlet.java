@@ -77,7 +77,9 @@ public class EmployeeAccessServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action != null) {
-            if (action.equalsIgnoreCase("update")) {
+            if (action.equalsIgnoreCase("delete")) {
+                eaci.delete(request.getParameter("id"), "0000-00-00", "0000-00-00", "", "", "");
+            } else if (action.equalsIgnoreCase("update")) {
                 EmployeeAccess ea = eaci.getById(request.getParameter("id"));
                 request.getSession().setAttribute("emId", ea.getId());
                 request.getSession().setAttribute("emReceive", ea.getReceiveDate());

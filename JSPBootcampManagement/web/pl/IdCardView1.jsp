@@ -17,6 +17,11 @@
 <!DOCTYPE html>
 <html>
     <body>
+        <script>
+            $(document).ready(function () {
+                $('#tableid').DataTable();
+            });
+        </script>
         <%
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat dateFormatChoose = new SimpleDateFormat("yyyy-MM-dd");
@@ -84,33 +89,37 @@
                                         <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                                     </div>
                                 </div>
-                                <div class="panel-body no-padding">
-                                    <table class="table table-hover" tcellspacing='30' align='center'>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Id</th>
-                                            <th>Receive Date</th>
-                                            <th>Return Date</th>
-                                            <th>Note</th>
-                                            <th>Employee</th>
-                                            <th>Aksi</th>
-                                        </tr>
-
-                                        <% int j = 1;
-                                            for (IdCard elem : (List<IdCard>) session.getAttribute(
-                                                    "idcard")) {%>
-                                        <tr>
-                                            <td><%= j++%></td>
-                                            <td><%= elem.getId()%></td>
-                                            <td><%= dateFormat.format(elem.getReceiveDate())%></td>
-                                            <td><%= dateFormat.format(elem.getReturnDate())%></td>
-                                            <td><%= elem.getNote()%></td>
-                                            <td><%= elem.getEmployee().getName()%></td>
-                                            <td>
-                                                <a href="../IdCardServlet?action=update&id=<%= elem.getId()%>">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <%}%>
+                                <div class="panel-body">
+                                    <table id="tableid" class="table table-hover" tcellspacing='30' align='center'>
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Id</th>
+                                                <th>Receive Date</th>
+                                                <th>Return Date</th>
+                                                <th>Note</th>
+                                                <th>Employee</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% int j = 1;
+                                                for (IdCard elem : (List<IdCard>) session.getAttribute(
+                                                        "idcard")) {%>
+                                            <tr>
+                                                <td><%= j++%></td>
+                                                <td><%= elem.getId()%></td>
+                                                <td><%= dateFormat.format(elem.getReceiveDate())%></td>
+                                                <td><%= dateFormat.format(elem.getReturnDate())%></td>
+                                                <td><%= elem.getNote()%></td>
+                                                <td><%= elem.getEmployee().getName()%></td>
+                                                <td>
+                                                    <a href="../IdCardServlet?action=update&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="../IdCardServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div class="panel-footer">

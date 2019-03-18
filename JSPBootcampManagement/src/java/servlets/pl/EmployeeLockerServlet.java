@@ -75,14 +75,16 @@ public class EmployeeLockerServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action != null) {
-            if (action.equalsIgnoreCase("update")) {
+            if (action.equalsIgnoreCase("delete")) {
+                elci.delete(request.getParameter("id"), "0000-00-00", "0000-00-00", "", "", "");
+            } else if (action.equalsIgnoreCase("update")) {
                 EmployeeLocker el = elci.getById(request.getParameter("id"));
                 request.getSession().setAttribute("empId", el.getId());
                 request.getSession().setAttribute("empReceive", el.getReceiveDate());
                 request.getSession().setAttribute("empReturn", el.getReturnDate());
                 request.getSession().setAttribute("empNote", el.getNotes());
-                request.getSession().setAttribute("empEmployee", el.getEmployee().getId());
                 request.getSession().setAttribute("empLocker", el.getLocker().getId());
+                request.getSession().setAttribute("empEmployee", el.getEmployee().getId());
             }
         }
         processRequest(request, response);

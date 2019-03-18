@@ -74,7 +74,9 @@ public class IdCardServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action != null) {
-          if (action.equalsIgnoreCase("update")) {
+           if (action.equalsIgnoreCase("delete")) {
+                icci.delete(request.getParameter("id"), "0000-00-00", "0000-00-00", "", "");
+            } else if (action.equalsIgnoreCase("update")) {
                 IdCard idCard = icci.getByid(request.getParameter("id"));
                 request.getSession().setAttribute("idcardId", idCard.getId());
                 request.getSession().setAttribute("idcardReceive", idCard.getReceiveDate());

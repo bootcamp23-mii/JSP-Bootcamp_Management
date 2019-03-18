@@ -21,6 +21,11 @@
 <!DOCTYPE html>
 <html>
     <body>
+        <script>
+            $(document).ready(function () {
+                $('#tablelock').DataTable();
+            });
+        </script>
         <%
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat dateFormatChoose = new SimpleDateFormat("yyyy-MM-dd");
@@ -57,6 +62,17 @@
                                             <input type="date" class="form-control" id="empReturn" name="empReturn" value="<%= (session.getAttribute("empReturn") != null) ? dateFormatChoose.format(session.getAttribute("empReturn")) : dateFormatChoose.format(new Date())%>">
                                         </div>
                                         <div class="form-group">
+                                            <label>LOCKER NUMBER</label>
+                                            <select class="form-control" name="empLocker">
+                                                <% for (Locker elem : (List<Locker>) session.getAttribute("lockers")) {
+                                                        out.print("<option "
+                                                                + "value=\"" + elem.getId() + "\" "
+                                                                + (elem.getId().equals(session.getAttribute("empLocker")) ? "selected" : "") + ">"
+                                                                + elem.getLockerNumber() + "</option>");
+                                                    }%>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>NOTE</label>
                                             <input class="form-control" type="text" name="empNote" value="<%= (session.getAttribute("empNote") != null) ? session.getAttribute("empNote") : ""%>"/>
                                         </div>
@@ -70,17 +86,6 @@
                                                                 + elem.getName() + "</option>");
                                                     }%>
 
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>LOCKER NUMBER</label>
-                                            <select class="form-control" name="empLocker">
-                                                <% for (Locker elem : (List<Locker>) session.getAttribute("lockers")) {
-                                                        out.print("<option "
-                                                                + "value=\"" + elem.getId() + "\" "
-                                                                + (elem.getId().equals(session.getAttribute("empLocker")) ? "selected" : "") + ">"
-                                                                + elem.getLockerNumber() + "</option>");
-                                                    }%>
                                             </select>
                                         </div>
                                         <button type="submit" value="Save" name="save" class="btn btn-info">Save</button>
@@ -99,35 +104,39 @@
                                         <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                                     </div>
                                 </div>
-                                <div class="panel-body no-padding">
-                                    <table class="table table-hover" tcellspacing='30' align='center'>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Id</th>
-                                            <th>Receive Date</th>
-                                            <th>Return Date</th>
-                                            <th>Note</th> 
-                                            <th>Employee</th>
-                                            <th>Locker Number</th>
-                                            <th>Aksi</th>
-                                        </tr>
-
-                                        <% int j = 1;
-                                            for (EmployeeLocker elem : (List<EmployeeLocker>) session.getAttribute(
-                                                    "locker")) {%>
-                                        <tr>
-                                            <td><%= j++%></td>
-                                            <td><%= elem.getId()%></td>
-                                            <td><%= dateFormat.format(elem.getReceiveDate())%></td>
-                                            <td><%= dateFormat.format(elem.getReturnDate())%></td>
-                                            <td><%= elem.getNotes()%></td>
-                                            <td><%= elem.getEmployee().getName()%></td>
-                                            <td><%= elem.getLocker().getLockerNumber()%></td>
-                                            <td>
-                                                <a href="../EmployeeLockerServlet?action=update&id=<%= elem.getId()%>">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <%}%>
+                                <div class="panel-body">
+                                    <table id="tablelock" class="table table-hover" tcellspacing='30' align='center'>
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Id</th>
+                                                <th>Receive Date</th>
+                                                <th>Return Date</th>
+                                                <th>Note</th> 
+                                                <th>Locker Number</th>
+                                                <th>Employee</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% int j = 1;
+                                                for (EmployeeLocker elem : (List<EmployeeLocker>) session.getAttribute(
+                                                        "locker")) {%>
+                                            <tr>
+                                                <td><%= j++%></td>
+                                                <td><%= elem.getId()%></td>
+                                                <td><%= dateFormat.format(elem.getReceiveDate())%></td>
+                                                <td><%= dateFormat.format(elem.getReturnDate())%></td>
+                                                <td><%= elem.getNotes()%></td>
+                                                <td><%= elem.getLocker().getLockerNumber()%></td>
+                                                <td><%= elem.getEmployee().getName()%></td>
+                                                <td>
+                                                    <a href="../EmployeeLockerServlet?action=update&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="../EmployeeLockerServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div class="panel-footer">

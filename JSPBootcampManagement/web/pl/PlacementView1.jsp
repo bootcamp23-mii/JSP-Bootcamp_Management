@@ -21,6 +21,11 @@
 <!DOCTYPE html>
 <html>
     <body>
+        <script>
+            $(document).ready(function () {
+                $('#tableplace').DataTable();
+            });
+        </script>
         <%
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat dateFormatChoose = new SimpleDateFormat("yyyy-MM-dd");
@@ -108,39 +113,42 @@
                                         <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                                     </div>
                                 </div>
-                                <div class="panel-body no-padding">
-                                    <table class="table table-hover" tcellspacing='30' align='center'>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Id</th>
-                                            <th>Description</th>
-                                            <th>Address</th>
-                                            <th>Department</th>
-                                            <th>Start Date</th>
-                                            <th>Finish Date</th>
-                                            <th>Company</th>
-                                            <th>Employee</th>
-                                            <th>Aksi</th>
-                                        </tr>
-
-                                        <% int j = 1;
+                                <div class="panel-body">
+                                    <table id="tableplace" class="table table-hover" tcellspacing='30' align='center'>
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Id</th>
+                                                <th>Description</th>
+                                                <th>Address</th>
+                                                <th>Department</th>
+                                                <th>Start Date</th>
+                                                <th>Finish Date</th>
+                                                <th>Company</th>
+                                                <th>Employee</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% int j = 1;
                                             for (Placement elem : (List<Placement>) session.getAttribute(
                                                     "placement")) {%>
-                                        <tr>
-                                            <td><%= j++%></td>
-                                            <td><%= elem.getId()%></td>
-                                            <td><%= elem.getDescription()%></td>
-                                            <td><%= elem.getAddress()%></td>
-                                            <td><%= elem.getDepartment()%></td>
-                                            <td><%= dateFormat.format(elem.getStartDate())%></td>
-                                            <td><%= dateFormat.format(elem.getFinishDate())%></td>
-                                            <td><%= elem.getCompany().getName()%></td>
-                                            <td><%= elem.getEmployee().getName()%></td>
-                                            <td>
-                                                <a href="../PlacementServlet?action=update&id=<%= elem.getId()%>">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <%}%>
+                                            <tr>
+                                                <td><%= j++%></td>
+                                                <td><%= elem.getId()%></td>
+                                                <td><%= elem.getDescription()%></td>
+                                                <td><%= elem.getAddress()%></td>
+                                                <td><%= elem.getDepartment()%></td>
+                                                <td><%= dateFormat.format(elem.getStartDate())%></td>
+                                                <td><%= dateFormat.format(elem.getFinishDate())%></td>
+                                                <td><%= elem.getCompany().getName()%></td>
+                                                <td><%= elem.getEmployee().getName()%></td>
+                                                <td>
+                                                    <a href="../PlacementServlet?action=update&id=<%= elem.getId()%>">Edit</a>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div class="panel-footer">
