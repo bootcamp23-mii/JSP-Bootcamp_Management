@@ -68,19 +68,18 @@
                                     <table class="table table-hover" tcellspacing='30' align='center'>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Id</th>
                                             <th>Achievement</th>
+                                            <th>Action</th>
                                         </tr>
                                         <% int j = 1;
                                             for (Achievement elem : (List<Achievement>) session.getAttribute(
                                                     "data")) {%>
                                         <tr>
                                             <td><%= j++%></td>
-                                            <td><%= elem.getId()%></td>
                                             <td><%= elem.getName()%></td>
                                             <td>
-                                                <a href="../AchievementServlet?action=update&id=<%= elem.getId()%>">Edit</a>
-                                                <a href="../AchievementServlet?action=delete&id=<%= elem.getId()%>">Hapus</a>
+                                                <a href="../AchievementServlet?action=update&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                <a href="../AchievementServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a>
                                             </td>
                                         </tr>
                                         <%}%>

@@ -20,6 +20,11 @@
 <jsp:include page="newFooter.jsp" />
 <!DOCTYPE html>
 <html>
+    <script>
+        $(document).ready(function () {
+            $('#tablecert').DataTable();
+        });
+    </script>
     <body>
         <%
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -32,11 +37,11 @@
                 <div class="container-fluid">
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <!-- MULTI CHARTS -->
                             <div class="panel">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Input Education History</h3>
+                                    <h3 class="panel-title">Input Certificate</h3>
                                     <div class="right">
                                         <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                                         <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
@@ -75,45 +80,48 @@
                             </div>
                             <!-- END MULTI CHARTS -->
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <!-- RECENT PURCHASES -->
                             <div class="panel">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Education History</h3>
+                                    <h3 class="panel-title">Certificates</h3>
                                     <div class="right">
                                         <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                                         <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                                     </div>
                                 </div>
-                                <div class="panel-body no-padding">
-                                    <table class="table table-hover" tcellspacing='30' align='center'>
+                                <div class="panel-body">
+                                    <table id="tablecert" name="tablecert" class="table table-hover" tcellspacing='30' align='center'>
+                                        <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Id</th>
                                             <th>Certification Date</th>
                                             <th>Certification Number</th>
                                             <th>Name</th>
+                                            <th>Action</th>
                                         </tr>
+                                        </thead>
+                                        <tbody>
                                         <% int j = 1;
                                             for (EmployeeCertification elem : (List<EmployeeCertification>) session.getAttribute(
                                                     "data")) {%>
                                         <tr>
                                             <td><%= j++%></td>
-                                            <td><%= elem.getId()%></td>
                                             <td><%= dateFormat.format(elem.getCertificatedate())%></td>
                                             <td><%= elem.getCertificatenumber()%></td>
                                             <td><%= elem.getCertificate().getName()%></td>
                                             <td>
-                                                <a href="../EmployeeCertificationServlet?action=update&id=<%= elem.getId()%>">Edit</a>
-                                                <a href="../EmployeeCertificationServlet?action=delete&id=<%= elem.getId()%>">Hapus</a>
+                                                <a href="../EmployeeCertificationServlet?action=update&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                <a href="../EmployeeCertificationServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a>
                                             </td>
                                         </tr>
                                         <%}%>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div class="panel-footer">
                                     <div class="row">
-                                        <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div>
+                                        <div class="col-md-4"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div>
                                         <!--<div class="col-md-6 text-right"><a href="#" class="btn btn-primary">View All Purchases</a></div>-->
                                     </div>
                                 </div>

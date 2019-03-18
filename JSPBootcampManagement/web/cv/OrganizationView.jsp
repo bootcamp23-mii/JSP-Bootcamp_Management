@@ -19,41 +19,50 @@
 <html>
 
     <body>
-    <!-- MAIN -->
-    <div class="main">
-        <!-- MAIN CONTENT -->
-        <div class="main-content">
-            <div class="container-fluid">
+        <script>
+            $(document).ready(function () {
+                $('#tableorg').DataTable();
+            });
+        </script>
+        <!-- MAIN -->
+        <div class="main">
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+                <div class="container-fluid">
 
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="row">
                         <!-- MULTI CHARTS -->
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Input Organization</h3>
-                                <div class="right">
-                                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-                                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-                                </div>
-                            </div>
-                            <div class="panel-body">
+                        <div class="modal fade" id="modalorg" tabindex="-1" role="dialog" 
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
                                 <form action="../OrganizationServlet" method="POST">
-                                    <div class="form-group">
-                                        <input type="hidden" class="form-control" name="orgId" value="<%= (session.getAttribute("orgId") != null) ? session.getAttribute("orgId") : ""%>"/>
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <h3 class="modal-title">Organization</h3>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" name="orgId" value="<%= (session.getAttribute("orgId") != null) ? session.getAttribute("orgId") : ""%>"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Nama Organisasi</label>
+                                                <input type="text" class="form-control" name="orgName" value="<%= (session.getAttribute("orgName") != null) ? session.getAttribute("orgName") : ""%>"/>
+                                            </div>
+                                            <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" value="Save" name="save" class="btn btn-info">Save</button>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Nama Organisasi</label>
-                                        <input type="text" class="form-control" name="orgName" value="<%= (session.getAttribute("orgName") != null) ? session.getAttribute("orgName") : ""%>"/>
-                                    </div>
-                                    <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
-
-                                    <button type="submit" value="Save" name="save" class="btn btn-info">Save</button>
                                 </form>
                             </div>
                         </div>
                         <!-- END MULTI CHARTS -->
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-10">
                         <!-- RECENT PURCHASES -->
                         <div class="panel">
                             <div class="panel-heading">
@@ -63,26 +72,34 @@
                                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                                 </div>
                             </div>
-                            <div class="panel-body no-padding">
-                                <table class="table table-hover" tcellspacing='30' align='center'>
+
+                            <div class="panel-body">
+                                <a class="btn btn-success" data-target="#modalorg" data-toggle="modal">Input Organization</a>
+                            </div>
+                            <div class="panel-body">
+                                <table id="tableorg" class="table table-hover" tcellspacing='30' align='center'>
+                                    <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Id</th>
                                         <th>Organisasi</th>
+                                        <th>Action</th>
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     <% int j = 1;
                                         for (Organization elem : (List<Organization>) session.getAttribute(
                                                 "data")) {%>
                                     <tr>
                                         <td><%= j++%></td>
-                                        <td><%= elem.getId()%></td>
                                         <td><%= elem.getName()%></td>
                                         <td>
-                                            <a href="../OrganizationServlet?action=update&id=<%= elem.getId()%>">Edit</a>
-                                            <a href="../OrganizationServlet?action=delete&id=<%= elem.getId()%>">Hapus</a>
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalorg" 
+                                                    data-getid="<%= elem.getId()%>" data-getname="<%= elem.getName()%>"><span class="glyphicon glyphicon-pencil"></span></a></button>
+                                                    <button type="button" class="btn btn-danger"><a href="../OrganizationServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a></button>
                                         </td>
                                     </tr>
                                     <%}%>
+                                    </tbody>
                                 </table>
                             </div>
                             <div class="panel-footer">
@@ -96,10 +113,23 @@
                     </div>
                 </div>
 
+                <script>
+                    $('#modalorg').on('show.bs.modal', function (event) {
+                        var button = $(event.relatedTarget) // Button that triggered the modal
+                        var id = button.data('getid') // Extract info from data-* attributes
+                        var name = button.data('getname')// Extract info from data-* attributes
+                        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                        var modal = $(this)
+                        modal.find('#id-r').val(id)
+                        modal.find('#name-r').val(name)
+                    })
+                </script>
+
                 <!-- END MAIN -->
 
                 <% session.removeAttribute(
-                "orgId"); %>
+                            "orgId"); %>
                 <% session.removeAttribute(
-                "orgName");%>
+                            "orgName");%>
                 </html>
