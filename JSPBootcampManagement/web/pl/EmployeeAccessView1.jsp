@@ -130,7 +130,8 @@
                                                 <td><%= elem.getAccessCard().getAccessNumber()%></td>
                                                 <td><%= elem.getEmployee().getName()%></td>
                                                 <td>
-                                                    <a href="../EmployeeAccessServlet?action=update&id=<%= elem.getId()%>">Edit</a>
+                                                    <a href="../EmployeeAccessServlet?action=update&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="../EmployeeAccessServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a>
                                                 </td>
                                             </tr>
                                             <%}%>

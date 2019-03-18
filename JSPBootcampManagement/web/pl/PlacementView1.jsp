@@ -144,7 +144,8 @@
                                                 <td><%= elem.getCompany().getName()%></td>
                                                 <td><%= elem.getEmployee().getName()%></td>
                                                 <td>
-                                                    <a href="../PlacementServlet?action=update&id=<%= elem.getId()%>">Edit</a>
+                                                    <a href="../PlacementServlet?action=update&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="../PlacementServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a>
                                                 </td>
                                             </tr>
                                             <%}%>

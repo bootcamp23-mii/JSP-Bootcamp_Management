@@ -37,7 +37,7 @@
                 <div class="container-fluid">
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <!-- MULTI CHARTS -->
                             <div class="panel">
                                 <div class="panel-heading">
@@ -94,7 +94,7 @@
                             </div>
                             <!-- END MULTI CHARTS -->
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <!-- RECENT PURCHASES -->
                             <div class="panel">
                                 <div class="panel-heading">

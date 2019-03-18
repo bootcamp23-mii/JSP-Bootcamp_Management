@@ -73,8 +73,10 @@ public class PlacementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action != null) {
-            if (action.equalsIgnoreCase("update")) {
+        if (action != null) { 
+            if (action.equalsIgnoreCase("delete")) {
+                pci.delete(request.getParameter("id"), "", "", "", "0000-00-00", "0000-00-00", "", "");
+            } else if (action.equalsIgnoreCase("update")) {
                 Placement p = pci.getById(request.getParameter("id"));
                 request.getSession().setAttribute("plaId", p.getId());
                 request.getSession().setAttribute("plaDescription", p.getDescription());
