@@ -46,10 +46,8 @@ public class WorkExperienceServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            workexpdata = wc.getAll();
-            employeedata = ec.getAll();
-            request.getSession().setAttribute("workExpData", workexpdata);
-            request.getSession().setAttribute("employeeData", employeedata);
+            request.getSession().setAttribute("workExpData", wc.getAll());
+            request.getSession().setAttribute("employeeData", ec.searchWD(""));
             response.sendRedirect("cv/WorkExperienceView.jsp");
         }
     }

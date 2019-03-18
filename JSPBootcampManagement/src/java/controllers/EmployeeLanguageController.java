@@ -7,8 +7,11 @@ package controllers;
 
 import daos.DAOInterface;
 import daos.GeneralDAO;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.*;
 import org.hibernate.SessionFactory;
 
@@ -38,13 +41,18 @@ public class EmployeeLanguageController implements EmployeeLanguageControllerInt
     public List<EmployeeLanguage> search(Object keyword) {
         return dao.getData(keyword);
     }
+    
+    @Override
+    public List<EmployeeLanguage> searchWD(Object keyword) {
+        return dao.getDataWD(keyword,0);
+    }
 
     @Override
-    public String save(String id, String score, String isActive, String isdeleted, String language, String employee) {
+    public boolean save(String id, String score, String isActive, String isdeleted, String language, String employee) {
         if (dao.saveOrDelete(new EmployeeLanguage(id, new Double(null), new Short("0"), new Short("0"), new Language(language), new Employee(employee)), true)) {
-            return "Save Data Success!";
+            return true;
         } else {
-            return "Save Failed!";
+            return false;
         }
     }
 
@@ -54,6 +62,14 @@ public class EmployeeLanguageController implements EmployeeLanguageControllerInt
             return "Delete Data Success!";
         } else {
             return "Delete Failed!";
+        }
+    }
+    
+    public boolean deleteSoft(String id, String score, String isActive, String isdeleted, String language, String employee) {
+        if (dao.saveOrDelete(new EmployeeLanguage(id, new Double(null), new Short("0"), new Short("1"), new Language(language), new Employee(employee)), true)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

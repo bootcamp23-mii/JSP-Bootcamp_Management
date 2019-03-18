@@ -24,7 +24,7 @@
 </head>
 <body>
     <h1>Employee Skill</h1>
-    <!--show table-->
+    <!--Inputs-->
     <form action="EmployeeSkillServlet" method="POST">
         <div class="form-group">
             <input type="hidden" class="form-control" name="empSkillId" value="<%= (session.getAttribute("empSkillId") != null) ? session.getAttribute("empSkillId") : ""%>"/>
@@ -36,7 +36,8 @@
                         out.print("<option "
                                 + "value=\"" + elem.getId() + "\" "
                                 + (elem.getId().equals(session.getAttribute("skill")) ? "selected" : "") + ">"
-                                + elem.getName() + "</option>");
+                                + elem.getName() + " "
+                                + elem.getCategory().getName() + "</option>");
                     }%>
             </select>
         </div>
@@ -48,6 +49,7 @@
 
         <button type="submit" value="Save" name="save" class="btn btn-info">Save</button>
     </form>
+    <!--Show tables-->
     <table id="tableEmpSkill" class="table table-striped" cellspacing='30' align ='center' border="1">
         <thead class="active">
             <tr>
@@ -67,7 +69,7 @@
             %>
             <tr>
                 <td><%=i++%></td>
-                <td><%=dataEmpSkill.getSkill().getName()%></td>
+                <td><%=dataEmpSkill.getSkill().getName()%> <%= dataEmpSkill.getSkill().getCategory().getName()%></td>
                 <td><%=dataEmpSkill.getScore()%></td>
                 <td>
                     <%
@@ -88,9 +90,8 @@
                     %>
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
-                            onclick="selectDropDown('<%=tempID%>', '<%=tempSkill%>')"
-                            >Edit</button>
-                    <a class="btn btn-danger" href="../EmployeeSkillServlet?action=delete&id=<%= dataEmpSkill.getId()%>">Hapus</a>
+                            data-getid="<%=dataEmpSkill.getId()%>" data-getskill="<%=dataEmpSkill.getScore()%>">Edit</button>
+                    <a class="btn btn-danger" href="EmployeeSkillServlet?action=delete&<%=dataEmpSkill.getId()%>">Hapus</a>
                 </td>
             </tr>
             <%

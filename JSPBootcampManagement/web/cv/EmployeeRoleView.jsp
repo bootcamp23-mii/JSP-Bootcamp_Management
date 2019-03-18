@@ -96,8 +96,8 @@
                 <td><%=dataEmpRole.getEmployee().getId()%></td>
                 <td><%=dataEmpRole.getEmployee().getName()%></td>
                 <td><%=dataEmpRole.getRole().getName()%></td>
-                <td><%=dataEmpRole.getStartDate().toString()%></td>
-                <td><%=dataEmpRole.getEndDate().toString()%></td>
+                <td><%=dataEmpRole.getStartDate().toInstant().toString()%></td>
+                <td><%=dataEmpRole.getEndDate()%></td>
                 <td>
                     <%
                             if (!isEmployeeListEmpty) {

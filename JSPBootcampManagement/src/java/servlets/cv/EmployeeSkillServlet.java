@@ -51,12 +51,9 @@ public class EmployeeSkillServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            empskilldata = esc.getAll();
-            employeedata = ec.getAll();
-            skilldata = skc.getAll();
-            request.getSession().setAttribute("empSkillData", empskilldata);
-            request.getSession().setAttribute("employeeData", employeedata);
-            request.getSession().setAttribute("skillData", skilldata);
+            request.getSession().setAttribute("empSkillData", esc.getAll());
+            request.getSession().setAttribute("employeeData", ec.searchWD(""));
+            request.getSession().setAttribute("skillData", skc.getAll());
             response.sendRedirect("cv/EmployeeSkillView.jsp");
         }
     }

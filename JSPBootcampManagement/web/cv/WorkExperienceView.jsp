@@ -108,7 +108,7 @@
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
                             data-getid="<%= dataWorkExp.getId()%>" data-getname="<%= dataWorkExp.getName()%>" data-getdescription="<%= dataWorkExp.getDescription()%>" data-getstartdate="<%=dataWorkExp.getStartDate().toString()%>" data-getenddate="<%=dataWorkExp.getEndDate().toString()%>">Edit</button>
-                    <a class="btn btn-danger" href="RegionServlet?action=delete&<%= dataWorkExp.getId()%>">Hapus</a>
+                    <a class="btn btn-danger" href="WorkExperienceServlet?action=delete&<%= dataWorkExp.getId()%>">Hapus</a>
                 </td>
             </tr>
             <%
@@ -116,6 +116,11 @@
                 }
             %>
         </tbody>
+        <script>
+            $(document).ready(function () {
+                $('#tableWorkExp').DataTable();
+            });
+        </script>
     </table>
 
     <script>

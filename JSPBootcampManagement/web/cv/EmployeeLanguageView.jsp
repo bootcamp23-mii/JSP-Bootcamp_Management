@@ -15,7 +15,8 @@
     boolean isEmpLangListEmpty = session.getAttribute("empLangData") == null;
     boolean isEmployeeListEmpty = session.getAttribute("employeeData") == null;
     boolean isLanguageListEmpty = session.getAttribute("languageData") == null;
-    if (isEmpLangListEmpty || isEmployeeListEmpty || isLanguageListEmpty) {
+    boolean isActiveListEmpty = session.getAttribute("activeData") == null;
+    if (isEmpLangListEmpty || isEmployeeListEmpty || isLanguageListEmpty || isActiveListEmpty) {
         response.sendRedirect("../EmployeeLanguageServlet");
     }
 %>
@@ -23,19 +24,19 @@
 
 </head>
 <body>
-    <h1>Employee Skill</h1>
+    <h1>Employee Language</h1>
     <!--show table-->
-    <form action="EmployeeLanguageServlet" method="POST">
+    <form action="../EmployeeLanguageServlet" method="POST">
         <div class="form-group">
-            <input type="hidden" class="form-control" name="empLangId" value="<%= (session.getAttribute("empSkillId") != null) ? session.getAttribute("empSkillId") : ""%>"/>
+            <input type="hidden" class="form-control" name="empLangId" value="<%= (session.getAttribute("empLangId") != null) ? session.getAttribute("empLangId") : ""%>"/>
         </div>
         <div class="form-group">
-            <label>Skill</label>
+            <label>Language</label>
             <select class="form-control" name="languageData" >
                 <% for (Language elem : (List<Language>) session.getAttribute("languageData")) {
                         out.print("<option "
                                 + "value=\"" + elem.getId() + "\" "
-                                + (elem.getId().equals(session.getAttribute("skill")) ? "selected" : "") + ">"
+                                + (elem.getId().equals(session.getAttribute("langauage")) ? "selected" : "") + ">"
                                 + elem.getName() + "</option>");
                     }%>
             </select>
@@ -44,17 +45,29 @@
             <label>Score</label>
             <input type="text" class="form-control" name="languageScore" value="<%= (session.getAttribute("languageScore") != null) ? session.getAttribute("languageScore") : ""%>"/>
         </div>
+        <div class="form-group">
+            <label>Active / Passive</label>
+            <select class="form-control" name="languageActive" >
+                <% for (Language elem : (List<Language>) session.getAttribute("languageActive")) {
+                        out.print("<option "
+                                + "value=\"" + elem.getId() + "\" "
+                                + (elem.getId().equals(session.getAttribute("langauage")) ? "selected" : "") + ">"
+                                + elem.getName() + "</option>");
+                    }%>
+            </select>
+        </div>
+            
         <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
-
         <button type="submit" value="Save" name="save" class="btn btn-info">Save</button>
     </form>
+        
     <table id="tableEmpLang" class="table table-striped" cellspacing='30' align ='center' border="1">
         <thead class="active">
             <tr>
                 <th>No.</th>
                 <th>Language</th>
                 <th>Score</th>
-                <!--<th>Active / Passive</th>-->
+                <th>Active / Passive</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -63,6 +76,8 @@
                 int i = 1;
                 String tempID = "";
                 String tempLanguage = "";
+                String tempScore = "";
+                String tempActive = "";
                 if (!isEmpLangListEmpty) {
                     for (EmployeeLanguage dataEmpLang : (List<EmployeeLanguage>) session.getAttribute("empLangData")) {
             %>
@@ -87,10 +102,24 @@
                                 }
                             }
                         }
+                        if (!isEmployeeListEmpty) {
+                            for (Employee dataEmployee : (List<Employee>) session.getAttribute("employeeData")) {
+                                if (dataEmployee.getId().equalsIgnoreCase(dataEmpLang.getId())) {
+                                    tempID = dataEmpLang.getId();
+                                }
+                            }
+                        }
+                        if (!isLanguageListEmpty) {
+                            for (Language dataLanguage : (List<Language>) session.getAttribute("languageData")) {
+                                if (dataLanguage.getId().equalsIgnoreCase(dataLanguage.getId())) {
+                                    tempLanguage = dataLanguage.getId();
+                                }
+                            }
+                        }
                     %>
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
-                            onclick="selectDropDown('<%=tempID%>', '<%=tempLanguage%>')"
+                            onclick="selectDropDown('<%=tempID%>', '<%=tempLanguage%>', '<%=tempScore%>', '<%=tempActive%>')"
                             >Edit</button>
                     <a class="btn btn-danger" href="../EmployeeLanguageServlet?action=delete&id=<%= dataEmpLang.getId()%>">Hapus</a>
                 </td>
@@ -112,4 +141,5 @@
 <% session.removeAttribute("empLangId"); %>
 <% session.removeAttribute("languageData");%>
 <% session.removeAttribute("languageScore");%>
+<% session.removeAttribute("languageActive");%>
 <jsp:include page="../footerCV.jsp" />

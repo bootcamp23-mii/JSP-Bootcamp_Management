@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 import models.*;
 
@@ -17,7 +18,7 @@ import models.*;
     public List<EmployeeRole> getAll();
     public List<EmployeeRole> search(Object keyword);
     public List<EmployeeRole> searchWD(Object keyword);
-    public String save(String id, String startDate, String endDate, String isdeleted, String role, String employee);
-    public String delete(String id, String startDate, String endDate, String isdeleted, String role, String employee);
-    public String deleteSoft(String id, String startDate, String endDate, String isdeleted, String role, String employee);
+    public boolean save(String id, Date startDate, Date endDate, String isdeleted, String role, String employee);
+    public String delete(String id, Date startDate, Date endDate, String isdeleted, String role, String employee);
+    public boolean deleteSoft(String id, Date startDate, Date endDate, String isdeleted, String role, String employee);
 }

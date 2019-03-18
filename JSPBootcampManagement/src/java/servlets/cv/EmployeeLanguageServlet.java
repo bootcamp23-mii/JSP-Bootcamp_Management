@@ -51,12 +51,9 @@ public class EmployeeLanguageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            emplangdata = elc.getAll();
-            employeedata = ec.getAll();
-            languagedata = lc.getAll();
-            request.getSession().setAttribute("empLangData", emplangdata);
-            request.getSession().setAttribute("employeeData", employeedata);
-            request.getSession().setAttribute("languageData", languagedata);
+            request.getSession().setAttribute("empLangData", elc.getAll());
+            request.getSession().setAttribute("employeeData", ec.searchWD(""));
+            request.getSession().setAttribute("languageData", lc.getAll());
             response.sendRedirect("cv/EmployeeLanguageView.jsp");
         }
     }

@@ -40,11 +40,11 @@ public class EmployeeSkillController implements EmployeeSkillControllerInterface
     }
 
     @Override
-    public String save(String id, String score, String isdeleted, String skill, String employee) {
+    public boolean save(String id, String score, String isdeleted, String skill, String employee) {
         if (dao.saveOrDelete(new EmployeeSkill(id, new Double(score), new Short("0"), new Skill(skill), new Employee(employee)), true)) {
-            return "Save Data Success!";
+            return true;
         } else {
-            return "Save Failed!";
+            return false;
         }
     }
 
@@ -54,6 +54,15 @@ public class EmployeeSkillController implements EmployeeSkillControllerInterface
             return "Delete Data Success!";
         } else {
             return "Delete Failed!";
+        }
+    }
+    
+    @Override
+    public boolean deleteSoft(String id, String score, String isdeleted, String skill, String employee) {
+        if (dao.saveOrDelete(new EmployeeSkill(id, new Double(score), new Short("1"), new Skill(skill), new Employee(employee)), true)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

@@ -52,12 +52,9 @@ public class EmployeeRoleServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            emproledata = erc.getAll();
-            employeedata = ec.getAll();
-            roledata = rc.getAll();
-            request.getSession().setAttribute("empRoleData", emproledata);
-            request.getSession().setAttribute("employeeData", employeedata);
-            request.getSession().setAttribute("roleData", roledata);
+            request.getSession().setAttribute("empRoleData", erc.getAll());
+            request.getSession().setAttribute("employeeData", ec.searchWD(""));
+            request.getSession().setAttribute("roleData", rc.getAll());
             response.sendRedirect("cv/EmployeeRoleView.jsp");
         }
     }
