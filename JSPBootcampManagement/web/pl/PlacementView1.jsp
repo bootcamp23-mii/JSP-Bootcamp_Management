@@ -132,8 +132,8 @@
                                             <td><%= elem.getDescription()%></td>
                                             <td><%= elem.getAddress()%></td>
                                             <td><%= elem.getDepartment()%></td>
-                                            <td><%= elem.getStartDate()%></td>
-                                            <td><%= elem.getFinishDate()%></td>
+                                            <td><%= dateFormat.format(elem.getStartDate())%></td>
+                                            <td><%= dateFormat.format(elem.getFinishDate())%></td>
                                             <td><%= elem.getCompany().getName()%></td>
                                             <td><%= elem.getEmployee().getName()%></td>
                                             <td>

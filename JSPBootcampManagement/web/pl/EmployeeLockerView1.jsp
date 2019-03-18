@@ -118,8 +118,8 @@
                                         <tr>
                                             <td><%= j++%></td>
                                             <td><%= elem.getId()%></td>
-                                            <td><%= elem.getReceiveDate()%></td>
-                                            <td><%= elem.getReturnDate()%></td>
+                                            <td><%= dateFormat.format(elem.getReceiveDate())%></td>
+                                            <td><%= dateFormat.format(elem.getReturnDate())%></td>
                                             <td><%= elem.getNotes()%></td>
                                             <td><%= elem.getEmployee().getName()%></td>
                                             <td><%= elem.getLocker().getLockerNumber()%></td>
