@@ -10,6 +10,7 @@ import controllers.EducationHistoryController;
 import controllers.EducationHistoryControllerInterface;
 import controllers.EmployeeController;
 import controllers.EvaluationController;
+import controllers.LoginController;
 import controllers.ParticipantController;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,7 +34,8 @@ public class TestController {
 //        List<Employee> empList = emp.searchWD("14201");
         List<Participant> pList = new ParticipantController(factory).searchWD("");
         System.out.println(factory);
-        
+        LoginController logCon = new LoginController(factory);
+        System.out.println(logCon.login("14303", "admin"));
         EducationHistoryControllerInterface ehc = new EducationHistoryController(factory);
 //        System.out.println(ehc.save("", "3,9", "CVE11", "14201"));
         
