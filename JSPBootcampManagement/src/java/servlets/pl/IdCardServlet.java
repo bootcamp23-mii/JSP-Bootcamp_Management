@@ -9,6 +9,8 @@ import controllers.BatchClassController;
 import controllers.BatchClassControllerInterface;
 import controllers.EmployeeAccessController;
 import controllers.EmployeeAccessControllerInterface;
+import controllers.EmployeeController;
+import controllers.EmployeeControllerInterface;
 import controllers.IdCardController;
 import controllers.IdCardControllerInterface;
 import java.io.IOException;
@@ -28,14 +30,14 @@ import tools.HibernateUtil;
  * @author Firsta
  */
 public class IdCardServlet extends HttpServlet {
-    
+
     IdCardControllerInterface icci = new IdCardController(HibernateUtil.getSessionFactory());
-    EmployeeAccessControllerInterface eaci = new EmployeeAccessController(HibernateUtil.getSessionFactory());
-    BatchClassControllerInterface bcci = new BatchClassController(HibernateUtil.getSessionFactory());
-    
-    List<IdCard> data = null;
+    List<IdCard> idcard = null;
+    EmployeeControllerInterface eaci = new EmployeeController(HibernateUtil.getSessionFactory());
     List<Employee> employees = null;
-    List<BatchClass> classes = null;
+//    BatchClassControllerInterface bcci = new BatchClassController(HibernateUtil.getSessionFactory());
+//    List<BatchClass> classes = null;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,20 +51,12 @@ public class IdCardServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String action = request.getParameter("action");
-            if(action != null){
-                if(action.equalsIgnoreCase("delete")){
-                    icci.delete(request.getParameter("id"), "", "", "", "");
-                } else if (action.equalsIgnoreCase("update")){
-                    IdCard idCard = icci.getByid(request.getParameter("id"));
-                    request.getSession().setAttribute("idcardId", idCard.getId());
-//                    request.getSession().setAttribute("idcardReveive", idCard.getReceiveDate());
-//                    request.getSession().setAttribute("idcardReturn", idCard.getReturnDate());
-//                    request.getSession().setAttribute("idcardNote", idCard.getNote());
-//                    request.getSession().setAttribute("idcardEmployee", idCard.getEmployee().getId());
-                }
-            }
-            processRequest(request, response);
+            idcard = icci.getAll();
+            employees = eaci.getAll();
+
+            request.getSession().setAttribute("idcard", idcard);
+            request.getSession().setAttribute("employees", employees);
+            response.sendRedirect("pl/IdCardView1.jsp");
         }
     }
 
@@ -78,6 +72,17 @@ public class IdCardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action != null) {
+          if (action.equalsIgnoreCase("update")) {
+                IdCard idCard = icci.getByid(request.getParameter("id"));
+                request.getSession().setAttribute("idcardId", idCard.getId());
+                request.getSession().setAttribute("idcardReceive", idCard.getReceiveDate());
+                request.getSession().setAttribute("idcardReturn", idCard.getReturnDate());
+                request.getSession().setAttribute("idcardNote", idCard.getNote());
+                request.getSession().setAttribute("idcardEmployee", idCard.getEmployee().getId());
+            }
+        }
         processRequest(request, response);
     }
 
@@ -92,7 +97,10 @@ public class IdCardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if (icci.save(request.getParameter("idcardId"), request.getParameter("idcardReceive"),
+                request.getParameter("idcardReturn"), request.getParameter("idcardNote"), request.getParameter("idcardEmployee")) != null) {
+            processRequest(request, response);
+        }
     }
 
     /**

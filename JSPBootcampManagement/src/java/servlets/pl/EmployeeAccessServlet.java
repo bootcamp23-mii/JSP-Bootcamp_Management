@@ -58,7 +58,7 @@ public class EmployeeAccessServlet extends HttpServlet {
             request.getSession().setAttribute("accesses", accesses);
             request.getSession().setAttribute("employee", employee);
             request.getSession().setAttribute("accessCard", accessCard);
-            response.sendRedirect("pl/EmployeeAccessView.jsp");
+            response.sendRedirect("pl/EmployeeAccessView1.jsp");
 
         }
     }

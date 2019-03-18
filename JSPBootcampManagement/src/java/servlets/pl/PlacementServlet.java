@@ -5,38 +5,37 @@
  */
 package servlets.pl;
 
+import controllers.CompanyController;
+import controllers.CompanyControllerInterface;
 import controllers.EmployeeController;
 import controllers.EmployeeControllerInterface;
-import controllers.EmployeeLockerController;
-import controllers.EmployeeLockerControllerInterface;
-import controllers.LockerController;
-import controllers.LockerControllerInterface;
+import controllers.PlacementController;
+import controllers.PlacementControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Company;
 import models.Employee;
-import models.EmployeeLocker;
-import models.Locker;
+import models.Placement;
 import tools.HibernateUtil;
 
 /**
  *
  * @author Firsta
  */
-public class EmployeeLockerServlet extends HttpServlet {
+public class PlacementServlet extends HttpServlet {
 
-    private EmployeeLockerControllerInterface elci = new EmployeeLockerController(HibernateUtil.getSessionFactory());
-    private List<EmployeeLocker> locker = null;
-    private EmployeeControllerInterface eci = new EmployeeController(HibernateUtil.getSessionFactory());
-    private List<Employee> employee = null;
-    private LockerControllerInterface lci = new LockerController(HibernateUtil.getSessionFactory());
-    private List<Locker> lockers = null;
-//    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    PlacementControllerInterface pci = new PlacementController(HibernateUtil.getSessionFactory());
+    List<Placement> placement = null;
+    CompanyControllerInterface cci = new CompanyController(HibernateUtil.getSessionFactory());
+    List<Company> company = null;
+    EmployeeControllerInterface eci = new EmployeeController(HibernateUtil.getSessionFactory());
+    List<Employee> employee = null;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,14 +49,14 @@ public class EmployeeLockerServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            locker = elci.getAll();
+            placement = pci.getAll();
+            company = cci.getAll();
             employee = eci.getAll();
-            lockers = lci.getAll();
 
-            request.getSession().setAttribute("locker", locker);
+            request.getSession().setAttribute("placement", placement);
+            request.getSession().setAttribute("company", company);
             request.getSession().setAttribute("employee", employee);
-            request.getSession().setAttribute("lockers", lockers);
-            response.sendRedirect("pl/EmployeeLockerView1.jsp");
+            response.sendRedirect("pl/PlacementView1.jsp");
         }
     }
 
@@ -76,13 +75,15 @@ public class EmployeeLockerServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action != null) {
             if (action.equalsIgnoreCase("update")) {
-                EmployeeLocker el = elci.getById(request.getParameter("id"));
-                request.getSession().setAttribute("empId", el.getId());
-                request.getSession().setAttribute("empReceive", el.getReceiveDate());
-                request.getSession().setAttribute("empReturn", el.getReturnDate());
-                request.getSession().setAttribute("empNote", el.getNotes());
-                request.getSession().setAttribute("empEmployee", el.getEmployee().getId());
-                request.getSession().setAttribute("empLocker", el.getLocker().getId());
+                Placement p = pci.getById(request.getParameter("id"));
+                request.getSession().setAttribute("plaId", p.getId());
+                request.getSession().setAttribute("plaDescription", p.getDescription());
+                request.getSession().setAttribute("plaAddress", p.getAddress());
+                request.getSession().setAttribute("plaDepartment", p.getDepartment());
+                request.getSession().setAttribute("plaStart", p.getStartDate());
+                request.getSession().setAttribute("plaFinish", p.getFinishDate());
+                request.getSession().setAttribute("plaCompany", p.getCompany().getId());
+                request.getSession().setAttribute("plaEmployee", p.getEmployee().getId());
             }
         }
         processRequest(request, response);
@@ -99,8 +100,9 @@ public class EmployeeLockerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(elci.save(request.getParameter("empId"), request.getParameter("empReceive"), request.getParameter("empReturn"), request.getParameter("empNote"), 
-                request.getParameter("empEmployee"), request.getParameter("empLocker")) !=null) {
+        if (pci.save(request.getParameter("plaId"), request.getParameter("plaDescription"),
+                request.getParameter("plaAddress"), request.getParameter("plaDepartment"),
+                request.getParameter("plaStart"), request.getParameter("plaFinish"), request.getParameter("plaCompany"), request.getParameter("plaEmployee")) != null) {
             processRequest(request, response);
         }
     }

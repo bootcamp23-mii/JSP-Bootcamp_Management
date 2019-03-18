@@ -32,6 +32,10 @@
         <servlet-name>ProvinsiServlet</servlet-name>
         <servlet-class>servlets.cv.ProvinsiServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlacementServlet</servlet-name>
+        <servlet-class>servlets.pl.PlacementServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IdCardServlet</servlet-name>
         <url-pattern>/IdCardServlet</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>ProvinsiServlet</servlet-name>
         <url-pattern>/ProvinsiServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlacementServlet</servlet-name>
+        <url-pattern>/PlacementServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
