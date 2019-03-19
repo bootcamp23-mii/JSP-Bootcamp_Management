@@ -29,6 +29,7 @@
                             <label data-error="wrong" data-success="true">Employee</label>
                             <select class="form-control" id="cbParticipant" name="cbParticipant">
                                 <%
+                                    session.getServletContext().getRealPath("");
                                     if (!isParticipantListEmpty) {
                                         for (Employee dataE2 : (List<Employee>) session.getAttribute("dataEmployee")) {
                                 %>

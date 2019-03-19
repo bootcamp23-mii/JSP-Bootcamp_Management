@@ -5,6 +5,7 @@
  */
 package tools;
 
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import controllers.EducationController;
 import controllers.EducationHistoryController;
 import controllers.EducationHistoryControllerInterface;
@@ -14,10 +15,17 @@ import controllers.LoginController;
 import controllers.ParticipantController;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import models.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.SessionFactory;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 
@@ -27,7 +35,7 @@ import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
  */
 public class TestController {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException, JRException, SQLException {
         SessionFactory factory = HibernateUtil.getSessionFactory();
 //        EducationHistoryControllerInterface eh = new EducationHistoryController(factory);
 //        EmployeeController emp = new EmployeeController(factory);
@@ -38,7 +46,6 @@ public class TestController {
         System.out.println(logCon.login("14303", "admin"));
         EducationHistoryControllerInterface ehc = new EducationHistoryController(factory);
 //        System.out.println(ehc.save("", "3,9", "CVE11", "14201"));
-        
 
 //        List<Participant> pList = new ParticipantController(factory).searchWD("");
 //        System.out.println(new ParticipantController(factory).save("14307", "", "BBC2","14307"));
@@ -50,5 +57,15 @@ public class TestController {
 //            System.out.println(data.getBatchClass().getRoom().getName());
 //            System.out.println(data.getParticipant().getParticipant().getBatchClass().getBatch().getName());
         }
+        String fileName = "./src/java/reports/score.jrxml";
+        String filetoFill = "./src/java/reports/score.jasper";
+        JasperCompileManager.compileReport(fileName);
+        Map param = new HashMap();
+        param.put("setId", "14303");
+        Connection conn = HibernateUtil.getSessionFactory().getSessionFactoryOptions().getServiceRegistry().getService(ConnectionProvider.class).getConnection();
+        JasperFillManager.fillReport(filetoFill, param, conn);
+//            javax.swing.JOptionPane.showMessageDialog(null, conn);
+        JasperPrint jp = JasperFillManager.fillReport(filetoFill, param, conn);
+        JasperViewer.viewReport(jp, false);
     }
 }

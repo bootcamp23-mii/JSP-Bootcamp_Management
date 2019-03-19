@@ -39,7 +39,7 @@ public class EvaluationServlet extends HttpServlet {
     private AspectControllerInterface ca = new AspectController(factory);
     private TopicControllerInterface ct = new TopicController(factory);
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private static String tempTrainer = "14201";
+    private static String tempTrainer;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,13 +54,13 @@ public class EvaluationServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            tempTrainer = String.valueOf(request.getSession().getAttribute("login"));
             List<Participant> listParticipant = cp.searchWD("");
-            for (int i = 0; i < listParticipant.size(); i++) {
-                if (!listParticipant.get(i).getBatchClass().getTrainer().equals(tempTrainer)) {
-                    listParticipant.remove(i);
-                }
-            }
-
+//            for (int i = 0; i < listParticipant.size(); i++) {
+//                if (!listParticipant.get(i).getBatchClass().getTrainer().getId().equals(tempTrainer)) {
+//                    listParticipant.remove(i);
+//                }
+//            }
             request.getSession().setAttribute("dataParticipant", listParticipant);
             request.getSession().setAttribute("dataEvaluation", cEva.searchWD(""));
             request.getSession().setAttribute("dataScore", cSc.searchWD(""));

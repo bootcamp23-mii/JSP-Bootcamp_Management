@@ -9,7 +9,10 @@ import controllers.BatchClassController;
 import controllers.BatchClassControllerInterface;
 import controllers.EmployeeController;
 import controllers.EmployeeControllerInterface;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -32,6 +35,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import org.apache.catalina.Session;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
+import tools.SendMail;
 import tools.HibernateUtil;
 
 /**
@@ -54,7 +58,7 @@ public class ReportServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, JRException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             List<BatchClass> batchclassList = cb.getAll();
@@ -83,13 +87,9 @@ public class ReportServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+
             processRequest(request, response);
-        } catch (JRException ex) {
-            Logger.getLogger(ReportServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(ReportServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }
 
     /**
@@ -103,23 +103,26 @@ public class ReportServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         try {
-            String fileName = "./src/reports/score.jrxml";
-            String filetoFill = "./src/reports/score.jasper";
+//            new SendMail().generateReport(request.getParameter("cbParticipant"));
+//            URL url = getServletContext().getResource("/WEB-INF/DataSpecification.owl");            
+//            String fileName = "/score.jrxml";
+//            String filetoFill = "/score.jasper";
+            InputStream fileName = new FileInputStream(new File(request.getSession().getServletContext().getRealPath("./score.jrxml")));
+            InputStream filetoFill = new FileInputStream(new File(request.getSession().getServletContext().getRealPath("./score.jasper")));
+//            javax.swing.JOptionPane.showMessageDialog(null, );
             JasperCompileManager.compileReport(fileName);
             Map param = new HashMap();
             param.put("setId", request.getParameter("cbParticipant"));
             Connection conn = HibernateUtil.getSessionFactory().getSessionFactoryOptions().getServiceRegistry().getService(ConnectionProvider.class).getConnection();
             JasperFillManager.fillReport(filetoFill, param, conn);
-            javax.swing.JOptionPane.showMessageDialog(null, conn);
             JasperPrint jp = JasperFillManager.fillReport(filetoFill, param, conn);
             JasperViewer.viewReport(jp, false);
             processRequest(request, response);
-        } catch (JRException ex) {
-            Logger.getLogger(ReportServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(ReportServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } 
     }
 
     /**

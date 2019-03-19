@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Score" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5c23d7e-0dbd-44ad-ae2c-d70ba06b31ea">
+	<property name="ireport.zoom" value="2.1435888100000056"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="29"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Score" uuid="67f13991-5904-4bab-aedc-07d1751a7b0c">
+		<parameter name="setId" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select t.name topic, e.evaluationDate evaDate, l.name lesson, s.rating rating, a.name aspect
+from tb_m_evaluation e
+join tb_m_employee p on p.id=e.participant
+join tb_m_topic t on t.id=e.topic
+join tb_m_lesson l on l.id=e.lesson
+join tb_t_score s on s.evaluation=e.id
+join tb_m_aspect a on a.id=s.aspect
+where e.participant = $P{setId}]]>
+		</queryString>
+		<field name="topic" class="java.lang.String"/>
+		<field name="evaDate" class="java.sql.Date"/>
+		<field name="lesson" class="java.lang.String"/>
+		<field name="rating" class="java.lang.Double">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="aspect" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="setId" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select e.name participant, t.name trainer, b.name batch, c.name classes, p.grade grade
+from tb_m_employee e 
+JOIN tb_t_participant p on p.id=e.id
+join tb_m_batch_class bc on bc.id=p.batchClass
+join tb_m_employee t on bc.trainer=t.id
+join tb_m_batch b on bc.batch=b.id
+join tb_m_classes c on c.id=bc.classes
+where p.id = $P{setId}]]>
+	</queryString>
+	<field name="participant" class="java.lang.String"/>
+	<field name="trainer" class="java.lang.String"/>
+	<field name="batch" class="java.lang.String"/>
+	<field name="classes" class="java.lang.String"/>
+	<field name="grade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="134" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="451" height="95" backcolor="#000000" uuid="75bb3532-5c5d-42a7-9c01-53bf9d996914"/>
+				<textField>
+					<reportElement style="Title" x="0" y="0" width="370" height="66" uuid="d01e9225-1aca-41a2-bc21-d43299d418da"/>
+					<textElement markup="none">
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{participant}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="SubTitle" x="104" y="66" width="347" height="29" uuid="f4ed89c7-747b-4f37-bdee-a6da26cb10e4"/>
+					<textElement textAlignment="Right" markup="none">
+						<font size="22" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Bootcamp Batch "+$F{batch}+" "+$F{classes}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="451" height="32" forecolor="#000000" backcolor="#CC0000" uuid="3d3c3b8a-8c20-4b65-b57a-4ae0c19243ab"/>
+				<textField>
+					<reportElement style="SubTitle" x="104" y="3" width="347" height="29" uuid="82764d1c-553f-4a30-8096-7aa5fcad6d4d"/>
+					<textElement textAlignment="Right" markup="none">
+						<font size="22" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{trainer}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="451" y="0" width="102" height="34" forecolor="#000000" backcolor="#FFFFCC" uuid="ca730899-7ab9-4922-969d-7cf979e1a3a2"/>
+			</frame>
+			<staticText>
+				<reportElement x="451" y="0" width="102" height="34" uuid="47e1bb21-eb63-4627-836d-1bd71ba4cce9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRADE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="451" y="34" width="100" height="98" forecolor="#FF0000" uuid="6f5f7d57-7936-4879-8180-b6607c2e4922"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="65" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="46" width="555" height="1" uuid="31077ede-6e97-4e02-a631-6432944feeac"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="13" width="288" height="33" uuid="1c7e7210-5093-4405-abbe-4751ed13b636"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Detail Score:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="c588a120-bbae-462a-be55-faa75e3f1bbb"/>
+			</frame>
+			<componentElement>
+				<reportElement x="0" y="0" width="555" height="28" uuid="5ee83dfe-78fd-4c14-a093-d552b5e63c11"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="Score" uuid="a8893862-142f-4552-a0f0-a286b5df64ba">
+						<datasetParameter name="setId">
+							<datasetParameterExpression><![CDATA[$P{setId}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:listContents height="28" width="555">
+						<textField>
+							<reportElement style="Row" x="0" y="0" width="553" height="28" uuid="3f0b94ca-a290-49aa-b12b-d61a33807940"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle">
+								<font size="12"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{topic}+" - "+$F{lesson}+": "+$F{aspect}+" = "+$F{rating}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="7794e8ab-fee9-4c23-8601-95c28bdc4f04"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="01ce431e-1026-40bc-9291-35997b2bf0b7"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="8705bfa4-9600-46e4-84ce-5755de6cd0e6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="83bc503e-55df-4b39-bd47-4d51d414245b"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="91d838e8-c496-46b5-8ca5-47f2d9a86b5a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

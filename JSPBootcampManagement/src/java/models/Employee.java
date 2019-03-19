@@ -163,7 +163,7 @@ public class Employee implements Serializable {
         this.securityAnswer = securityAnswer;
     }
 
-    public Employee(String id, String name, Date birthDate, String gender, String marriedStatus, String address, String email, String phone, Date onboardDate, String password, String securityQestion, String securityAnswer, Short isdeleted, Religion religion, District birthPlace, Village village, District hiringLocation) {
+    public Employee(String id, String name, Date birthDate, String gender, String marriedStatus, String address, String email, String phone, Date onboardDate, String password, String securityQestion, String securityAnswer, Short isdeleted, Religion religion, District birthPlace, Village village, District hiringLocation, Participant participant) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
@@ -181,9 +181,10 @@ public class Employee implements Serializable {
         this.birthPlace = birthPlace;
         this.village = village;
         this.hiringLocation = hiringLocation;
+        this.participant=participant;
     }
 
-    public Employee(String id, String name, Date birthDate, String gender, String marriedStatus, String address, String email, String phone, Date onboardDate, String password, String securityQestion, String securityAnswer, byte[] photo, Short isdeleted, Religion religion, District birthPlace, Village village, District hiringLocation) {
+    public Employee(String id, String name, Date birthDate, String gender, String marriedStatus, String address, String email, String phone, Date onboardDate, String password, String securityQestion, String securityAnswer, byte[] photo, Short isdeleted, Religion religion, District birthPlace, Village village, District hiringLocation, Participant participant) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
@@ -202,6 +203,7 @@ public class Employee implements Serializable {
         this.birthPlace = birthPlace;
         this.village = village;
         this.hiringLocation = hiringLocation;
+        this.participant=participant;
     }
 
     public String getId() {
