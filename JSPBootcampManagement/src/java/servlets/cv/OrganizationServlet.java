@@ -45,10 +45,15 @@ public class OrganizationServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            dataorg = ec.getByid("14201").getOrganizationList();
-            request.getSession().setAttribute("data", dataorg);
-            request.getSession().setAttribute("emp", "14201");
-            response.sendRedirect("cv/OrganizationView.jsp");
+            if (request.getSession().getAttribute("login") != null) {
+                String id = (String) request.getSession().getAttribute("login");
+                dataorg = oc.searchWD(id);
+                request.getSession().setAttribute("data", dataorg);
+                request.getSession().setAttribute("emp", "14201");
+                response.sendRedirect("cv/OrganizationView.jsp");
+            } else if (request.getSession().getAttribute("login") == null) {
+                response.sendRedirect("index.jsp");
+            }
         }
     }
 
@@ -67,7 +72,8 @@ public class OrganizationServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action != null) {
             if (action.equalsIgnoreCase("delete")) {
-                oc.delete(request.getParameter("id"), "", "");
+                Organization data = oc.getByid(request.getParameter("id"));
+                oc.deleteSoft(data.getId(), data.getName(), data.getEmployee().getId());
             } else if (action.equalsIgnoreCase("update")) {
                 Organization organization = oc.getByid(request.getParameter("id"));
                 request.getSession().setAttribute("orgId", organization.getId());

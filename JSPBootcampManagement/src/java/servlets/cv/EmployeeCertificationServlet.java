@@ -32,19 +32,17 @@ import tools.HibernateUtil;
  * @author Lusiana
  */
 public class EmployeeCertificationServlet extends HttpServlet {
+
     EmployeeCertificationControllerInterface ecc = new EmployeeCertificationController(HibernateUtil.getSessionFactory());
     List<EmployeeCertification> datacert = null;
-    
+
     EmployeeControllerInterface ec = new EmployeeController(HibernateUtil.getSessionFactory());
     List<Employee> dataemp = null;
-    
+
     CertificateControllerInterface cc = new CertificateController(HibernateUtil.getSessionFactory());
     List<Certificate> datace = null;
-    
+
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    
-    
-   
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,12 +58,17 @@ public class EmployeeCertificationServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            datacert = ec.getByid("14201").getEmployeeCertificationList();
-            datace = cc.getAll();
-            request.getSession().setAttribute("data", datacert);
-            request.getSession().setAttribute("emp", "14201");
-            request.getSession().setAttribute("datace", datace);
-            response.sendRedirect("cv/EmployeeCertificationView.jsp");
+            if (request.getSession().getAttribute("login") != null) {
+                String id = (String) request.getSession().getAttribute("login");
+                datacert = ecc.searchWD(id);
+                datace = cc.getAll();
+                request.getSession().setAttribute("data", datacert);
+                request.getSession().setAttribute("emp", id);
+                request.getSession().setAttribute("datace", datace);
+                response.sendRedirect("cv/EmployeeCertificationView.jsp");
+            } else if (request.getSession().getAttribute("login") == null) {
+                response.sendRedirect("index.jsp");
+            }
         }
     }
 
@@ -84,7 +87,8 @@ public class EmployeeCertificationServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action != null) {
             if (action.equalsIgnoreCase("delete")) {
-                ecc.delete(request.getParameter("id"), "0000-00-00", "", "", "");
+                EmployeeCertification data = ecc.getByid(request.getParameter("id"));
+                ecc.deleteSoft(data.getId(), data.getCertificatedate().toString(), data.getCertificatenumber(), data.getCertificate().getId(), data.getEmployee().getId());
             } else if (action.equalsIgnoreCase("update")) {
                 EmployeeCertification employeeCertification = ecc.getByid(request.getParameter("id"));
                 request.getSession().setAttribute("certId", employeeCertification.getId());
@@ -108,11 +112,11 @@ public class EmployeeCertificationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
-            if (ecc.save(request.getParameter("certId"), request.getParameter("certDate"), request.getParameter("certNum"), request.getParameter("cert"), request.getParameter("emp")) != null) {
-                processRequest(request, response);
-            }
-        
+
+        if (ecc.save(request.getParameter("certId"), request.getParameter("certDate"), request.getParameter("certNum"), request.getParameter("cert"), request.getParameter("emp")) != null) {
+            processRequest(request, response);
+        }
+
     }
 
     /**

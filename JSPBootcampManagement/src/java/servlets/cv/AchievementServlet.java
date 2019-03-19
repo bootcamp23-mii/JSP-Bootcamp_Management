@@ -9,6 +9,8 @@ import controllers.AchievementController;
 import controllers.AchievementControllerInterface;
 import controllers.EmployeeController;
 import controllers.EmployeeControllerInterface;
+import controllers.Session;
+import controllers.SessionControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -28,6 +30,7 @@ public class AchievementServlet extends HttpServlet {
     AchievementControllerInterface ac = new AchievementController(HibernateUtil.getSessionFactory());
     List<Achievement> dataach = null;
     EmployeeControllerInterface ec = new EmployeeController(HibernateUtil.getSessionFactory());
+    SessionControllerInterface sess = new Session();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +46,20 @@ public class AchievementServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            dataach = ec.getByid("14201").getAchievementList();
-            request.getSession().setAttribute("data", dataach);
-            request.getSession().setAttribute("emp", "14201");
-            response.sendRedirect("cv/AchievementView.jsp");
+            if (request.getSession().getAttribute("login") != null) {
+                String id = (String) request.getSession().getAttribute("login");
+                if (sess.admin(id)) {
+                    dataach = ac.searchWD(id);
+                    request.getSession().setAttribute("data", dataach);
+                    request.getSession().setAttribute("emp", id);
+                    response.sendRedirect("cv/AchievementView.jsp");
+                } else {
+                    response.sendRedirect("index.jsp");
+                }
+            } else if (request.getSession().getAttribute("login") == null) {
+                response.sendRedirect("index.jsp");
+            }
+
         }
     }
 
@@ -65,7 +78,8 @@ public class AchievementServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action != null) {
             if (action.equalsIgnoreCase("delete")) {
-                ac.delete(request.getParameter("id"), "", "");
+                Achievement data = ac.getByid(request.getParameter("id"));
+                ac.deleteSoft(data.getId(), data.getName(), data.getEmployee().getId());
             } else if (action.equalsIgnoreCase("update")) {
                 Achievement achievement = ac.getByid(request.getParameter("id"));
                 request.getSession().setAttribute("achId", achievement.getId());

@@ -75,22 +75,15 @@ public class EmployeeCertificationController implements EmployeeCertificationCon
 
     @Override
     public String deleteSoft(String id, String certificateDate, String certificateNumber, String certificate, String employee) {
-        String tempID="";
-        List<EmployeeCertification> dataList = searchWD("");
-        for (EmployeeCertification data : dataList) {
-            if (dateFormat.format(data.getCertificatedate()).equals(certificateDate)
-                    &&data.getCertificatenumber().equals(certificateNumber)
-                    &&data.getCertificate().getId().equals(certificate)
-                    &&data.getEmployee().getId().equals(employee)
-                    )tempID=data.getId();
-        }
+            
         try {
-            if (dao.saveOrDelete(new EmployeeCertification(tempID, dateFormat.parse(certificateDate), certificateNumber, new Short("1"), new Certificate(certificate), new Employee(employee)), true)) {
+            if (dao.saveOrDelete(new EmployeeCertification(id, dateFormat.parse(certificateDate), certificateNumber, new Short("1"), new Certificate(certificate), new Employee(employee)), true)) {
                 return "Delete Data Success!";
             }
         } catch (ParseException ex) {
             Logger.getLogger(EmployeeCertificationController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "Delete Failed!";
+    
     }
 }
