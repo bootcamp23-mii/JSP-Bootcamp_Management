@@ -17,13 +17,16 @@
 <jsp:include page="newFooter.jsp" />
 <!DOCTYPE html>
 <html>
-
+    <head>
+        <%@include file="newHeader.jsp" %>
+    </head>
     <body>
         <script>
             $(document).ready(function () {
                 $('#tableorg').DataTable();
             });
         </script>
+        <%@include file="Navbar.jsp" %>
         <!-- MAIN -->
         <div class="main">
             <!-- MAIN CONTENT -->
@@ -45,11 +48,11 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <input type="hidden" class="form-control" name="orgId" value="<%= (session.getAttribute("orgId") != null) ? session.getAttribute("orgId") : ""%>"/>
+                                                <input type="hidden" id="id-r" class="form-control" name="orgId" value="<%= (session.getAttribute("orgId") != null) ? session.getAttribute("orgId") : ""%>"/>
                                             </div>
                                             <div class="form-group">
                                                 <label>Nama Organisasi</label>
-                                                <input type="text" class="form-control" name="orgName" value="<%= (session.getAttribute("orgName") != null) ? session.getAttribute("orgName") : ""%>"/>
+                                                <input type="text" id="name-r" class="form-control" name="orgName" value="<%= (session.getAttribute("orgName") != null) ? session.getAttribute("orgName") : ""%>"/>
                                             </div>
                                             <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
                                         </div>
@@ -79,26 +82,26 @@
                             <div class="panel-body">
                                 <table id="tableorg" class="table table-hover" tcellspacing='30' align='center'>
                                     <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Organisasi</th>
-                                        <th>Action</th>
-                                    </tr>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Organisasi</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <% int j = 1;
-                                        for (Organization elem : (List<Organization>) session.getAttribute(
-                                                "data")) {%>
-                                    <tr>
-                                        <td><%= j++%></td>
-                                        <td><%= elem.getName()%></td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalorg" 
-                                                    data-getid="<%= elem.getId()%>" data-getname="<%= elem.getName()%>"><span class="glyphicon glyphicon-pencil"></span></a></button>
-                                                    <button type="button" class="btn btn-danger"><a href="../OrganizationServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a></button>
-                                        </td>
-                                    </tr>
-                                    <%}%>
+                                        <% int j = 1;
+                                            for (Organization elem : (List<Organization>) session.getAttribute(
+                                                    "data")) {%>
+                                        <tr>
+                                            <td><%= j++%></td>
+                                            <td><%= elem.getName()%></td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalorg" 
+                                                        data-getid="<%= elem.getId()%>" data-getname="<%= elem.getName()%>"><span class="glyphicon glyphicon-pencil"></span></a></button>
+                                                <button type="button" class="btn btn-danger"><a href="../OrganizationServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a></button>
+                                            </td>
+                                        </tr>
+                                        <%}%>
                                     </tbody>
                                 </table>
                             </div>
@@ -112,24 +115,28 @@
                         <!-- END RECENT PURCHASES -->
                     </div>
                 </div>
+            </div>
+            <%@include file="newFooter.jsp" %>
+        </div>
 
-                <script>
-                    $('#modalorg').on('show.bs.modal', function (event) {
-                        var button = $(event.relatedTarget) // Button that triggered the modal
-                        var id = button.data('getid') // Extract info from data-* attributes
-                        var name = button.data('getname')// Extract info from data-* attributes
-                        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                        var modal = $(this)
-                        modal.find('#id-r').val(id)
-                        modal.find('#name-r').val(name)
-                    })
-                </script>
 
-                <!-- END MAIN -->
+        <script>
+            $('#modalorg').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var id = button.data('getid') // Extract info from data-* attributes
+                var name = button.data('getname')// Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                modal.find('#id-r').val(id)
+                modal.find('#name-r').val(name)
+            })
+        </script>
 
-                <% session.removeAttribute(
+        <!-- END MAIN -->
+
+        <% session.removeAttribute(
                             "orgId"); %>
-                <% session.removeAttribute(
+        <% session.removeAttribute(
                             "orgName");%>
-                </html>
+</html>

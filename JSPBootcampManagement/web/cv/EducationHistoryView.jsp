@@ -12,11 +12,12 @@
 <%@page import="tools.HibernateUtil"%>
 <%@page import="org.hibernate.SessionFactory"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="newHeader.jsp" />
-<jsp:include page="newFooter.jsp" />
+
 <!DOCTYPE html>
 <html>
-
+    <head>
+        <%@include file="newHeader.jsp" %>
+    </head>
 
     <body>
         <script>
@@ -24,6 +25,7 @@
                 $('#tableedu').DataTable();
             });
         </script>
+        <%@include file="Navbar.jsp" %>
         <!-- MAIN -->
         <div class="main">
             <!-- MAIN CONTENT -->
@@ -132,28 +134,33 @@
                             <!-- END RECENT PURCHASES -->
                         </div>
                     </div>
+                </div>
+            </div>
+            <%@include file="newFooter.jsp" %>
+        </div>
 
-                    <script>
-                        $('#modaledu').on('show.bs.modal', function (event) {
-                            var button = $(event.relatedTarget) // Button that triggered the modal
-                            var id = button.data('getid') // Extract info from data-* attributes
-                            var gpa = button.data('getgpa')
-                            var eduid = button.data('getedu')// Extract info from data-* attributes
-                            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                            var modal = $(this)
-                            modal.find('#id-r').val(id)
-                            modal.find('#gpa-r').val(gpa)
-                            modal.find('#edu-r').val(eduid)
-                        })
-                    </script>
 
-                    <!-- END MAIN -->
+        <script>
+            $('#modaledu').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var id = button.data('getid') // Extract info from data-* attributes
+                var gpa = button.data('getgpa')
+                var eduid = button.data('getedu')// Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                modal.find('#id-r').val(id)
+                modal.find('#gpa-r').val(gpa)
+                modal.find('#edu-r').val(eduid)
+            })
+        </script>
 
-                    <% session.removeAttribute(
+        <!-- END MAIN -->
+
+        <% session.removeAttribute(
                                 "educationId"); %>
-                    <% session.removeAttribute(
+        <% session.removeAttribute(
                                 "educationGpa");%>
-                    <% session.removeAttribute(
+        <% session.removeAttribute(
                                 "educationHistory");%>
-                    </html>
+</html>

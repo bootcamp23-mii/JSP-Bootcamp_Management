@@ -16,15 +16,17 @@
 <%@page import="tools.HibernateUtil"%>
 <%@page import="org.hibernate.SessionFactory"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="newHeader.jsp" />
-<jsp:include page="newFooter.jsp" />
 <!DOCTYPE html>
 <html>
+    <head>
+        <%@include file="newHeader.jsp" %>
+    </head>
     <script>
         $(document).ready(function () {
             $('#tablecert').DataTable();
         });
     </script>
+    <%@include file="Navbar.jsp" %>
     <body>
         <%
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -93,29 +95,29 @@
                                 <div class="panel-body">
                                     <table id="tablecert" name="tablecert" class="table table-hover" tcellspacing='30' align='center'>
                                         <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Certification Date</th>
-                                            <th>Certification Number</th>
-                                            <th>Name</th>
-                                            <th>Action</th>
-                                        </tr>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Certification Date</th>
+                                                <th>Certification Number</th>
+                                                <th>Name</th>
+                                                <th>Action</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <% int j = 1;
-                                            for (EmployeeCertification elem : (List<EmployeeCertification>) session.getAttribute(
-                                                    "data")) {%>
-                                        <tr>
-                                            <td><%= j++%></td>
-                                            <td><%= dateFormat.format(elem.getCertificatedate())%></td>
-                                            <td><%= elem.getCertificatenumber()%></td>
-                                            <td><%= elem.getCertificate().getName()%></td>
-                                            <td>
-                                                <a href="../EmployeeCertificationServlet?action=update&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                <a href="../EmployeeCertificationServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a>
-                                            </td>
-                                        </tr>
-                                        <%}%>
+                                            <% int j = 1;
+                                                for (EmployeeCertification elem : (List<EmployeeCertification>) session.getAttribute(
+                                                        "data")) {%>
+                                            <tr>
+                                                <td><%= j++%></td>
+                                                <td><%= dateFormat.format(elem.getCertificatedate())%></td>
+                                                <td><%= elem.getCertificatenumber()%></td>
+                                                <td><%= elem.getCertificate().getName()%></td>
+                                                <td>
+                                                    <a href="../EmployeeCertificationServlet?action=update&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="../EmployeeCertificationServlet?action=delete&id=<%= elem.getId()%>"><span class="glyphicon glyphicon-remove"></span></a>
+                                                </td>
+                                            </tr>
+                                            <%}%>
                                         </tbody>
                                     </table>
                                 </div>
@@ -129,14 +131,20 @@
                             <!-- END RECENT PURCHASES -->
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- END MAIN -->
-                    <% session.removeAttribute(
-                "certId"); %>
-                    <% session.removeAttribute(
+            <%@include file="newFooter.jsp" %>
+        </div>
+
+
+        <!-- END MAIN -->
+        <% session.removeAttribute(
+                                "certId"); %>
+        <% session.removeAttribute(
                 "certDate");%>
-                    <% session.removeAttribute(
+        <% session.removeAttribute(
                 "certNum");%>
-                    <% session.removeAttribute(
+        <% session.removeAttribute(
                 "cert");%>
-                    </html>
+</html>

@@ -6,6 +6,8 @@
 package servlets;
 
 import controllers.LoginController;
+import controllers.Session;
+import controllers.SessionControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -22,6 +24,8 @@ import tools.HibernateUtil;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
+    SessionControllerInterface sess = new Session();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,7 +40,18 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             if (request.getSession().getAttribute("login") != null) {
-                response.sendRedirect("home.jsp");
+                String id = (String) request.getSession().getAttribute("login");
+                if (sess.admin(id)) {
+                    response.sendRedirect("Admin.jsp");
+                } else if(sess.user(id)) {
+                    response.sendRedirect("Peserta.jsp");
+                }
+                else if(sess.trainer(id)) {
+                    response.sendRedirect("Trainer.jsp");
+                }
+                else{
+                    response.sendRedirect("index.jsp");
+                }
             } else if (request.getSession().getAttribute("login") == null) {
                 response.sendRedirect("index.jsp");
             }

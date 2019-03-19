@@ -33,6 +33,8 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+
+            request.getSession().removeAttribute("login");
             response.sendRedirect("index.jsp");
         }
     }
