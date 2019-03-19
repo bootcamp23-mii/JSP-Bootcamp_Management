@@ -88,7 +88,7 @@ public class ReportServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            processRequest(request, response);
+        processRequest(request, response);
 
     }
 
@@ -109,8 +109,10 @@ public class ReportServlet extends HttpServlet {
 //            URL url = getServletContext().getResource("/WEB-INF/DataSpecification.owl");            
 //            String fileName = "/score.jrxml";
 //            String filetoFill = "/score.jasper";
-            InputStream fileName = new FileInputStream(new File(request.getSession().getServletContext().getRealPath("./score.jrxml")));
-            InputStream filetoFill = new FileInputStream(new File(request.getSession().getServletContext().getRealPath("./score.jasper")));
+            File file = new File("../web/score.jrxml");
+            System.out.println(file.getAbsolutePath());
+            InputStream fileName = new FileInputStream(new File("../web/score.jrxml"));
+            InputStream filetoFill = new FileInputStream(new File("../web/score.jasper"));
 //            javax.swing.JOptionPane.showMessageDialog(null, );
             JasperCompileManager.compileReport(fileName);
             Map param = new HashMap();
@@ -122,7 +124,7 @@ public class ReportServlet extends HttpServlet {
             processRequest(request, response);
         } catch (Exception ex) {
             ex.printStackTrace();
-        } 
+        }
     }
 
     /**

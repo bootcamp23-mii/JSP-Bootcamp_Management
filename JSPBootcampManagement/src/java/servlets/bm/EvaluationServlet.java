@@ -16,6 +16,7 @@ import models.*;
 import controllers.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +55,7 @@ public class EvaluationServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
             tempTrainer = String.valueOf(request.getSession().getAttribute("login"));
             List<Participant> listParticipant = cp.searchWD("");
 //            for (int i = 0; i < listParticipant.size(); i++) {

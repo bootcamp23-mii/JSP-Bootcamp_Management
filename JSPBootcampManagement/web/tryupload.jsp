@@ -15,15 +15,13 @@
         <h1>Try upload</h1>
         <form action="UploadServlet" method="POST" >
             <input type="hidden" id="empID" name="empID" value="14303">
-            <input type="file" id="inFile" name="inFile"  directory multiple>
+            <input type="hidden" id="ss" name="ss" value="C:\Users\Kirizu\Documents\NetBeansProjects\Project 3\backup">
+            <input type="file" id="inFile" name="inFile" webkitRelativePath >
+            <label for="inFile">Upload file</label>
             <input type="submit" value="go">
         </form>
         <script type="text/javascript">
-            function getFilePath() {
-                $('input[type=file]').change(function () {
-                    var filePath = $('#inFile').val();
-                });
-            }
+            
         </script>
     </body>
 </html> 

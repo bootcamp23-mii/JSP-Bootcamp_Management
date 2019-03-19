@@ -66,6 +66,7 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        javax.swing.JOptionPane.showMessageDialog(null, request.getParameter("ss"));
         new UploadController(factory).Upload(request.getParameter("empID"), request.getParameter("inFile"));
         processRequest(request, response);
     }
