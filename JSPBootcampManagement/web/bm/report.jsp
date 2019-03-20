@@ -41,11 +41,6 @@
                                         <h3 class="text-center text-info">Generate Report</h3>
                                         <label data-error="wrong" data-success="true">Employee</label>
                                         <select class="form-control" id="cbParticipant" name="cbParticipant">
-                                            asdasdasd
-                                            asdasdas
-                                            dasdasd
-                                            asdasdas
-                                            d
                                             <%
                                                 if (!isParticipantListEmpty) {
                                                     for (Employee dataE2 : (List<Employee>) session.getAttribute("dataEmployee")) {
@@ -69,7 +64,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 content-center">
-                            <button id="btGenerate" class="btn btn-md" >Generate PDF</button>
+                            <a href="../reportpdf.jsp"><button id="btGeneratea" class="btn btn-md" >Generate PDF</button></a>
                         </div>
                         <br>
                         <div class="col-md-10" style="border: solid">

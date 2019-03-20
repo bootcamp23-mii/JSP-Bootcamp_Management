@@ -38,6 +38,7 @@ public class SendMail {
             InternetAddress toAddress = new InternetAddress(SendEmailTemp.getToEmail());
             Message message = new MimeMessage(session);
             message.setFrom(fromAddress);
+            message.addHeader("Content-type", "text/html; charset=UTF-8");
             message.setRecipient(Message.RecipientType.TO, toAddress);
             message.setSubject(SendEmailTemp.getSubject());
             message.setContent(SendEmailTemp.getMessage(),"text/html");

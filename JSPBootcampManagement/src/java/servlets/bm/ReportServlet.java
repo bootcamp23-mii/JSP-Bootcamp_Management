@@ -9,6 +9,8 @@ import controllers.BatchClassController;
 import controllers.BatchClassControllerInterface;
 import controllers.EmployeeController;
 import controllers.EmployeeControllerInterface;
+import controllers.EvaluationController;
+import controllers.EvaluationControllerInterface;
 import controllers.ParticipantController;
 import controllers.ParticipantControllerInterface;
 import java.io.File;
@@ -29,6 +31,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 import models.BatchClass;
 import models.Employee;
 import models.Participant;
@@ -52,6 +55,7 @@ public class ReportServlet extends HttpServlet {
     private BatchClassControllerInterface cb = new BatchClassController(HibernateUtil.getSessionFactory());
     private EmployeeControllerInterface ce = new EmployeeController(HibernateUtil.getSessionFactory());
     private ParticipantControllerInterface cp = new ParticipantController(HibernateUtil.getSessionFactory());
+    private EvaluationControllerInterface ceva = new EvaluationController(HibernateUtil.getSessionFactory());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -119,45 +123,11 @@ public class ReportServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Connection conn = null;
-        try {
-            conn = HibernateUtil.getSessionFactory().getSessionFactoryOptions().getServiceRegistry().getService(ConnectionProvider.class).getConnection();
-            //        if (request.getSession().getAttribute("dataParticipantReport")!=null) {
-//            request.getSession().setAttribute("dataParticipantReport", cp.getByid(request.getParameter("cbParticipant")));
-//        }
-//            String fileName = "/src/java/reports/score.jrxml";
-//            String filetoFill = "/src/java/reports/score.jasper";
-            String fileName = request.getSession().getServletContext().getRealPath("/score.jrxml");
-            String filetoFill = request.getSession().getServletContext().getRealPath("/score.jasper");
-//            JasperCompileManager.compileReport(fileName);
-            InputStream isfileName = new FileInputStream(new File(fileName));
-//            InputStream isfiletoFill = new FileInputStream(new File(filetoFill));
-//            JasperCompileManager.compileReport(isfileName);
-            JasperReport jasperReport = JasperCompileManager.compileReport(isfileName);
-            Map param = new HashMap();
-            param.put("setId", "14303");
-//            JasperFillManager.fillReport(filetoFill, param, conn);
-//            JasperFillManager.fillReport(isfiletoFill, param, conn);
-//            javax.swing.JOptionPane.showMessageDialog(null, conn);
-//            JasperPrint jp = JasperFillManager.fillReport(filetoFill, param, conn);
-            JasperPrint jp = JasperFillManager.fillReport(jasperReport, param, conn);
-            JasperExportManager.exportReportToPdfStream(jp, response.getOutputStream());
-            response.getOutputStream().flush();
-            response.getOutputStream().close();
-            
-//            JasperViewer.viewReport(jp, false); 
-            processRequest(request, response); 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (conn!=null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ReportServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        request.getSession().setAttribute("dataParticipantReport", cp.getByid(request.getParameter("cbParticipant")));
+        request.getSession().setAttribute("dataEvaluation", ceva.searchWD(request.getParameter("cbParticipant")));
+//        JOptionPane.showMessageDialog(null, cp.getByid(request.getParameter("cbParticipant")).getEmployee().getName());
+        response.sendRedirect("reportpdf.jsp");
+//        processRequest(request, response);
     }
 
     /**
