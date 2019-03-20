@@ -17,12 +17,13 @@ public class MailTest {
                 "<body>\n" +
                 "\n" +
                 "<a href=\"http://pushpalankajaya.blogspot.com\">\n" +
-                "This is a link</a>\n" +
+                "<button>Ini link hentai<button></a>\n" +
                 "\n" +
                 "</body>\n" +
                 "</html>");
-        SendEmailTemp.setSubject("coba mail");
-        SendEmailTemp.setToEmail("thomasyanuar@outlook.com");
+        SendEmailTemp.setSubject("Panji Hentai");
+        SendEmailTemp.setToEmail("revilghost@gmail.com");
+        SendEmailTemp.setToEmail("pandu4431@gmail.com");
         new SendMail().generateMail();
     }
 }

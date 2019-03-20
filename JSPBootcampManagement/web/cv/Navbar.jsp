@@ -13,8 +13,8 @@
 <!DOCTYPE html>
 <html>
 
-    <body>
 
+    <div id="wrapper">
         <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="brand">
@@ -26,8 +26,8 @@
                 </div>
                 <form class="navbar-form navbar-left">
                     <div class="input-group">
-                        <!--                            <input type="text" value="" class="form-control" placeholder="Search dashboard...">-->
-                        <!--                            <span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>-->
+                        <input type="text" value="" class="form-control" placeholder="Search dashboard...">
+                        <span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
                     </div>
                 </form>
 
@@ -53,7 +53,7 @@
                                 <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                                 <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
                                 <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
-                                <li><a href="LogoutServlet" ><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                                <li><a href="../LogoutServlet" ><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
                             </ul>
                         </li>
                         <!-- <li>
@@ -70,33 +70,18 @@
                 <nav>
                     <ul class="nav">
 
-                        <!--                            <li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i> <span>Dashboard</span></a></li>-->
+                        <li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i> <span>Dashboard</span></a></li>
                         <li>
-                            <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Kelola Bootcamp</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages" class="collapse ">
                                 <ul class="nav">
-                                    <li><a href="../BatchClassServlet" class=""><i class="lnr lnr-home"></i> <span>Batch Class</span></a></li>
-                                    <li><a href="../ErrorBankServlet" class=""><i class="lnr lnr-code"></i> <span>Error Bank</span></a></li>
-                                    <li><a href="../EvaluationServlet" class=""><i class="lnr lnr-chart-bars"></i> <span>Evaluation</span></a></li>
-                                    <li><a href="../ParticipationServlet" class=""><i class="lnr lnr-cog"></i> <span>Participant</span></a></li>
-                                    <li><a href="../ReportServlet" class=""><i class="lnr lnr-cog"></i> <span>Report</span></a></li>
+                                    <li><a href="../EducationHistoryServlet" class=""><i class="lnr lnr-home"></i> <span>Education History</span></a></li>
+                                    <li><a href="../OrganizationServlet" class=""><i class="lnr lnr-code"></i> <span>Organization</span></a></li>
+                                    <li><a href="../AchievementServlet" class=""><i class="lnr lnr-chart-bars"></i> <span>Achievement</span></a></li>
+                                    <li><a href="../EmployeeCertificationServlet" class=""><i class="lnr lnr-cog"></i> <span>Certification</span></a></li>
                                 </ul>
                             </div>
-                        </li>
-                        <li>
-                            <a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Kelola CV</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                            <div id="subPages2" class="collapse ">
-                                <ul class="nav">
-                                    <ul class="nav">
-                                        <li><a href="EducationHistoryServlet" class=""><i class="lnr lnr-home"></i> <span>Education History</span></a></li>
-                                        <li><a href="OrganizationServlet" class=""><i class="lnr lnr-code"></i> <span>Organization</span></a></li>
-                                        <li><a href="AchievementServlet" class=""><i class="lnr lnr-chart-bars"></i> <span>Achievement</span></a></li>
-                                        <li><a href="EmployeeCertificationServlet" class=""><i class="lnr lnr-cog"></i> <span>Certification</span></a></li>
-                                    </ul>
-                                </ul>
-                            </div>
-                        </li>
-                        <!--
+                        </li><!--
                         <li><a href="tables.html" class=""><i class="lnr lnr-dice"></i> <span>Tables</span></a></li>
                         <li><a href="typography.html" class=""><i class="lnr lnr-text-format"></i> <span>Typography</span></a></li>
                         <li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a></li>-->
@@ -104,8 +89,6 @@
                 </nav>
             </div>
         </div>
-
-
         <!-- END LEFT SIDEBAR -->
-    </body>
+
 </html>

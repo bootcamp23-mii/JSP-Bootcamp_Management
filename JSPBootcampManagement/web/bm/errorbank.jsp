@@ -13,6 +13,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <head>
+        <%@include file="newHeader.jsp" %>
+        <title>Error Bank</title>
         <script>
             $(document).ready(function () {
             $('#errorBankTable').DataTable();
@@ -24,12 +27,13 @@
             boolean isEmployeeListEmpty = session.getAttribute("dataEmployee") == null;
             boolean isErrorBankListEmpty = session.getAttribute("dataErrorBank") == null;
             boolean isClassListEmpty = session.getAttribute("dataClass") == null;
-            if (isErrorBankListEmpty ||  isEmployeeListEmpty || isClassListEmpty) {
+            if (isLogin||isErrorBankListEmpty ||  isEmployeeListEmpty || isClassListEmpty) {
                 response.sendRedirect("../ErrorBankServlet");
             }
         %>
-        <div class="panel">
-        <div class="panel-body">
+    </head>
+    <body>
+        <%@include file="../NavbarTrainer.jsp"%>
         <h1>Error Bank</h1>
         <!--show table-->
         <p>
@@ -137,8 +141,6 @@
                 </div>
             </div>
         </form>
-        </div>
-        </div>
         <!--end of show save form modal-->
         <script>
             $('#modalForm').on('show.bs.modal', function (event) {}
@@ -153,4 +155,6 @@
             document.getElementById('inSolution').value = inSolution
             }
         </script>
+    </body>
+    <%@include file="newFooter.jsp" %>
 </html>

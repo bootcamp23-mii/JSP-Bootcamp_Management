@@ -10,6 +10,7 @@
 <%@page import="models.Role"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<jsp:include page="../headerCV.jsp" />
 <%
     boolean isEmpRoleListEmpty = session.getAttribute("empRoleData") == null;
     boolean isEmployeeListEmpty = session.getAttribute("employeeData") == null;
@@ -18,9 +19,11 @@
         response.sendRedirect("../EmployeeRoleServlet");
     }
 %>
-<div class="panel">
-    <div class="panel-body">
-        <h1>Employee Role</h1>
+<title>Employee Role</title>
+
+</head>
+<body>
+    <h1>Employee Role</h1>
 
         <a class="btn btn-success" data-target="#modalForm" data-toggle="modal">New data</a>
         <form action="../EmployeeRoleServlet" method="POST">
@@ -68,35 +71,35 @@
                 </div>
             </div>
         </form>
-        <table id="tableEmpRole" class="table table-striped" cellspacing='30' align ='center' border="1">
-            <thead class="active">
-                <tr>
-                    <th>No.</th>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <%
-                    int i = 1;
-                    String tempID = "";
-                    String tempRole = "";
-                    if (!isEmpRoleListEmpty) {
-                        for (EmployeeRole dataEmpRole : (List<EmployeeRole>) session.getAttribute("empRoleData")) {
-                %>
-                <tr>
-                    <td><%=i++%></td>
-                    <td><%=dataEmpRole.getEmployee().getId()%></td>
-                    <td><%=dataEmpRole.getEmployee().getName()%></td>
-                    <td><%=dataEmpRole.getRole().getName()%></td>
-                    <td><%=dataEmpRole.getStartDate().toInstant().toString()%></td>
-                    <td><%=dataEmpRole.getEndDate()%></td>
-                    <td>
-                        <%
+    <table id="tableEmpRole" class="table table-striped" cellspacing='30' align ='center' border="1">
+        <thead class="active">
+            <tr>
+                <th>No.</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                int i = 1;
+                String tempID = "";
+                String tempRole = "";
+                if (!isEmpRoleListEmpty) {
+                    for (EmployeeRole dataEmpRole : (List<EmployeeRole>) session.getAttribute("empRoleData")) {
+            %>
+            <tr>
+                <td><%=i++%></td>
+                <td><%=dataEmpRole.getEmployee().getId()%></td>
+                <td><%=dataEmpRole.getEmployee().getName()%></td>
+                <td><%=dataEmpRole.getRole().getName()%></td>
+                <td><%=dataEmpRole.getStartDate().toInstant().toString()%></td>
+                <td><%=dataEmpRole.getEndDate()%></td>
+                <td>
+                    <%
                             if (!isEmployeeListEmpty) {
                                 for (Employee dataEmployee : (List<Employee>) session.getAttribute("employeeData")) {
                                     if (dataEmployee.getId().equalsIgnoreCase(dataEmpRole.getId())) {
@@ -114,25 +117,27 @@
                         %>
 
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
-                                onclick="selectDropDown('<%=tempID%>', '<%=tempRole%>')"
+                                onclick="selectDropDown('<%=tempID%>','<%=tempRole%>')"
                                 >Edit</button>
                         <a class="btn btn-danger" href="../EmployeeRoleServlet?action=delete&id=<%= dataEmpRole.getId()%>">Hapus</a>
-                    </td>
-                </tr>
-                <%
-                        }
+                </td>
+            </tr>
+            <%
                     }
-                %>
-            </tbody>
-        </table>
-    </div>
-</div>
-<script>
-    $(document).ready(function () {
-        $('#tableEmpRole').DataTable();
-    });
-</script>
+                }
+            %>
+        </tbody>
+    </table>
+        
+    <script>
+        $(document).ready(function () {
+            $('#tableEmpRole').DataTable();
+        });
+    </script>
+
+</body>
 <% session.removeAttribute("empRoleId"); %>
 <% session.removeAttribute("roleData");%>
 <% session.removeAttribute("empRoleStartDate");%>
 <% session.removeAttribute("empRoleEndDate");%>
+<jsp:include page="../footerCV.jsp" />

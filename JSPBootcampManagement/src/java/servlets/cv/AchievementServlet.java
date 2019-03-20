@@ -25,7 +25,6 @@ import tools.HibernateUtil;
  *
  * @author Lusiana
  */
-
 public class AchievementServlet extends HttpServlet {
 
     AchievementControllerInterface ac = new AchievementController(HibernateUtil.getSessionFactory());

@@ -16,7 +16,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    
+    <head>
+        <%@include file="newHeader.jsp" %>
+    </head>
+    <body>
+        <%@include file="Navbar.jsp" %>
+        <!-- MAIN -->
+        <div class="main">
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+                <div class="container-fluid">
+
+                    <div class="row">
 
 
                         <div class="modal fade" id="modalach" tabindex="-1" role="dialog" 
@@ -36,7 +47,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Achievement</label>
-                                                <input type="text" class="form-control" id="name-r" name="achName" value="<%= (session.getAttribute("achName") != null) ? session.getAttribute("achName") : ""%>" required/>
+                                                <input type="text" class="form-control" id="name-r" name="achName" value="<%= (session.getAttribute("achName") != null) ? session.getAttribute("achName") : ""%>"/>
                                             </div>
                                             <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
                                         </div>
@@ -92,7 +103,12 @@
                         </div>
                         <!-- END RECENT PURCHASES -->
                     </div>
-            
+                </div>
+            </div>
+        </div>
+        <%@include file="newFooter.jsp" %>
+    </div>
+
     <script>
         $('#modalach').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal

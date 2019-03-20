@@ -5,9 +5,6 @@
  */
 package servlets;
 
-import controllers.LoginController;
-import controllers.Session;
-import controllers.SessionControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,16 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import tools.HibernateUtil;
 
 /**
  *
  * @author FES
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
-
-    SessionControllerInterface sess = new Session();
+@WebServlet(name = "RegistrationServlet", urlPatterns = {"/RegistrationServlet"})
+public class RegistrationServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,22 +33,16 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            if (request.getSession().getAttribute("login") != null) {
-                String id = (String) request.getSession().getAttribute("login");
-//                if (sess.admin(id)) {
-//                    response.sendRedirect("Admin.jsp");
-//                } else if(sess.user(id)) {
-//                    response.sendRedirect("Peserta.jsp");
-//                }
-//                else if(sess.trainer(id)) {
-//                    response.sendRedirect("Trainer.jsp");
-//                }
-//                else{
-                    response.sendRedirect("index.jsp");
-//                }
-            } else if (request.getSession().getAttribute("login") == null) {
-                response.sendRedirect("index.jsp");
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RegistrationServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet RegistrationServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -84,11 +72,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        javax.swing.JOptionPane.showMessageDialog(null, , "password"));
-        if (new LoginController(HibernateUtil.getSessionFactory()).login(request.getParameter("username"), request.getParameter("password"))) {
-            request.getSession().setAttribute("login", request.getParameter("username"));
-            processRequest(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -11,7 +11,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-   
+    <head>
+        <%@include file="newHeader.jsp" %>
         <script>
             $(document).ready(function () {
                 $('#participantTable').DataTable();
@@ -26,8 +27,10 @@
             }
 
         %>
-        <div class="panel-body">
-            <div class="panel">
+        <title>Participant</title>
+    </head>
+    <body>
+        <%@include file="../NavbarTrainer.jsp"%>
         <h1>Participant</h1>
         <!--show table-->
         <p>
@@ -120,7 +123,7 @@
                             <label data-error="wrong" data-success="true">Batch Class</label>
                             <select class="form-control" id="cbBatchClass" name="cbBatchClass">
                                 <%
-                                    if (!isEmployeeListEmpty) {
+                                    if (!isBatchClassListEmpty) {
                                         for (BatchClass dataB2 : (List<BatchClass>) session.getAttribute("dataBatchClass")) {
                                 %>
                                 <option value="<%=dataB2.getId()%>">
@@ -144,9 +147,6 @@
                 </div>
             </div>
         </form>
-            </div>
-        </div>
-                                    
         <!--end of show save form modal-->
         <script>
             $('#modalForm').on('show.bs.modal', function (event) {}
@@ -158,4 +158,6 @@
                 document.getElementById('cbBatchClass').value = batchClass
             }
         </script>
+    </body>
+    <%@include file="newFooter.jsp" %>
 </html>
