@@ -5,13 +5,27 @@
  */
 package servlets;
 
+import controllers.DistrictController;
+import controllers.DistrictControllerInterface;
+import controllers.EmployeeAccessController;
+import controllers.EmployeeController;
+import controllers.EmployeeControllerInterface;
+import controllers.VillageController;
+import controllers.VillageControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.District;
+import models.Employee;
+import models.Religion;
+import models.Village;
+import tools.BCrypt;
+import tools.HibernateUtil;
 
 /**
  *
@@ -19,6 +33,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "RegistrationServlet", urlPatterns = {"/RegistrationServlet"})
 public class RegistrationServlet extends HttpServlet {
+
+    EmployeeControllerInterface emp = new EmployeeController(HibernateUtil.getSessionFactory());
+    List<Employee> dataemp = null;
+    
+    DistrictControllerInterface dc = new DistrictController(HibernateUtil.getSessionFactory());
+    List<District> datadist = null;
+    
+    VillageControllerInterface vc = new VillageController(HibernateUtil.getSessionFactory());
+    List<Village> datavil = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,16 +56,14 @@ public class RegistrationServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RegistrationServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RegistrationServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            datadist = dc.getAll();
+            datavil = vc.getAll();
+            request.getSession().setAttribute("dataemp", dataemp);
+            request.getSession().setAttribute("datadist", datadist);
+            request.getSession().setAttribute("datavil", datavil);
+            response.sendRedirect("Registration.jsp");
+            BCrypt.hashpw("abc", BCrypt.gensalt());
+
         }
     }
 
@@ -72,7 +93,9 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if (emp.save("", request.getParameter("empName"), request.getParameter("birthdate"), request.getParameter("gender"), request.getParameter("marriedstatus"), request.getParameter("address"), request.getParameter("email"), request.getParameter("phone"), request.getParameter("onBoard"), BCrypt.hashpw("admin", BCrypt.gensalt()), request.getParameter("secretq"), request.getParameter("secreta"), request.getParameter("hiringloc"), request.getParameter("birthplace"), "CVR1", request.getParameter("address"))!= null) {
+            processRequest(request, response);
+        }
     }
 
     /**
