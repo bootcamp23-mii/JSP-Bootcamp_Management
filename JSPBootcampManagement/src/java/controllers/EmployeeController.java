@@ -54,16 +54,15 @@ public class EmployeeController implements EmployeeControllerInterface {
     }
 
     @Override
-    public String save(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
-        try {
-            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation), null), true)) {
-                return "Save Data Success";
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(PlacementController.class.getName()).log(Level.SEVERE, null, ex);
+    public boolean save(String id, String name, Date birthdate, String gender, String marriedStatus, String address, String email, String phone, Date onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
+
+        if (dao.saveOrDelete(new Employee(id, name, birthdate, gender, marriedStatus, address, email, phone, onboardDate, password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation), null), true)) {
+            return true;
         }
-        return "Save Failed";
+
+        return false;
     }
+
     @Override
     public String insert(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
         try {
@@ -77,20 +76,20 @@ public class EmployeeController implements EmployeeControllerInterface {
     }
 
     @Override
-    public String delete(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
+    public boolean delete(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
         try {
 
-            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation),null), true)) {
-                return "Delete Data Success";
+            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation), null), true)) {
+                return true;
             }
         } catch (ParseException ex) {
             Logger.getLogger(PlacementController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "Delete Failed";
+        return false;
     }
 
     @Override
-    public String deleteSoft(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
+    public boolean deleteSoft(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
         String tempID = "";
         List<Employee> dataList = searchWD("");
         for (Employee employee : dataList) {
@@ -114,12 +113,12 @@ public class EmployeeController implements EmployeeControllerInterface {
             }
         }
         try {
-            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation),null), true)) {
-                return "Delete Data Success!";
+            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation), null), true)) {
+                return true;
             }
         } catch (ParseException ex) {
             Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "Delete Failed!";
+        return false;
     }
 }

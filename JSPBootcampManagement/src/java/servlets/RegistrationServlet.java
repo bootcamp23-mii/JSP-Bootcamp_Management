@@ -107,7 +107,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (emp.insert("", request.getParameter("empName"), request.getParameter("birthdate"), request.getParameter("gender"), request.getParameter("marriedstatus"), request.getParameter("address"), request.getParameter("email"), request.getParameter("phone"), request.getParameter("onBoard"), BCrypt.hashpw(request.getParameter("phone"), BCrypt.gensalt()), "your phone number", request.getParameter("phone"), request.getParameter("hiringloc"), request.getParameter("birthplace"), request.getParameter("religion"), request.getParameter("village"))!= null) {
-            Employee newEmployee = emp.searchWD(request.getParameter("gender")).get(0);
+            Employee newEmployee = emp.search(request.getParameter("email")).get(0);
             ac.requestActivation(newEmployee.getId());
             processRequest(request, response);
         }

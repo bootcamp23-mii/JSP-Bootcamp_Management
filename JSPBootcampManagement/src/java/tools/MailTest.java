@@ -27,6 +27,6 @@ public class MailTest {
 //        SendEmailTemp.setToEmail("pandu4431@gmail.com");
 //        new SendMail().generateMail();
         ActivationController c=new ActivationController(HibernateUtil.getSessionFactory());
-        c.requestActivation("14308");
+        c.requestActivation("14313");
     }
 }
