@@ -51,7 +51,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>GPA</label>
-                                                <input type="number" step="any" min="0" max="4" class="form-control" id="gpa-r" name="eduGpa" value="<%= (session.getAttribute("eduGpa") != null) ? session.getAttribute("eduGpa") : ""%>"/>
+                                                <input type="number" step="0.01" min="0" max="4" class="form-control" id="gpa-r" name="eduGpa" value="<%= (session.getAttribute("eduGpa") != null) ? session.getAttribute("eduGpa") : ""%>"/>
                                             </div>
                                             <div class="form-group">
                                                 <label>Education</label>

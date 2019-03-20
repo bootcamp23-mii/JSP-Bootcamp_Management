@@ -78,7 +78,7 @@
         </div>
         <button id="btGenerate">Generate PDF</button>
     </body>
-    <!--    <script>
+        <script>
             var doc = new jsPDF();
             var specialElementHandlers = {
                 '#editor': function (element, renderer) {
@@ -93,5 +93,5 @@
                 });
                 doc.save('sample-file.pdf');
             });
-        </script>-->
+        </script>
 </html>

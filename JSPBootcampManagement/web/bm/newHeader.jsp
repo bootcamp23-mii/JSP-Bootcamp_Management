@@ -1,3 +1,9 @@
+<%-- 
+    Document   : newHeader
+    Created on : Mar 16, 2019, 8:54:59 PM
+    Author     : Lusiana
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!doctype html>
@@ -30,12 +36,7 @@
         <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon.png">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.uikit.min.css">
-        <!--data table-->
-        <!--online-->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-3.3.1/dt-1.10.18/datatables.min.css"/>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
-        <!--end of data table-->
+
     </head>
-    
 
 </html>

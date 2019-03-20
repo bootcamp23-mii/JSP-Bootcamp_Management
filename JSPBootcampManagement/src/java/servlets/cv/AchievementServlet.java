@@ -48,14 +48,12 @@ public class AchievementServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             if (request.getSession().getAttribute("login") != null) {
                 String id = (String) request.getSession().getAttribute("login");
-                if (sess.admin(id)) {
+                
                     dataach = ac.searchWD(id);
                     request.getSession().setAttribute("data", dataach);
                     request.getSession().setAttribute("emp", id);
                     response.sendRedirect("cv/AchievementView.jsp");
-                } else {
-                    response.sendRedirect("index.jsp");
-                }
+                
             } else if (request.getSession().getAttribute("login") == null) {
                 response.sendRedirect("index.jsp");
             }
