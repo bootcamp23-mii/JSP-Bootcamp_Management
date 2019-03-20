@@ -7,16 +7,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <%@include file="header.jsp" %>
-        <title>Bootcamp Management</title>
-    </head>
-    <body>
+    
         <h1>Bootcamp Management</h1>
-        <div class="container">
+        <div class="panel">
+            <div class="panel-body">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <h3>Haloo</h3>
             </div>
+            </div>
         </div>
-    </body>
+
 </html>

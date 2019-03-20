@@ -13,8 +13,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <%@include file="../header.jsp"%>
         <script>
             $(document).ready(function () {
                 $('#batchClassTable').DataTable();
@@ -31,11 +29,8 @@
             }
 
         %>
-        <title>Batch Class</title>
-    </head>
-    <body>
-        <h1>Batch Class</h1>
-        <!--show table-->
+        <div class="panel">
+            <div class="panel-body">
         <p>
             <a class="btn btn-success" data-target="#modalForm" data-toggle="modal">
                 Insert Data
@@ -150,6 +145,8 @@
                 </div>
             </div>
         </form>
+            </div>
+        </div>
         <!--end of show save form modal-->
         <script>
             $('#modalForm').on('show.bs.modal', function (event) {}
@@ -164,6 +161,4 @@
                 document.getElementById('cbRoom').value = room
             }
         </script>
-    </body>
-    <%@include file="../footer.jsp"%>
 </html>

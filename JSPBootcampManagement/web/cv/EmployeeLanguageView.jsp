@@ -10,7 +10,6 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<jsp:include page="../headerCV.jsp" />
 <%
     boolean isEmpLangListEmpty = session.getAttribute("empLangData") == null;
     boolean isEmployeeListEmpty = session.getAttribute("employeeData") == null;
@@ -20,10 +19,8 @@
         response.sendRedirect("../EmployeeLanguageServlet");
     }
 %>
-<title>Employee Skill</title>
-
-</head>
-<body>
+<div class="panel">
+    <div class="panel-body">
     <h1>Employee Language</h1>
     <!--show table-->
     <form action="../EmployeeLanguageServlet" method="POST">
@@ -130,16 +127,16 @@
             %>
         </tbody>
     </table>
+    </div>
+</div>
 
     <script>
         $(document).ready(function () {
             $('#tableEmpLang').DataTable();
         });
     </script>
-
-</body>
+    
 <% session.removeAttribute("empLangId"); %>
 <% session.removeAttribute("languageData");%>
 <% session.removeAttribute("languageScore");%>
 <% session.removeAttribute("languageActive");%>
-<jsp:include page="../footerCV.jsp" />

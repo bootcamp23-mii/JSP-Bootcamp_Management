@@ -16,18 +16,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <%@include file="newHeader.jsp" %>
-    </head>
-    <body>
-        <%@include file="Navbar.jsp" %>
-        <!-- MAIN -->
-        <div class="main">
-            <!-- MAIN CONTENT -->
-            <div class="main-content">
-                <div class="container-fluid">
-
-                    <div class="row">
+    
 
 
                         <div class="modal fade" id="modalach" tabindex="-1" role="dialog" 
@@ -103,12 +92,7 @@
                         </div>
                         <!-- END RECENT PURCHASES -->
                     </div>
-                </div>
-            </div>
-        </div>
-        <%@include file="newFooter.jsp" %>
-    </div>
-
+            
     <script>
         $('#modalach').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal

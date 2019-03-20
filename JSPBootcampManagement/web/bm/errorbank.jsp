@@ -13,9 +13,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <%@include file="../header.jsp" %>
-        <title>Error Bank</title>
         <script>
             $(document).ready(function () {
             $('#errorBankTable').DataTable();
@@ -31,8 +28,8 @@
                 response.sendRedirect("../ErrorBankServlet");
             }
         %>
-    </head>
-    <body>
+        <div class="panel">
+        <div class="panel-body">
         <h1>Error Bank</h1>
         <!--show table-->
         <p>
@@ -140,6 +137,8 @@
                 </div>
             </div>
         </form>
+        </div>
+        </div>
         <!--end of show save form modal-->
         <script>
             $('#modalForm').on('show.bs.modal', function (event) {}
@@ -154,6 +153,4 @@
             document.getElementById('inSolution').value = inSolution
             }
         </script>
-    </body>
-    <%@include file="../footer.jsp" %>
 </html>

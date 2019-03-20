@@ -11,8 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <%@include file="../header.jsp" %>
+   
         <script>
             $(document).ready(function () {
                 $('#participantTable').DataTable();
@@ -27,9 +26,8 @@
             }
 
         %>
-        <title>Participant</title>
-    </head>
-    <body>
+        <div class="panel-body">
+            <div class="panel">
         <h1>Participant</h1>
         <!--show table-->
         <p>
@@ -146,6 +144,9 @@
                 </div>
             </div>
         </form>
+            </div>
+        </div>
+                                    
         <!--end of show save form modal-->
         <script>
             $('#modalForm').on('show.bs.modal', function (event) {}
@@ -157,6 +158,4 @@
                 document.getElementById('cbBatchClass').value = batchClass
             }
         </script>
-    </body>
-    <%@include file="../footer.jsp" %>
 </html>

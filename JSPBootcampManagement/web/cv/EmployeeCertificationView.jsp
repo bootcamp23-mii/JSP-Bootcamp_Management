@@ -18,25 +18,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <%@include file="newHeader.jsp" %>
-    </head>
+    
     <script>
         $(document).ready(function () {
             $('#tablecert').DataTable();
         });
     </script>
-    <%@include file="Navbar.jsp" %>
-    <body>
         <%
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat dateFormatChoose = new SimpleDateFormat("yyyy-MM-dd");
         %>
         <!-- MAIN -->
-        <div class="main">
-            <!-- MAIN CONTENT -->
-            <div class="main-content">
-                <div class="container-fluid">
+        
 
                     <div class="row">
                         <div class="col-md-5">
@@ -131,11 +124,7 @@
                             <!-- END RECENT PURCHASES -->
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <%@include file="newFooter.jsp" %>
-        </div>
+               
 
 
         <!-- END MAIN -->

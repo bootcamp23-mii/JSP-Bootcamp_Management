@@ -40,5 +40,23 @@ $(function () {
     $("#nav-place").on("click", function () {
         $("#loadthis").load("PlacementServlet");
     });
+    $("#nav-home").on("click", function () {
+        $("#loadthis").load("home.jsp");
+    });
+    $("#nav-lang").on("click", function () {
+        $("#loadthis").load("EmployeeLanguageServlet");
+    });
+    $("#nav-erole").on("click", function () {
+        $("#loadthis").load("EmployeeRoleServlet");
+    });
+    $("#nav-role").on("click", function () {
+        $("#loadthis").load("RoleServlet");
+    });
+    $("#nav-work").on("click", function () {
+        $("#loadthis").load("WorkExperienceServlet");
+    });
+    $("#nav-skill").on("click", function () {
+        $("#loadthis").load("EmployeeSkillServlet");
+    });
 });
 

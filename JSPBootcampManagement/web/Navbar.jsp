@@ -18,7 +18,7 @@
         <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="brand">
-                <a href="index.html"><img src="assets/img/logos.png" alt="Bootcamp Management" class="img-responsive logo"></a>
+                <a href="#" id="nav-home"><img src="assets/img/logos.png" alt="Bootcamp Management" class="img-responsive logo"></a>
             </div>
             <div class="container-fluid">
                 <div class="navbar-btn">
@@ -69,7 +69,7 @@
             <div class="sidebar-scroll">
                 <nav>
                     <ul class="nav">
-                        <li><a href="#" id="nav-dash" class=""><i class="lnr lnr-alarm"></i> <span>Dashboard</span></a></li>
+                        <li><a href="#" id="nav-home" class=""><i class="lnr lnr-alarm"></i> <span>Dashboard</span></a></li>
                         <li>
                             <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>CV</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages" class="collapse ">
@@ -78,6 +78,11 @@
                                     <li><a href="#" id="nav-org" class=""><i class="lnr lnr-code"></i> <span>Organization</span></a></li>
                                     <li><a href="#" id="nav-ach" class=""><i class="lnr lnr-chart-bars"></i> <span>Achievement</span></a></li>
                                     <li><a href="#" id="nav-cert" class=""><i class="lnr lnr-cog"></i> <span>Certification</span></a></li>
+                                    <li><a href="#" id="nav-lang" class=""><i class="lnr lnr-cog"></i> <span>Language</span></a></li>
+                                    <li><a href="#" id="nav-skill" class=""><i class="lnr lnr-cog"></i> <span>Skill</span></a></li>
+                                    <li><a href="#" id="nav-erole" class=""><i class="lnr lnr-cog"></i> <span>Employee Role</span></a></li>
+                                    <li><a href="#" id="nav-role" class=""><i class="lnr lnr-cog"></i> <span>Role</span></a></li>
+                                    <li><a href="#" id="nav-work" class=""><i class="lnr lnr-cog"></i> <span>Work Experience</span></a></li>
                                 </ul>
                             </div>
                         </li>

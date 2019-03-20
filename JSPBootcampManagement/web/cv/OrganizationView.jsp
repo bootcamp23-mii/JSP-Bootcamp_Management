@@ -13,25 +13,14 @@
 <%@page import="tools.HibernateUtil"%>
 <%@page import="org.hibernate.SessionFactory"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="newHeader.jsp" />
-<jsp:include page="newFooter.jsp" />
 <!DOCTYPE html>
 <html>
-    <head>
-        <%@include file="newHeader.jsp" %>
-    </head>
-    <body>
+    
         <script>
             $(document).ready(function () {
                 $('#tableorg').DataTable();
             });
         </script>
-        <%@include file="Navbar.jsp" %>
-        <!-- MAIN -->
-        <div class="main">
-            <!-- MAIN CONTENT -->
-            <div class="main-content">
-                <div class="container-fluid">
 
                     <div class="row">
                         <!-- MULTI CHARTS -->
@@ -114,10 +103,6 @@
                         </div>
                         <!-- END RECENT PURCHASES -->
                     </div>
-                </div>
-            </div>
-            <%@include file="newFooter.jsp" %>
-        </div>
 
 
         <script>

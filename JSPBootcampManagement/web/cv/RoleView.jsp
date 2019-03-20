@@ -17,40 +17,38 @@
         response.sendRedirect("../EmployeeRoleServlet");
     }
 %>
-<title>Employee Role</title>
-
-</head>
-<body>
-    <h1>Roles</h1>
-    <!--show table-->
-    <table id="tableRole" class="table table-striped" cellspacing='30' align ='center' border="1">
-        <thead class="active">
-            <tr>
-                <th>No.</th>
-                <th>ID</th>
-                <th>Role</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% int i = 1;
-            for (Role elem : (List<Role>) session.getAttribute("data")) {%>
-            <tr>
-                <td><%=i++%></td>
-                <td><%=elem.getId()%></td>
-                <td><%=elem.getName()%></td>
-            </tr>
-            <%
+<div class="panel">
+    <div class="panel-body">
+        <h1>Roles</h1>
+        <!--show table-->
+        <table id="tableRole" class="table table-striped" cellspacing='30' align ='center' border="1">
+            <thead class="active">
+                <tr>
+                    <th>No.</th>
+                    <th>ID</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% int i = 1;
+                for (Role elem : (List<Role>) session.getAttribute("data")) {%>
+                <tr>
+                    <td><%=i++%></td>
+                    <td><%=elem.getId()%></td>
+                    <td><%=elem.getName()%></td>
+                </tr>
+                <%
+                        }
                     }
-                }
-            %>
-        </tbody>
-    </table>
+                %>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <script>
-        $(document).ready(function () {
-            $('#tableRole').DataTable();
-        });
-    </script>
+<script>
+    $(document).ready(function () {
+        $('#tableRole').DataTable();
+    });
+</script>
 
-</body>
-<jsp:include page="../footerCV.jsp" />
