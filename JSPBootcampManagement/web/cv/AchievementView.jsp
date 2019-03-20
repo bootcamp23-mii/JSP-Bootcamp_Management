@@ -47,7 +47,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Achievement</label>
-                                                <input type="text" class="form-control" id="name-r" name="achName" value="<%= (session.getAttribute("achName") != null) ? session.getAttribute("achName") : ""%>"/>
+                                                <input type="text" class="form-control" id="name-r" name="achName" value="<%= (session.getAttribute("achName") != null) ? session.getAttribute("achName") : ""%>" required/>
                                             </div>
                                             <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
                                         </div>

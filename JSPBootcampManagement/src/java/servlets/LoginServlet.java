@@ -39,21 +39,8 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            if (request.getSession().getAttribute("login") != null) {
-                String id = (String) request.getSession().getAttribute("login");
-                if (sess.admin(id)) {
-                    response.sendRedirect("Admin.jsp");
-                } else if(sess.user(id)) {
-                    response.sendRedirect("Peserta.jsp");
-                }
-                else if(sess.trainer(id)) {
-                    response.sendRedirect("Trainer.jsp");
-                }
-                else{
-                    response.sendRedirect("index.jsp");
-                }
-            } else if (request.getSession().getAttribute("login") == null) {
-                response.sendRedirect("index.jsp");
+            if (request.getSession().getAttribute("login") != null)  {
+                response.sendRedirect("Dashboard.jsp");
             }
         }
     }

@@ -5,6 +5,8 @@
  */
 package controllers;
 
+import java.util.List;
+import models.BatchClass;
 import models.Employee;
 import tools.HibernateUtil;
 
@@ -14,6 +16,7 @@ import tools.HibernateUtil;
  */
 public class Session implements SessionControllerInterface{
     EmployeeControllerInterface ec = new EmployeeController(HibernateUtil.getSessionFactory());
+    BatchClassControllerInterface bc = new BatchClassController(HibernateUtil.getSessionFactory());
     @Override
     public boolean user(String user){
         Employee a = ec.getByid(user);
@@ -36,8 +39,8 @@ public class Session implements SessionControllerInterface{
     
     @Override
      public boolean trainer(String user){
-        Employee a = ec.getByid(user);
-        if(!((a.getEmployeeRoleList().get(0).getRole().getId()).equals("CVR1")))
+        List<BatchClass> x = bc.search(user);
+        if(x.isEmpty())
         {
             return false;
         }

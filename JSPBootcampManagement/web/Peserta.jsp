@@ -12,7 +12,7 @@
         <%@include file="newHeader.jsp" %>
     </head>
     <body>
-        <jsp:include page="Navbar.jsp" />
+        <jsp:include page="NavbarTrainer.jsp" />
         <jsp:include page="newFooter.jsp" />
     </body>
 </html>
