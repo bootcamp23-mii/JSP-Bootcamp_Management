@@ -5,15 +5,20 @@
  */
 package servlets;
 
+import controllers.ActivationController;
+import controllers.ActivationControllerInterface;
 import controllers.DistrictController;
 import controllers.DistrictControllerInterface;
 import controllers.EmployeeAccessController;
 import controllers.EmployeeController;
 import controllers.EmployeeControllerInterface;
+import controllers.ReligionController;
+import controllers.ReligionControllerInterface;
 import controllers.VillageController;
 import controllers.VillageControllerInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,7 +47,13 @@ public class RegistrationServlet extends HttpServlet {
     
     VillageControllerInterface vc = new VillageController(HibernateUtil.getSessionFactory());
     List<Village> datavil = null;
+    
+    ReligionControllerInterface rc = new ReligionController(HibernateUtil.getSessionFactory());
+    List<Religion> datareligion = null;
 
+    ActivationControllerInterface ac = new ActivationController(HibernateUtil.getSessionFactory());
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,9 +69,11 @@ public class RegistrationServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             datadist = dc.getAll();
             datavil = vc.getAll();
+            datareligion = rc.getAll();
             request.getSession().setAttribute("dataemp", dataemp);
             request.getSession().setAttribute("datadist", datadist);
             request.getSession().setAttribute("datavil", datavil);
+            request.getSession().setAttribute("datareligion", datareligion);
             response.sendRedirect("Registration.jsp");
             BCrypt.hashpw("abc", BCrypt.gensalt());
 
@@ -93,7 +106,9 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (emp.save("", request.getParameter("empName"), request.getParameter("birthdate"), request.getParameter("gender"), request.getParameter("marriedstatus"), request.getParameter("address"), request.getParameter("email"), request.getParameter("phone"), request.getParameter("onBoard"), BCrypt.hashpw("admin", BCrypt.gensalt()), request.getParameter("secretq"), request.getParameter("secreta"), request.getParameter("hiringloc"), request.getParameter("birthplace"), "CVR1", request.getParameter("address"))!= null) {
+        if (emp.insert("", request.getParameter("empName"), request.getParameter("birthdate"), request.getParameter("gender"), request.getParameter("marriedstatus"), request.getParameter("address"), request.getParameter("email"), request.getParameter("phone"), request.getParameter("onBoard"), BCrypt.hashpw(request.getParameter("phone"), BCrypt.gensalt()), "your phone number", request.getParameter("phone"), request.getParameter("hiringloc"), request.getParameter("birthplace"), request.getParameter("religion"), request.getParameter("village"))!= null) {
+            Employee newEmployee = emp.searchWD(request.getParameter("gender")).get(0);
+            ac.requestActivation(newEmployee.getId());
             processRequest(request, response);
         }
     }

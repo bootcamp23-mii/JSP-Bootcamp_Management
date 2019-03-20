@@ -56,7 +56,18 @@ public class EmployeeController implements EmployeeControllerInterface {
     @Override
     public String save(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
         try {
-            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation), new Participant(id)), true)) {
+            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation), null), true)) {
+                return "Save Data Success";
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(PlacementController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Save Failed";
+    }
+    @Override
+    public String insert(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
+        try {
+            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("1"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation), null), true)) {
                 return "Save Data Success";
             }
         } catch (ParseException ex) {
@@ -69,7 +80,7 @@ public class EmployeeController implements EmployeeControllerInterface {
     public String delete(String id, String name, String birthdate, String gender, String marriedStatus, String address, String email, String phone, String onboardDate, String password, String securityQestion, String securityAnswer, String hiringLocation, String birthPlace, String religion, String village) {
         try {
 
-            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation),new Participant(id)), true)) {
+            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation),null), true)) {
                 return "Delete Data Success";
             }
         } catch (ParseException ex) {
@@ -103,7 +114,7 @@ public class EmployeeController implements EmployeeControllerInterface {
             }
         }
         try {
-            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation),new Participant(id)), true)) {
+            if (dao.saveOrDelete(new Employee(id, name, dateFormat.parse(birthdate), gender, marriedStatus, address, email, phone, dateFormat.parse(onboardDate), password, securityQestion, securityAnswer, new Short("0"), new Religion(religion), new District(birthPlace), new Village(village), new District(hiringLocation),null), true)) {
                 return "Delete Data Success!";
             }
         } catch (ParseException ex) {

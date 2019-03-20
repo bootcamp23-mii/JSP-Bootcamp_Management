@@ -4,6 +4,7 @@
     Author     : Lusiana
 --%>
 
+<%@page import="models.Religion"%>
 <%@page import="models.Village"%>
 <%@page import="java.util.List"%>
 <%@page import="models.District"%>
@@ -48,92 +49,94 @@
                                             <input type="hidden" class="form-control" name="empId" value="<%= (session.getAttribute("certId") != null) ? session.getAttribute("certId") : ""%>"/>
                                         </div>
                                         <div class="row">
-                                        <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" id="name-e" name="empName" value=""/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Birth Date</label>
-                                            <input type="date" class="form-control" id="birth-e" name="birthdate" value="<%= (session.getAttribute("birthdate") != null) ? dateFormatChoose.format(session.getAttribute("birthdate")) : dateFormatChoose.format(new Date())%>">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Gender</label>
-                                            <select class="form-control" name="gender">
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Marital Status</label>
-                                            <select class="form-control" name="marriedstatus">
-                                                <option value="Single">Single</option>
-                                                <option value="Married">Married</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <input type="textarea" class="form-control" name="address"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input type="email" class="form-control" name="email"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" name="phone"/>
-                                        </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>On Board Date</label>
-                                            <input type="date" class="form-control" id="onboard-e" name="onBoard" value="<%= (session.getAttribute("onBoard") != null) ? dateFormatChoose.format(session.getAttribute("onBoard")) : dateFormatChoose.format(new Date())%>">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Security Question</label>
-                                            <input type="textarea" class="form-control" name="secretq" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Security Answer</label>
-                                            <input type="textarea" class="form-control" name="secreta" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Birth Place</label>
-                                            <select class="form-control" name="birthplace">
-                                                <% for (District elem : (List<District>) session.getAttribute("datadist")) {
-                                                        out.print("<option "
-                                                                + "value=\"" + elem.getId() + "\">"
-                                                                + elem.getName() + "</option>");
-                                                    }%>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Name</label>
+                                                    <input type="text" class="form-control" id="name-e" name="empName" value=""/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Birth Date</label>
+                                                    <input type="date" class="form-control" id="birth-e" name="birthdate" value="<%= (session.getAttribute("birthdate") != null) ? dateFormatChoose.format(session.getAttribute("birthdate")) : dateFormatChoose.format(new Date())%>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Gender</label>
+                                                    <select class="form-control" name="gender">
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Religion</label>
+                                                    <select class="form-control" name="religion">
+                                                        <% for (Religion elem : (List<Religion>) session.getAttribute("datareligion")) {
+                                                                out.print("<option "
+                                                                        + "value=\"" + elem.getId() + "\">"
+                                                                        + elem.getName() + "</option>");
+                                                            }%>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Marital Status</label>
+                                                    <select class="form-control" name="marriedstatus">
+                                                        <option value="Single">Single</option>
+                                                        <option value="Married">Married</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Address</label>
+                                                    <input type="textarea" class="form-control" name="address"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Email</label>
+                                                    <input type="email" class="form-control" name="email"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Phone</label>
+                                                    <input type="text" class="form-control" name="phone"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>On Board Date</label>
+                                                    <input type="date" class="form-control" id="onboard-e" name="onBoard" value="<%= (session.getAttribute("onBoard") != null) ? dateFormatChoose.format(session.getAttribute("onBoard")) : dateFormatChoose.format(new Date())%>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Birth Place</label>
+                                                    <select class="form-control" name="birthplace">
+                                                        <% for (District elem : (List<District>) session.getAttribute("datadist")) {
+                                                                out.print("<option "
+                                                                        + "value=\"" + elem.getId() + "\">"
+                                                                        + elem.getName() + "</option>");
+                                                            }%>
 
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Hiring Location</label>
-                                            <select class="form-control" name="hiringloc">
-                                                <% for (District elem : (List<District>) session.getAttribute("datadist")) {
-                                                        out.print("<option "
-                                                                + "value=\"" + elem.getId() + "\">"
-                                                                + elem.getName() + "</option>");
-                                                    }%>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Hiring Location</label>
+                                                    <select class="form-control" name="hiringloc">
+                                                        <% for (District elem : (List<District>) session.getAttribute("datadist")) {
+                                                                out.print("<option "
+                                                                        + "value=\"" + elem.getId() + "\">"
+                                                                        + elem.getName() + "</option>");
+                                                            }%>
 
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Alamat</label>
-                                            <select class="form-control" name="address">
-                                                <% for (Village elem : (List<Village>) session.getAttribute("datavil")) {
-                                                        out.print("<option "
-                                                                + "value=\"" + elem.getId() + "\">"
-                                                                + elem.getName() + "</option>");
-                                                    }%>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Village</label>
+                                                    <select class="form-control" name="village">
+                                                        <% for (Village elem : (List<Village>) session.getAttribute("datavil")) {
+                                                                out.print("<option "
+                                                                        + "value=\"" + elem.getId() + "\">"
+                                                                        + elem.getName() + "</option>");
+                                                            }%>
 
-                                            </select>
-                                        </div>
-                                        <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
+                                                    </select>
+                                                </div>
+                                                <input type="hidden" class="form-control" hidden="true" name="emp" value="<%= (session.getAttribute("emp") != null) ? session.getAttribute("emp") : ""%>"/>
 
-                                        <button type="submit" value="Save" name="save" class="btn btn-info">Save</button>
-                                        </div>
+                                                <button type="submit" value="Save" name="save" class="btn btn-info">Save</button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>

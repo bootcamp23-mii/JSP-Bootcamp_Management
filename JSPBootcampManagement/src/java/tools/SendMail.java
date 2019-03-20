@@ -22,7 +22,7 @@ public class SendMail {
 
     public void generateMail() {
         Properties props = new Properties();
-                SendEmailTemp.setFromEmail("lgg121770@gmail.com");
+        SendEmailTemp.setFromEmail("lgg121770@gmail.com");
         SendEmailTemp.setPassword("123Q123Q@");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.transport.protocol", "smtp");
@@ -41,7 +41,7 @@ public class SendMail {
             message.addHeader("Content-type", "text/html; charset=UTF-8");
             message.setRecipient(Message.RecipientType.TO, toAddress);
             message.setSubject(SendEmailTemp.getSubject());
-            message.setContent(SendEmailTemp.getMessage(),"text/html");
+            message.setContent(SendEmailTemp.getMessage(), "text/html");
             Transport.send(message, SendEmailTemp.getFromEmail(), SendEmailTemp.getPassword());
         } catch (MessagingException ex) {
             ex.printStackTrace();
