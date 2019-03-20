@@ -58,5 +58,8 @@ $(function () {
     $("#nav-skill").on("click", function () {
         $("#loadthis").load("EmployeeSkillServlet");
     });
+    $("#nav-idcard").on("click", function () {
+        $("#loadthis").load("IdCardServlet");
+    });
 });
 

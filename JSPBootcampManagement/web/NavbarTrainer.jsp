@@ -109,6 +109,7 @@
                                 <ul class="nav">
                                     <li><a href="#" id="nav-access"  class=""><i class="lnr lnr-home"></i> <span>Access Card</span></a></li>
                                     <li><a href="#" id="nav-lock" class=""><i class="lnr lnr-code"></i> <span>Locker</span></a></li>
+                                    <li><a href="#" id="nav-idcard" class=""><i class="lnr lnr-code"></i> <span>Id Card</span></a></li>
                                 </ul>
                             </div>
                         </li>
