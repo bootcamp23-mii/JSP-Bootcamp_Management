@@ -115,6 +115,8 @@ public class MainController {
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     private MailService mailService;
@@ -376,7 +378,7 @@ public class MainController {
     @RequestMapping(value = "/idcardSave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String save(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("note") String note, @RequestParam("employee") String employee) throws ParseException {
-        cardDAO.saveIdCard(new Idcard("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), note, new Employee(employee)));
+        cardDAO.saveIdCard(new Idcard("id", sdf.parse(receivedate), sdf.parse(returndate), note, new Employee(employee)));
         return "redirect:/Idcard";
     }
 
@@ -398,9 +400,17 @@ public class MainController {
     @RequestMapping(value = "/emplockerSave", method = RequestMethod.POST)
     public String save(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
-        eldao.saveEmployeeLocker(new Employeelocker("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
+        eldao.saveEmployeeLocker(new Employeelocker("id", sdf.parse(receivedate), sdf.parse(returndate), notes, new Locker(locker), new Employee(employee)));
         return "redirect:/Employeelocker";
     }
+    
+    @RequestMapping(value = "/emplockerEdit", method = RequestMethod.POST)
+    public String edit(@RequestParam("id") String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
+            @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
+        eldao.saveEmployeeLocker(new Employeelocker(id, sdf.parse(receivedate), sdf.parse(returndate), notes, new Locker(locker), new Employee(employee)));
+        return "redirect:/Employeelocker";
+}
+
 
     @GetMapping("/Employeeaccess")
     public String Employeeaccess(Model model) {
@@ -414,7 +424,7 @@ public class MainController {
     @RequestMapping(value = "/empaccessSave", method = RequestMethod.POST)
     public String savee(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
-        o.saveEmployeeAccess(new Employeeaccess("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard).toString(), new Employee(employee)));
+        o.saveEmployeeAccess(new Employeeaccess("id", sdf.parse(receivedate), sdf.parse(returndate), notes, new Accesscard(accesscard).toString(), new Employee(employee)));
         return "redirect:/Employeeaccess";
     }
 
@@ -430,7 +440,7 @@ public class MainController {
     @RequestMapping(value = "/placeSave", method = RequestMethod.POST)
     public String save(String id, @RequestParam("description") String description, @RequestParam("address") String address, @RequestParam("department") String department,
             @RequestParam("startdate") String startdate, @RequestParam("finishdate") String finishdate, @RequestParam("company") String company, @RequestParam("employee") String employee) throws ParseException {
-        pdao.savePlacement(new Placement("id", description, address, department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
+        pdao.savePlacement(new Placement("id", description, address, department, sdf.parse(startdate), sdf.parse(finishdate), new Company(company), new Employee(employee)));
         return "redirect:/Placement";
     }
 }
